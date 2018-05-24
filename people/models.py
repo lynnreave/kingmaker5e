@@ -24,8 +24,11 @@ class Person(models.Model):
     first_name = models.CharField(max_length=default_max_length)
     middle_name = models.CharField(max_length=default_max_length, blank=True)
     last_name = models.CharField(max_length=default_max_length)
-    gender = models.OneToOneField(Gender, on_delete=models.CASCADE)
-    noble_rank = models.OneToOneField(NobleRank, on_delete=models.CASCADE, blank=True, null=True)
+    gender = models.ForeignKey(
+        Gender, on_delete=models.CASCADE, related_name='people', related_query_name='person')
+    noble_rank = models.ForeignKey(
+        NobleRank, on_delete=models.CASCADE, related_name='people', related_query_name='person', blank=True, null=True
+    )
     str = models.IntegerField(default=10)
     dex = models.IntegerField(default=10)
     con = models.IntegerField(default=10)
@@ -41,7 +44,9 @@ class Person(models.Model):
 class Award(models.Model):
     name = models.CharField(max_length=default_max_length)
     desc = models.TextField(blank=True)
-    person = models.ForeignKey(Person, on_delete=models.CASCADE, related_name='awards', related_query_name='award', blank=True, null=True)
+    person = models.ForeignKey(
+        Person, on_delete=models.CASCADE, related_name='awards', related_query_name='award', blank=True, null=True
+    )
 
     def __str__(self):
         return self.name

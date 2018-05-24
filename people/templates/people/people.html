@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+
+{% extends 'people/base.html' %}
+
+{% block content %}
+    {% for person in people %}
+        <div class="person">
+            <div class="name">
+                <p>Name: {{ person.first_name }} {{ person.last_name }}</p>
+            </div>
+            <h1><a href="{% url 'person_detail' pk=person.pk %}">{{ person.noble_rank }}</a></h1>
+            <p>{{ person.notes|linebreaksbr }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

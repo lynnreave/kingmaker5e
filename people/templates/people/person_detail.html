@@ -1,0 +1,18 @@
+{% extends 'people/base.html' %}
+
+{% block content %}
+    <div class="person">
+        {% if person.first_name %}
+            <div class="name">
+                {{ person.first_name }} {{ person.last_name }}
+            </div>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <a class="btn btn-default" href="{% url 'person_edit' pk=person.pk %}">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+        {% endif %}
+        <h1>{{ person.noble_rank }}</h1>
+        <p>{{ person.notes|linebreaksbr }}</p>
+    </div>
+{% endblock %}
