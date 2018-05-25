@@ -1,13 +1,10 @@
-table-custom{
-}
-
-.table-header {
+.title-banner {
     background-color: #899AEB;
     margin-top: 0;
     padding: 20px 20px 20px 20px;
 }
 
-.table-header h1, .table-header h1 a, .table-header h1 a:visited, .table-header h1 a:active {
+.title-banner h1, .title-banner h1 a, .title-banner h1 a:visited, .title-banner h1 a:active {
     color: #ffffff;
 }
 

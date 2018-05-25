@@ -21,7 +21,7 @@ def person_new(request):
             return redirect('people:people')
     else:
         form = PersonForm()
-    return render(request, 'people/person_edit.html', {'form': form})
+    return render(request, 'people/person_edit.html', {'title': 'People', 'form': form})
 
 
 def person_edit(request, pk):
@@ -34,7 +34,7 @@ def person_edit(request, pk):
             return redirect('people:people')
     else:
         form = PersonForm(instance=person)
-    return render(request, 'people/person_edit.html', {'form': form})
+    return render(request, 'people/person_edit.html', {'title': 'People', 'form': form})
 
 
 def person_delete(request, pk):
@@ -60,7 +60,7 @@ def noble_rank_new(request):
             return redirect('people:noble_ranks')
     else:
         form = NobleRankForm()
-    return render(request, 'people/noble_rank_edit.html', {'form': form})
+    return render(request, 'people/noble_rank_edit.html', {'title': 'Noble Ranks', 'form': form})
 
 
 def noble_rank_edit(request, pk):
@@ -73,7 +73,7 @@ def noble_rank_edit(request, pk):
             return redirect('people:noble_ranks')
     else:
         form = NobleRankForm(instance=noble_rank)
-    return render(request, 'people/noble_rank_edit.html', {'form': form})
+    return render(request, 'people/noble_rank_edit.html', {'title': 'Noble Ranks', 'form': form})
 
 
 def noble_rank_delete(request, pk):
@@ -99,7 +99,7 @@ def award_new(request):
             return redirect('people:awards')
     else:
         form = AwardForm()
-    return render(request, 'people/award_edit.html', {'form': form})
+    return render(request, 'people/award_edit.html', {'title': 'Awards', 'form': form})
 
 
 def award_edit(request, pk):
@@ -112,7 +112,7 @@ def award_edit(request, pk):
             return redirect('people:awards')
     else:
         form = AwardForm(instance=award)
-    return render(request, 'people/award_edit.html', {'form': form})
+    return render(request, 'people/award_edit.html', {'title': 'Awards', 'form': form})
 
 
 def award_delete(request, pk):

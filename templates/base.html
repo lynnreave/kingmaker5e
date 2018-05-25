@@ -15,31 +15,23 @@
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 
     <!-- display page title -->
-    {% if title %}
-        <title>Kingmaker5E - {{ title }}</title>
-    {% else %}
-        <title>Kingmaker5E</title>
-    {% endif %}
+    <title>Kingmaker5E</title>
 </head>
 <body>
     <div class="container-fluid">
         <div class="navbar">
             <div class="navbar-inner">
                 <a class="brand">Kingmaker5E</a>
-                <ul class="nav">
-                    <li class="active">
-                        <button class="btn" onclick="location.href='{% url 'core:home' %}';">
-                            Home
-                        </button>
-                    </li>
-                    <li class="active">
-                        <button class="btn" onclick="location.href='{% url 'people:people' %}';">
-                            People
-                        </button>
-                    </li>
+                <ul class="nav nav-pills">
+                    <li role="presentation"><a href="{% url 'core:home' %}">Home</a></li>
+                    <li role="presentation"><a href="{% url 'people:people' %}">People</a></li>
+                    {% block subnav_items %}{% endblock %}
                 </ul>
             </div>
-            {% block nav %}{% endblock %}
+        </div>
+
+        <div class="well well-large" style="background-color: #899AEB;">
+            <h1 style="color: #ffffff;">{{ title }}</h1>
         </div>
 
         {% block content %}
