@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="well well-large">
+        <table class="table-custom">
+            <caption class="table-header" style="text-align:left">
+                <h1>{{ title }}</h1>
+            </caption>
+            <thead>
+            <tr>
+                {% block table_header %}
+                {% endblock %}
+            </tr>
+            </thead>
+            <tbody>
+                {% block table_body %}
+                {% endblock %}
+            </tbody>
+        </table>
+        {% if user.is_authenticated %}
+            <tr>
+                <td class="tb_ccell">
+                    {% block table_new_item %}
+                    {% endblock %}
+                </td>
+            </tr>
+        {% endif %}
+    </div>
+{% endblock %}

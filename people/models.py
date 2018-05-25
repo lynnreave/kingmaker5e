@@ -11,19 +11,21 @@ class Gender(models.Model):
 
 
 class NobleRank(models.Model):
-    name = models.CharField(max_length=default_max_length)
-    equivalence = models.CharField(max_length=default_max_length)
-    honorific = models.CharField(max_length=default_max_length)
+    rank = models.CharField(max_length=default_max_length)
+    male_title = models.CharField(max_length=default_max_length)
+    female_title = models.CharField(max_length=default_max_length)
+    male_honorific = models.CharField(max_length=default_max_length)
+    female_honorific = models.CharField(max_length=default_max_length)
     desc = models.TextField(blank=True)
 
     def __str__(self):
-        return self.name
+        return "%s/%s (%s)" % (self.male_title, self.female_title, self.rank)
 
 
 class Person(models.Model):
     first_name = models.CharField(max_length=default_max_length)
     middle_name = models.CharField(max_length=default_max_length, blank=True)
-    last_name = models.CharField(max_length=default_max_length)
+    last_name = models.CharField(max_length=default_max_length, blank=True)
     gender = models.ForeignKey(
         Gender, on_delete=models.CASCADE, related_name='people', related_query_name='person')
     noble_rank = models.ForeignKey(
