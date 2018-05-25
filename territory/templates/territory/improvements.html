@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+{% extends 'territory/base.html' %}
+
+{% block table_header %}
+    <th class="th_ccell"><h4>NAME</h4></th>
+    <th class="th_ccell"><h4>POPULATION BONUS</h4></th>
+    <th class="th_ccell"><h4>ECONOMY BONUS</h4></th>
+    <th class="th_ccell"><h4>LOYALTY BONUS</h4></th>
+    <th class="th_ccell"><h4>STABILITY BONUS</h4></th>
+    <th class="th_ccell"><h4>DEFENSE BONUS</h4></th>
+    <th class="th_ccell"><h4>CONSUMPTION</h4></th>
+    <th class="th_ccell"><h4>INCOME BONUS</h4></th>
+    <th class="th_ccell"><h4>UNREST BONUS</h4></th>
+    <th class="th_ccell"><h4>EXCLUSIVE</h4></th>
+    <th class="th_ccell"><h4></h4></th>
+{% endblock %}
+
+{% block table_body %}
+    {% for noble_rank in noble_ranks %}
+        <tr>
+            <td class="tb_ccell">{{ type.name }}</td>
+            <td class="tb_ccell">{{ type.pop_bonus }}</td>
+            <td class="tb_ccell">{{ type.dan_bonus }}</td>
+            <td class="tb_ccell">{{ type.loy_bonus }}</td>
+            <td class="tb_ccell">{{ type.sta_bonus }}</td>
+            <td class="tb_ccell">{{ type.def_bonus }}</td>
+            <td class="tb_ccell">{{ type.con_bonus }}</td>
+            <td class="tb_ccell">{{ type.inc_bonus }}</td>
+            <td class="tb_ccell">{{ type.unr_bonus }}</td>
+            <td class="tb_ccell">{{ type.exclusive }}</td>
+            <td class="tb_ccell">
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block table_new_item %}
+{% endblock %}

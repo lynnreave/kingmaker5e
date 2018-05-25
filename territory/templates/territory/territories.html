@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+{% extends 'territory/base.html' %}
+
+{% block table_header %}
+    <th class="th_ccell"><h4>HEX</h4></th>
+    <th class="th_ccell"><h4>TYPE</h4></th>
+    <th class="th_ccell"><h4>FEATURES</h4></th>
+    <th class="th_ccell"><h4>IMPROVEMENTS</h4></th>
+    <th class="th_ccell"><h4></h4></th>
+{% endblock %}
+
+{% block table_body %}
+    {% for territory in territories %}
+        <tr>
+            <td class="tb_ccell">{{ territory.hex }}</td>
+            <td class="tb_ccell">{{ territory.type }}</td>
+            <td class="tb_ccell">{{ territory.features }}</td>
+            <td class="tb_ccell">{{ territory.improvements }}</td>
+            <td class="tb_ccell">
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block table_new_item %}
+{% endblock %}

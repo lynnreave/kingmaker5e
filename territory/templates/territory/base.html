@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+{% extends 'table.html' %}
+
+{% block subnav_items %}
+<li class="disabled"><a href="#">|</a></li>
+<li role="presentation"><a href="{% url 'territory:types' %}">
+    Terrain Types
+</a></li>
+<li role="presentation"><a href="{% url 'territory:features' %}">
+    Terrain Features
+</a></li>
+<li role="presentation"><a href="{% url 'territory:improvements' %}">
+    Terrain Improvements
+</a></li>
+{% endblock %}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+{% extends 'territory/base.html' %}
+
+{% block table_header %}
+    <th class="th_ccell"><h4>NAME</h4></th>
+    <th class="th_ccell"><h4></h4></th>
+{% endblock %}
+
+{% block table_body %}
+    {% for feature in features %}
+        <tr>
+            <td class="tb_ccell">{{ feature.name }}</td>
+            <td class="tb_ccell">
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block table_new_item %}
+{% endblock %}

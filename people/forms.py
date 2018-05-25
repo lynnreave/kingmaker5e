@@ -18,7 +18,7 @@ class NobleRankForm(forms.ModelForm):
     class Meta:
         model = NobleRank
         fields = (
-            'rank', 'male_title', 'female_title', 'male_honorific', 'female_honorific', 'desc'
+            'rank', 'male_title', 'female_title', 'male_honorific', 'female_honorific', 'desc',
         )
 
 
@@ -27,5 +27,5 @@ class AwardForm(forms.ModelForm):
     class Meta:
         model = Award
         fields = (
-            'name', 'desc'
+            'name', 'desc',
         )

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+{% extends 'territory/base.html' %}
+
+{% block table_header %}
+    <th class="th_ccell"><h4>NAME</h4></th>
+    <th class="th_ccell"><h4>POPULATION BONUS</h4></th>
+    <th class="th_ccell"><h4>DANGER BONUS</h4></th>
+    <th class="th_ccell"><h4>EXPLORATION TIME</h4></th>
+    <th class="th_ccell"><h4>PREPARATION TIME</h4></th>
+    <th class="th_ccell"><h4>PREPARATION COST</h4></th>
+    <th class="th_ccell"><h4>FARM COST</h4></th>
+    <th class="th_ccell"><h4>ROAD COST</h4></th>
+    <th class="th_ccell"><h4></h4></th>
+{% endblock %}
+
+{% block table_body %}
+    {% for type in types %}
+        <tr>
+            <td class="tb_ccell">{{ type.name }}</td>
+            <td class="tb_ccell">{{ type.pop_bonus }}</td>
+            <td class="tb_ccell">{{ type.dan_bonus }}</td>
+            <td class="tb_ccell">{{ type.exp_time }}</td>
+            <td class="tb_ccell">{{ type.prep_time }}</td>
+            <td class="tb_ccell">{{ type.prep_cost }}</td>
+            <td class="tb_ccell">{{ type.farm_cost }}</td>
+            <td class="tb_ccell">{{ type.road_cost }}</td>
+            <td class="tb_ccell">
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block table_new_item %}
+
+{% endblock %}

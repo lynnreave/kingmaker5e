@@ -1,4 +1,3 @@
-
 from django.urls import path
 from . import views
 
@@ -6,6 +5,7 @@ app_name = 'people'
 
 urlpatterns = [
     path('', views.people, name='people'),
+    path('people', views.people, name='people'),
     path('person/new/', views.person_new, name='person_new'),
     path('person/<int:pk>/edit/', views.person_edit, name='person_edit'),
     path('person/<int:pk>/delete/', views.person_delete, name='person_delete'),
