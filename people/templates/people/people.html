@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 
-{% extends 'table.html' %}
-
-{% block nav %}
-<div class="navbar-inner">
-    <a class="brand"></a>
-    <ul class="nav">
-        <li class="active">
-            <button class="btn" onclick="location.href='{% url 'people:noble_ranks' %}';">
-                Noble Ranks
-            </button>
-        </li>
-    </ul>
-</div>
-{% endblock %}
+{% extends 'people/base.html' %}
 
 {% block table_header %}
     <th class="th_ccell"><h4></h4></th>

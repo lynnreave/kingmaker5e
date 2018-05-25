@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from .models import Person, NobleRank, Award
-from .forms import PersonForm, NobleRankForm
+from .forms import PersonForm, NobleRankForm, AwardForm
 
 
 def people(request):
@@ -80,3 +80,42 @@ def noble_rank_delete(request, pk):
     noble_rank = get_object_or_404(NobleRank, pk=pk)
     noble_rank.delete()
     return redirect('people:noble_ranks')
+
+
+def awards(request):
+    awards = Award.objects.all()
+    return render(
+        request, 'people/awards.html',
+        {'title': 'Awards', 'awards': awards}
+    )
+
+
+def award_new(request):
+    if request.method == "POST":
+        form = AwardForm(request.POST)
+        if form.is_valid():
+            award = form.save(commit=False)
+            award.save()
+            return redirect('people:awards')
+    else:
+        form = AwardForm()
+    return render(request, 'people/award_edit.html', {'form': form})
+
+
+def award_edit(request, pk):
+    award = get_object_or_404(Award, pk=pk)
+    if request.method == "POST":
+        form = AwardForm(request.POST, instance=award)
+        if form.is_valid():
+            award = form.save(commit=False)
+            award.save()
+            return redirect('people:awards')
+    else:
+        form = AwardForm(instance=award)
+    return render(request, 'people/award_edit.html', {'form': form})
+
+
+def award_delete(request, pk):
+    award = get_object_or_404(Award, pk=pk)
+    award.delete()
+    return redirect('people:awards')

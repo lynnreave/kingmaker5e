@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+{% extends 'table.html' %}
+
+{% block nav %}
+<div class="navbar-inner">
+    <a class="brand"></a>
+    <ul class="nav">
+        <li class="active">
+            <button class="btn" onclick="location.href='{% url 'people:noble_ranks' %}';">
+                Noble Ranks
+            </button>
+        </li>
+        <li class="active">
+            <button class="btn" onclick="location.href='{% url 'people:awards' %}';">
+                Awards
+            </button>
+        </li>
+    </ul>
+</div>
+{% endblock %}

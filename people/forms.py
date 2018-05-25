@@ -1,5 +1,5 @@
 from django import forms
-from .models import Person, NobleRank
+from .models import Person, NobleRank, Award
 
 
 class PersonForm(forms.ModelForm):
@@ -19,4 +19,13 @@ class NobleRankForm(forms.ModelForm):
         model = NobleRank
         fields = (
             'rank', 'male_title', 'female_title', 'male_honorific', 'female_honorific', 'desc'
+        )
+
+
+class AwardForm(forms.ModelForm):
+
+    class Meta:
+        model = Award
+        fields = (
+            'name', 'desc'
         )

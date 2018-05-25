@@ -13,4 +13,8 @@ urlpatterns = [
     path('noble_rank/new/', views.noble_rank_new, name='noble_rank_new'),
     path('noble_rank/<int:pk>/edit/', views.noble_rank_edit, name='noble_rank_edit'),
     path('noble_rank/<int:pk>/delete/', views.noble_rank_delete, name='noble_rank_delete'),
+    path('awards', views.awards, name='awards'),
+    path('award/new/', views.award_new, name='award_new'),
+    path('award/<int:pk>/edit/', views.award_edit, name='award_edit'),
+    path('award/<int:pk>/delete/', views.award_delete, name='award_delete'),
 ]

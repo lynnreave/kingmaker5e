@@ -4,8 +4,8 @@
 
 {% block content %}
     <div class="well well-large">
-        <h1>Noble Rank</h1>
-        <form method="POST" class="noble-rank-form">{% csrf_token %}
+        <h1>Award</h1>
+        <form method="POST" class="award-rank-form">{% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="save btn btn-default">Save</button>
         </form>
