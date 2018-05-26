@@ -3,6 +3,7 @@
 {% extends 'territory/base.html' %}
 
 {% block table_header %}
+    <th class="th_ccell"><h4>POLITY</h4></th>
     <th class="th_ccell"><h4>HEX</h4></th>
     <th class="th_ccell"><h4>TYPE</h4></th>
     <th class="th_ccell"><h4>FEATURES</h4></th>
@@ -14,6 +15,7 @@
 {% block table_body %}
     {% for territory in territories %}
         <tr>
+            <td class="tb_lcell">{{ territory.polity.name }}</td>
             <td class="tb_ccell">{{ territory.hex }}</td>
             <td class="tb_ccell">{{ territory.type }}</td>
             <td class="tb_ccell">{{ territory.features.all|join:", " }}</td>

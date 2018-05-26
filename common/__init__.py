@@ -2,14 +2,16 @@ from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 
 
-def show_all_items(request, app_name, obj, obj_plural, sort=None, sort_2=None):
+def show_all_items(request, app_name, obj, obj_plural, sort=None, sort_2=None, sort_3=None):
     obj_plural = obj_plural.replace(' ', '_')
     if sort is None:
         items = obj.objects.all()
     elif sort_2 is None:
         items = obj.objects.order_by(sort)
-    else:
+    elif sort_3 is None:
         items = obj.objects.order_by(sort, sort_2)
+    else:
+        items = obj.objects.order_by(sort, sort_2, sort_3)
     return render(
         request, '%s/%s.html' % (app_name, obj_plural),
         {'title': obj_plural.capitalize(), obj_plural: items}

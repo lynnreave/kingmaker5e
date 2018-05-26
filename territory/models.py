@@ -53,17 +53,21 @@ class Improvement(models.Model):
 
 
 class Territory(models.Model):
+    polity = models.ForeignKey(
+        'polity.Polity', on_delete=models.CASCADE,
+        related_name='territory', related_query_name='territory'
+    )
     hex = models.CharField(max_length=20, null=True)
     type = models.ForeignKey(
         Type, on_delete=models.CASCADE,
-        related_name='territory', related_query_name='territories'
+        related_name='territory', related_query_name='territory'
     )
     features = models.ManyToManyField(
-        Feature, related_name='territory', related_query_name='territories',
+        Feature, related_name='territory', related_query_name='territory',
         blank=True,
     )
     improvements = models.ManyToManyField(
-        Improvement, related_name='territory', related_query_name='territories',
+        Improvement, related_name='territory', related_query_name='territory',
         blank=True,
     )
 

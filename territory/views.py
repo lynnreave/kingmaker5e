@@ -11,7 +11,7 @@ a_form = TerritoryForm
 
 def territories(request):
     obj_plural = a_plural.replace(' ', '_')
-    items = a_obj.objects.order_by('hex', 'type')
+    items = a_obj.objects.order_by('polity', 'hex', 'type')
     items = get_territory_effects(items)['territories']
     return render(
         request, '%s/%s.html' % (app_name, obj_plural),
