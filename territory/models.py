@@ -19,6 +19,15 @@ class Type(models.Model):
 class Feature(models.Model):
     name = models.CharField(max_length=default_max_length)
     desc = models.TextField(default="")
+    pop_bonus = models.IntegerField(default=0)
+    dan_bonus = models.IntegerField(default=0)
+    eco_bonus = models.FloatField(default=0)
+    loy_bonus = models.FloatField(default=0)
+    sta_bonus = models.FloatField(default=0)
+    def_bonus = models.IntegerField(default=0)
+    con_bonus = models.IntegerField(default=0)
+    inc_bonus = models.IntegerField(default=0)
+    unr_bonus = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -57,6 +66,9 @@ class Territory(models.Model):
         Improvement, related_name='territory', related_query_name='territories',
         blank=True,
     )
+
+    def get_effects_summary(self):
+        return self.type.name
 
     def __str__(self):
         return "%s (%s)" % (self.type, self.pk)

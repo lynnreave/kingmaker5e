@@ -10,7 +10,13 @@ a_obj = Territory
 a_form = TerritoryForm
 
 def territories(request):
-    return show_all_items(request, app_name, a_obj, a_plural, sort='hex', sort_2='type')
+    obj_plural = a_plural.replace(' ', '_')
+    items = a_obj.objects.order_by('hex', 'type')
+    items = get_territory_effects(items)['territories']
+    return render(
+        request, '%s/%s.html' % (app_name, obj_plural),
+        {'title': obj_plural.capitalize(), obj_plural: items}
+    )
 def territory_new(request):
     return create_item(request, app_name, a_name, a_form, a_plural, fast_commit=True)
 def territory_edit(request, pk):

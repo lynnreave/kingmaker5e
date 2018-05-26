@@ -25,7 +25,11 @@ class FeatureForm(forms.ModelForm):
 
     class Meta:
         model = Feature
-        fields = ('name', 'desc', )
+        fields = (
+            'name', 'desc', 'pop_bonus', 'dan_bonus',
+            'eco_bonus', 'loy_bonus', 'sta_bonus', 'def_bonus',
+            'con_bonus', 'inc_bonus', 'unr_bonus',
+        )
 
 
 class ImprovementForm(forms.ModelForm):
