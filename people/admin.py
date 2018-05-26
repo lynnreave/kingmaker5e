@@ -3,6 +3,7 @@ from .models import Person
 from .models import Award
 from .models import Gender
 from .models import NobleRank
+from .models import LeadershipRole
 
 
 class CustomModelAdmin(admin.ModelAdmin):
@@ -18,3 +19,4 @@ admin.site.register(Person, CustomModelAdmin)
 admin.site.register(Award, CustomModelAdmin)
 admin.site.register(Gender, CustomModelAdmin)
 admin.site.register(NobleRank, CustomModelAdmin)
+admin.site.register(LeadershipRole, CustomModelAdmin)

@@ -3,6 +3,14 @@ from django.db import models
 default_max_length = 100
 
 
+class Award(models.Model):
+    name = models.CharField(max_length=default_max_length)
+    desc = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Gender(models.Model):
     name = models.CharField(max_length=default_max_length)
 
@@ -22,9 +30,9 @@ class NobleRank(models.Model):
         return "%s/%s (%s)" % (self.male_title, self.female_title, self.rank)
 
 
-class Award(models.Model):
+class LeadershipRole(models.Model):
     name = models.CharField(max_length=default_max_length)
-    desc = models.TextField(blank=True)
+    ranking = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
@@ -53,6 +61,10 @@ class Person(models.Model):
     notes = models.TextField(blank=True)
     polity = models.ForeignKey(
         'polity.Polity', on_delete=models.CASCADE,
+        related_name='person', related_query_name='person'
+    )
+    leadership_role = models.ForeignKey(
+        LeadershipRole, on_delete=models.CASCADE, blank=True, null=True,
         related_name='person', related_query_name='person'
     )
 

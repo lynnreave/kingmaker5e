@@ -12,7 +12,8 @@ a_form = PersonForm
 
 def people(request):
     return show_all_items(
-        request, app_name, a_obj, a_plural, sort='last_name', sort_2='first_name'
+        request, app_name, a_obj, a_plural, sort='polity', sort_2='leadership_role',
+        sort_3='last_name', sort_4='first_name',
     )
 def person_new(request):
     return create_item(request, app_name, a_name, a_form, a_plural, fast_commit=True)

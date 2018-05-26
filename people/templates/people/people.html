@@ -13,6 +13,7 @@
     <th class="th_ccell"><h4>INT</h4></th>
     <th class="th_ccell"><h4>WIS</h4></th>
     <th class="th_ccell"><h4>CHA</h4></th>
+    <th class="th_ccell"><h4>ROLE</h4></th>
     <th class="th_ccell"><h4>NOTES</h4></th>
     <th class="th_ccell"><h4>POLITY</h4></th>
     <th class="th_ccell"><h4></h4></th>
@@ -49,6 +50,7 @@
             <td class="tb_ccell">{{ person.int }}</td>
             <td class="tb_ccell">{{ person.wis }}</td>
             <td class="tb_ccell">{{ person.cha }}</td>
+            <td class="tb_lcell">{{ person.leadership_role.name }}</td>
             <td class="tb_lcell">{{ person.notes }}</td>
             <td class="tb_lcell">{{ person.polity.name }}</td>
             <td class="tb_ccell">
