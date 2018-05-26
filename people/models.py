@@ -35,14 +35,14 @@ class Person(models.Model):
     middle_name = models.CharField(max_length=default_max_length, blank=True)
     last_name = models.CharField(max_length=default_max_length, blank=True)
     gender = models.ForeignKey(
-        Gender, on_delete=models.CASCADE, related_name='people', related_query_name='person')
+        Gender, on_delete=models.CASCADE, related_name='person', related_query_name='person')
     noble_rank = models.ForeignKey(
-        NobleRank, on_delete=models.CASCADE, related_name='people', related_query_name='person',
+        NobleRank, on_delete=models.CASCADE, related_name='person', related_query_name='person',
         blank=True, null=True
     )
     awards = models.ManyToManyField(
         Award, blank=True,
-        related_name='person', related_query_name='people',
+        related_name='person', related_query_name='person',
     )
     str = models.IntegerField(default=10)
     dex = models.IntegerField(default=10)
@@ -51,6 +51,10 @@ class Person(models.Model):
     wis = models.IntegerField(default=10)
     cha = models.IntegerField(default=10)
     notes = models.TextField(blank=True)
+    polity = models.ForeignKey(
+        'polity.Polity', on_delete=models.CASCADE,
+        related_name='person', related_query_name='person'
+    )
 
     def __str__(self):
         return "%s %s" % (self.first_name, self.last_name)
