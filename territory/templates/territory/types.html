@@ -18,19 +18,64 @@
     {% for type in types %}
         <tr>
             <td class="tb_ccell">{{ type.name }}</td>
-            <td class="tb_ccell">{{ type.pop_bonus }}</td>
-            <td class="tb_ccell">{{ type.dan_bonus }}</td>
-            <td class="tb_ccell">{{ type.exp_time }}</td>
-            <td class="tb_ccell">{{ type.prep_time }}</td>
-            <td class="tb_ccell">{{ type.prep_cost }}</td>
-            <td class="tb_ccell">{{ type.farm_cost }}</td>
-            <td class="tb_ccell">{{ type.road_cost }}</td>
             <td class="tb_ccell">
+                {% if type.pop_bonus == 0 %}
+                    Special or N/A
+                {% else %}
+                    {{ type.pop_bonus }}
+                {% endif %}
+            </td>
+            <td class="tb_ccell">{{ type.dan_bonus }}</td>
+            <td class="tb_ccell">
+                {% if type.exp_time == 0 %}
+                    Immediate
+                {% else %}
+                    {{ type.exp_time }}
+                {% endif %}
+            </td>
+            <td class="tb_ccell">
+                {% if type.prep_time == 0 %}
+                    Immediate or N/A
+                {% else %}
+                    {{ type.prep_time }}</td>
+                {% endif %}
+            <td class="tb_ccell">
+                {% if type.prep_cost == 0 %}
+                    Special or N/A
+                {% else %}
+                    {{ type.prep_cost }}
+                {% endif %}
+            </td>
+            <td class="tb_ccell">
+                {% if type.farm_cost == 0 %}
+                    Special or N/A
+                {% else %}
+                    {{ type.farm_cost }}
+                {% endif %}
+            </td>
+            <td class="tb_ccell">
+                {% if type.road_cost == 0 %}
+                    Special or N/A
+                {% else %}
+                    {{ type.road_cost }}
+                {% endif %}
+            </td>
+            <td class="tb_ccell">
+                {% if user.is_authenticated %}
+                    <a class="btn btn-default" href="{% url 'territory:type_edit' pk=type.pk %}">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a class="btn btn-default" href="{% url 'territory:type_delete' pk=type.pk %}">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                {% endif %}
             </td>
         </tr>
     {% endfor %}
 {% endblock %}
 
 {% block table_new_item %}
-
+    <a class="btn btn-default" href="{% url 'territory:type_new' %}">
+        <div><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;New</div>
+    </a>
 {% endblock %}

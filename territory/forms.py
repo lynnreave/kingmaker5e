@@ -25,7 +25,7 @@ class FeatureForm(forms.ModelForm):
 
     class Meta:
         model = Feature
-        fields = ('name', )
+        fields = ('name', 'desc', )
 
 
 class ImprovementForm(forms.ModelForm):
@@ -34,5 +34,6 @@ class ImprovementForm(forms.ModelForm):
         model = Improvement
         fields = (
             'name', 'pop_bonus', 'eco_bonus', 'loy_bonus', 'sta_bonus', 'def_bonus',
-            'con_bonus', 'inc_bonus', 'unr_bonus', 'exclusive',
+            'con_bonus', 'inc_bonus', 'unr_bonus', 'cost_per_month', 'construction_time',
+            'exclusive', 'desc',
         )

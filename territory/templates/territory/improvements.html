@@ -9,31 +9,64 @@
     <th class="th_ccell"><h4>LOYALTY BONUS</h4></th>
     <th class="th_ccell"><h4>STABILITY BONUS</h4></th>
     <th class="th_ccell"><h4>DEFENSE BONUS</h4></th>
-    <th class="th_ccell"><h4>CONSUMPTION</h4></th>
-    <th class="th_ccell"><h4>INCOME BONUS</h4></th>
+    <th class="th_ccell"><h4>CONSUMPTION (BP)</h4></th>
+    <th class="th_ccell"><h4>INCOME BONUS (BP)</h4></th>
     <th class="th_ccell"><h4>UNREST BONUS</h4></th>
+    <th class="th_ccell"><h4>CONSTRUCTION COST (BP/MONTH)</h4></th>
+    <th class="th_ccell"><h4>CONSTRUCTION TIME (MONTHS)</h4></th>
     <th class="th_ccell"><h4>EXCLUSIVE</h4></th>
     <th class="th_ccell"><h4></h4></th>
 {% endblock %}
 
 {% block table_body %}
-    {% for noble_rank in noble_ranks %}
+    {% for improvement in improvements %}
         <tr>
-            <td class="tb_ccell">{{ type.name }}</td>
-            <td class="tb_ccell">{{ type.pop_bonus }}</td>
-            <td class="tb_ccell">{{ type.dan_bonus }}</td>
-            <td class="tb_ccell">{{ type.loy_bonus }}</td>
-            <td class="tb_ccell">{{ type.sta_bonus }}</td>
-            <td class="tb_ccell">{{ type.def_bonus }}</td>
-            <td class="tb_ccell">{{ type.con_bonus }}</td>
-            <td class="tb_ccell">{{ type.inc_bonus }}</td>
-            <td class="tb_ccell">{{ type.unr_bonus }}</td>
-            <td class="tb_ccell">{{ type.exclusive }}</td>
+            <td class="tb_ccell">{{ improvement.name }}</td>
+            <td class="tb_ccell">{{ improvement.pop_bonus }}</td>
+            <td class="tb_ccell">{{ improvement.eco_bonus }}</td>
+            <td class="tb_ccell">{{ improvement.loy_bonus }}</td>
+            <td class="tb_ccell">{{ improvement.sta_bonus }}</td>
+            <td class="tb_ccell">{{ improvement.def_bonus }}</td>
+            <td class="tb_ccell">{{ improvement.con_bonus }}</td>
+            <td class="tb_ccell">{{ improvement.inc_bonus }}</td>
+            <td class="tb_ccell">{{ improvement.unr_bonus }}</td>
             <td class="tb_ccell">
+                {% if improvement.cost_per_month == 0 %}
+                    Special
+                {% else %}
+                    {{ improvement.cost_per_month }}
+                {% endif %}
+            </td>
+            <td class="tb_ccell">
+                {% if improvement.construction_time == 0 %}
+                    Special
+                {% else %}
+                    {{ improvement.construction_time }}
+                {% endif %}
+            </td>
+            <td class="tb_ccell">
+                {% if improvement.exclusive %}
+                    Yes
+                {% else %}
+                    No
+                {% endif %}
+            </td>
+            <td class="tb_ccell">
+                {% if user.is_authenticated %}
+                    <a class="btn btn-default" href="{% url 'territory:improvement_edit' pk=improvement.pk %}">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a class="btn btn-default" href="{% url 'territory:improvement_delete' pk=improvement.pk %}">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                {% endif %}
             </td>
         </tr>
     {% endfor %}
 {% endblock %}
 
 {% block table_new_item %}
+    <a class="btn btn-default" href="{% url 'territory:improvement_new' %}">
+        <div><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;New</div>
+    </a>
 {% endblock %}

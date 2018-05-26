@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from .models import Person, NobleRank, Award
 from .forms import PersonForm, NobleRankForm, AwardForm
+from .vars import app_name
 
 
 def people(request):
