@@ -22,6 +22,14 @@ class NobleRank(models.Model):
         return "%s/%s (%s)" % (self.male_title, self.female_title, self.rank)
 
 
+class Award(models.Model):
+    name = models.CharField(max_length=default_max_length)
+    desc = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Person(models.Model):
     first_name = models.CharField(max_length=default_max_length)
     middle_name = models.CharField(max_length=default_max_length, blank=True)
@@ -29,7 +37,12 @@ class Person(models.Model):
     gender = models.ForeignKey(
         Gender, on_delete=models.CASCADE, related_name='people', related_query_name='person')
     noble_rank = models.ForeignKey(
-        NobleRank, on_delete=models.CASCADE, related_name='people', related_query_name='person', blank=True, null=True
+        NobleRank, on_delete=models.CASCADE, related_name='people', related_query_name='person',
+        blank=True, null=True
+    )
+    awards = models.ManyToManyField(
+        Award, blank=True,
+        related_name='person', related_query_name='people',
     )
     str = models.IntegerField(default=10)
     dex = models.IntegerField(default=10)
@@ -41,14 +54,3 @@ class Person(models.Model):
 
     def __str__(self):
         return "%s %s" % (self.first_name, self.last_name)
-
-
-class Award(models.Model):
-    name = models.CharField(max_length=default_max_length)
-    desc = models.TextField(blank=True)
-    person = models.ForeignKey(
-        Person, on_delete=models.CASCADE, related_name='awards', related_query_name='award', blank=True, null=True
-    )
-
-    def __str__(self):
-        return self.name
