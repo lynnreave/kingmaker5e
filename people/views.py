@@ -1,122 +1,50 @@
-from django.shortcuts import render, get_object_or_404
-from django.shortcuts import redirect
+from common import *
 from .models import Person, NobleRank, Award
 from .forms import PersonForm, NobleRankForm, AwardForm
 from .vars import app_name
 
 
+# PEOPLE
+a_name = 'person'
+a_plural = 'people'
+a_obj = Person
+a_form = PersonForm
+
 def people(request):
-    people = Person.objects.all()
-    return render(
-        request, 'people/people.html',
-        {'title': 'People', 'people': people}
+    return show_all_items(
+        request, app_name, a_obj, a_plural, sort='last_name', sort_2='first_name'
     )
-
-
 def person_new(request):
-    if request.method == "POST":
-        form = PersonForm(request.POST)
-        if form.is_valid():
-            person = form.save(commit=False)
-            person.save()
-            return redirect('people:people')
-    else:
-        form = PersonForm()
-    return render(request, 'people/person_edit.html', {'title': 'People', 'form': form})
-
-
+    return create_item(request, app_name, a_name, a_form, a_plural, fast_commit=True)
 def person_edit(request, pk):
-    person = get_object_or_404(Person, pk=pk)
-    if request.method == "POST":
-        form = PersonForm(request.POST, instance=person)
-        if form.is_valid():
-            person = form.save(commit=False)
-            person.save()
-            return redirect('people:people')
-    else:
-        form = PersonForm(instance=person)
-    return render(request, 'people/person_edit.html', {'title': 'People', 'form': form})
+    return edit_item(request, app_name, pk, a_obj, a_name, a_form, a_plural, fast_commit=True)
+def person_delete(request, pk): return delete_item(request, app_name, pk, a_obj, a_plural)
 
-
-def person_delete(request, pk):
-    person = get_object_or_404(Person, pk=pk)
-    person.delete()
-    return redirect('people:people')
-
+# NOBLE RANKS
+b_name = 'noble rank'
+b_plural = 'noble ranks'
+b_obj = NobleRank
+b_form = NobleRankForm
 
 def noble_ranks(request):
-    noble_ranks = NobleRank.objects.all()
-    return render(
-        request, 'people/noble_ranks.html',
-        {'title': 'Noble Ranks', 'noble_ranks': noble_ranks}
-    )
-
-
+    return show_all_items(request, app_name, b_obj, b_plural, sort='rank')
 def noble_rank_new(request):
-    if request.method == "POST":
-        form = NobleRankForm(request.POST)
-        if form.is_valid():
-            noble_rank = form.save(commit=False)
-            noble_rank.save()
-            return redirect('people:noble_ranks')
-    else:
-        form = NobleRankForm()
-    return render(request, 'people/noble_rank_edit.html', {'title': 'Noble Ranks', 'form': form})
-
-
+    return create_item(request, app_name, b_name, b_form, b_plural, fast_commit=True)
 def noble_rank_edit(request, pk):
-    noble_rank = get_object_or_404(NobleRank, pk=pk)
-    if request.method == "POST":
-        form = NobleRankForm(request.POST, instance=noble_rank)
-        if form.is_valid():
-            noble_rank = form.save(commit=False)
-            noble_rank.save()
-            return redirect('people:noble_ranks')
-    else:
-        form = NobleRankForm(instance=noble_rank)
-    return render(request, 'people/noble_rank_edit.html', {'title': 'Noble Ranks', 'form': form})
+    return edit_item(request, app_name, pk, b_obj, b_name, b_form, b_plural, fast_commit=True)
+def noble_rank_delete(request, pk): return delete_item(request, app_name, pk, b_obj, b_plural)
 
 
-def noble_rank_delete(request, pk):
-    noble_rank = get_object_or_404(NobleRank, pk=pk)
-    noble_rank.delete()
-    return redirect('people:noble_ranks')
-
+# AWARDS
+c_name = 'award'
+c_plural = 'awards'
+c_obj = Award
+c_form = AwardForm
 
 def awards(request):
-    awards = Award.objects.all()
-    return render(
-        request, 'people/awards.html',
-        {'title': 'Awards', 'awards': awards}
-    )
-
-
+    return show_all_items(request, app_name, c_obj, c_plural, sort='name')
 def award_new(request):
-    if request.method == "POST":
-        form = AwardForm(request.POST)
-        if form.is_valid():
-            award = form.save(commit=False)
-            award.save()
-            return redirect('people:awards')
-    else:
-        form = AwardForm()
-    return render(request, 'people/award_edit.html', {'title': 'Awards', 'form': form})
-
-
+    return create_item(request, app_name, c_name, c_form, c_plural, fast_commit=True)
 def award_edit(request, pk):
-    award = get_object_or_404(Award, pk=pk)
-    if request.method == "POST":
-        form = AwardForm(request.POST, instance=award)
-        if form.is_valid():
-            award = form.save(commit=False)
-            award.save()
-            return redirect('people:awards')
-    else:
-        form = AwardForm(instance=award)
-    return render(request, 'people/award_edit.html', {'title': 'Awards', 'form': form})
-
-
-def award_delete(request, pk):
-    award = get_object_or_404(Award, pk=pk)
-    award.delete()
-    return redirect('people:awards')
+    return edit_item(request, app_name, pk, c_obj, c_name, c_form, c_plural, fast_commit=True)
+def award_delete(request, pk): return delete_item(request, app_name, pk, c_obj, c_plural)

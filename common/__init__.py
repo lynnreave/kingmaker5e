@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 
 
 def show_all_items(request, app_name, obj, obj_plural, sort=None, sort_2=None):
+    obj_plural = obj_plural.replace(' ', '_')
     if sort is None:
         items = obj.objects.all()
     elif sort_2 is None:
@@ -19,6 +20,8 @@ def create_item(
         request, app_name, obj_name, obj_form, obj_plural,
         tgt=None, fast_commit=False
 ):
+    obj_name = obj_name.replace(' ', '_')
+    obj_plural = obj_plural.replace(' ', '_')
     if tgt is None:
         tgt = '%s:%s' % (app_name, obj_plural)
     if request.method == "POST":
@@ -41,6 +44,8 @@ def edit_item(
         request, app_name, pk, obj, obj_name, obj_form, obj_plural,
         tgt=None, fast_commit=False
 ):
+    obj_name = obj_name.replace(' ', '_')
+    obj_plural = obj_plural.replace(' ', '_')
     if tgt is None:
         tgt = '%s:%s' % (app_name, obj_plural)
     item = get_object_or_404(obj, pk=pk)
@@ -61,6 +66,7 @@ def edit_item(
 
 
 def delete_item(request, app_name, pk, obj, obj_plural, tgt=None):
+    obj_plural = obj_plural.replace(' ', '_')
     if tgt is None:
         tgt = '%s:%s' % (app_name, obj_plural)
     item = get_object_or_404(obj, pk=pk)
