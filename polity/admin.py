@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Polity
+from .models import Polity, AlignmentLC, AlignmentGE, Government
 
 
 class CustomModelAdmin(admin.ModelAdmin):
@@ -10,3 +10,6 @@ class CustomModelAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Polity, CustomModelAdmin)
+admin.site.register(AlignmentLC, CustomModelAdmin)
+admin.site.register(AlignmentGE, CustomModelAdmin)
+admin.site.register(Government, CustomModelAdmin)

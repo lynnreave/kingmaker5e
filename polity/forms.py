@@ -6,4 +6,4 @@ class PolityForm(forms.ModelForm):
 
     class Meta:
         model = Polity
-        fields = ('name', 'desc', )
+        fields = ('name', 'government', 'alignment_lc', 'alignment_ge', 'desc', )

@@ -7,19 +7,34 @@ class PolityAttribute:
         self.name = name
         self.total = 0
         self.source_summary = ""
+        self.from_government = 0
+        self.from_alignment = 0
         self.from_leadership = 0
 
     def get_total(self):
-        self.total = self.from_leadership
+        self.total = 0 \
+            + self.from_government \
+            + self.from_alignment \
+            + self.from_leadership
         sources = []
-        if self.from_leadership != 0:
-            sources.append("%s from leadership" % self.from_leadership)
+        if self.from_government > 0:
+            sources.append("+%s from government" % self.from_government)
+        elif self.from_government < 0:
+            sources.append("-%s from government" % self.from_government)
+        if self.from_alignment > 0:
+            sources.append("+%s from alignment" % self.from_alignment)
+        elif self.from_alignment < 0:
+            sources.append("-%s from alignment" % self.from_alignment)
+        if self.from_leadership > 0:
+            sources.append("+%s from leadership" % self.from_leadership)
+        elif self.from_leadership < 0:
+            sources.append("-%s from leadership" % self.from_leadership)
         self.source_summary = ", ".join(sources)
 
 def get_polity_details(id):
     polity = Polity.objects.get(id=id)
 
-    # determine attributes
+    # define attributes
     # define major attributes
     polity.economy = PolityAttribute('economy')
     polity.loyalty = PolityAttribute('loyalty')
@@ -34,9 +49,14 @@ def get_polity_details(id):
     polity.productivity = PolityAttribute('productivity')
     polity.society = PolityAttribute('society')
     # define other attributes
-    polity.population = 0
-    polity.size = 0
+    polity.population = PolityAttribute('population')
+    polity.size = PolityAttribute('size')
     polity.control_dc = 0
+    polity.treasury = 0
+    polity.income = PolityAttribute('income')
+    polity.defense = PolityAttribute('defense')
+    polity.unrest = PolityAttribute('unrest')
+    polity.unrest_mod = PolityAttribute('unrest')
 
     # determine roles
     # define roles
@@ -58,18 +78,17 @@ def get_polity_details(id):
     # determine person in each role
     determine_polity_leadership_roles(polity)
 
+    # determine attribute values
+    # apply alignment bonuses
+    apply_alignment_modifiers(polity)
+    # apply government bonuses
+    apply_government_modifiers(polity)
     # apply leadership modifiers
     apply_leadership_modifiers(polity)
-
     # apply terrain modifiers
     apply_terrain_modifiers(polity)
-
     # apply settlement modifiers
     apply_settlement_modifiers(polity)
-
-    # determine control dc
-    polity.control_dc = 20 + polity.size  # + num_districts in all settlements
-
     # calculate total attributes
     polity.economy.get_total()
     polity.loyalty.get_total()
@@ -82,8 +101,43 @@ def get_polity_details(id):
     polity.lore.get_total()
     polity.productivity.get_total()
     polity.society.get_total()
+    # calculate control dc
+    polity.control_dc = 20 + polity.size.total  # + num_districts in all settlements
 
     return {'polity': polity}
+
+
+def apply_alignment_modifiers(polity):
+    polity.economy.from_alignment += polity.alignment_lc.eco_bonus + polity.alignment_ge.eco_bonus
+    polity.loyalty.from_alignment += polity.alignment_lc.loy_bonus + polity.alignment_ge.loy_bonus
+    polity.stability.from_alignment \
+        += polity.alignment_lc.sta_bonus + polity.alignment_ge.sta_bonus
+    polity.fame.from_alignment += polity.alignment_lc.fam_bonus + polity.alignment_ge.fam_bonus
+    polity.infamy.from_alignment += polity.alignment_lc.inf_bonus + polity.alignment_ge.inf_bonus
+    polity.corruption.from_alignment \
+        += polity.alignment_lc.cor_bonus + polity.alignment_ge.cor_bonus
+    polity.crime.from_alignment += polity.alignment_lc.cri_bonus + polity.alignment_ge.cri_bonus
+    polity.law.from_alignment += polity.alignment_lc.law_bonus + polity.alignment_ge.law_bonus
+    polity.lore.from_alignment += polity.alignment_lc.lor_bonus + polity.alignment_ge.lor_bonus
+    polity.productivity.from_alignment \
+        += polity.alignment_lc.pro_bonus + polity.alignment_ge.pro_bonus
+    polity.society.from_alignment += polity.alignment_lc.soc_bonus + polity.alignment_ge.soc_bonus
+    return {}
+
+
+def apply_government_modifiers(polity):
+    polity.economy.from_government += polity.government.eco_bonus
+    polity.loyalty.from_government += polity.government.loy_bonus
+    polity.stability.from_government += polity.government.sta_bonus
+    polity.fame.from_government += polity.government.fam_bonus
+    polity.infamy.from_government += polity.government.inf_bonus
+    polity.corruption.from_government += polity.government.cor_bonus
+    polity.crime.from_government += polity.government.cri_bonus
+    polity.law.from_government += polity.government.law_bonus
+    polity.lore.from_government += polity.government.lor_bonus
+    polity.productivity.from_government += polity.government.pro_bonus
+    polity.society.from_government += polity.government.soc_bonus
+    return {}
 
 
 def apply_leadership_modifiers(polity):

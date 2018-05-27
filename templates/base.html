@@ -14,6 +14,38 @@
     <link rel="shortcut icon" type="image/ico" href="{% static 'img/favicon.ico' %}"/>
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 
+    <!-- scripts -->
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('p.entry').each(function (){
+                var i = $(this);
+                $(i).bind('mouseenter', function(){
+                    i.popover({
+                        html:True,
+                        title:i.html(),
+                        content:'Loading'
+                    }).popover('show');
+                    $.ajax({
+                        url:i.data('ajaxload'),
+                        dataType:'html',
+                        success:function (data){
+                                i.popover({content:data}).popover('show');
+
+                            }
+                    });
+                });
+                $(i).bind('mouseleave', function(){
+                    i.popover('hide');
+                });
+            });
+        });
+    </script>
+
     <!-- display page title -->
     <title>Kingmaker5E</title>
 </head>

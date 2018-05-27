@@ -4,6 +4,8 @@
 
 {% block table_header %}
     <th class="th_ccell"><h4>NAME</h4></th>
+    <th class="th_ccell"><h4>FORM OF GOVERNMENT</h4></th>
+    <th class="th_ccell"><h4>ALIGNMENT</h4></th>
     <th class="th_ccell"><h4>DESCRIPTION</h4></th>
     <th class="th_ccell"><h4></h4></th>
 {% endblock %}
@@ -12,6 +14,14 @@
     {% for polity in polities %}
         <tr>
             <td class="tb_ccell">{{ polity.name }}</td>
+            <td class="tb_ccell">{{ polity.government.name }}</td>
+            <td class="tb_ccell">
+                {% if polity.alignment_lc.name == "Neutral" and polity.alignment_ge.name == "Neutral" %}
+                    True Neutral
+                {% else %}
+                    {{ polity.alignment_lc.name }} {{ polity.alignment_ge.name }}
+                {% endif %}
+            </td>
             <td class="tb_ccell">{{ polity.desc }}</td>
             <td class="tb_ccell">
                 {% if user.is_authenticated %}
