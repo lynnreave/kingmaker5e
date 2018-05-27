@@ -24,11 +24,12 @@
                 <tbody>
                     <tr>
                         <td class="tb_lcell"><h4>POPULATION</h4></td>
-                        <td class="tb_ccell">150</td>
+                        <td class="tb_ccell">{{ polity.population.total }}</td>
+                        <td class="tb_lcell">{{ polity.population.source_summary }}</td>
                     </tr>
                     <tr>
                         <td class="tb_lcell"><h4>CONTROL DC</h4></td>
-                        <td class="tb_ccell">21</td>
+                        <td class="tb_ccell">{{ polity.control_dc }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -36,7 +37,12 @@
                 <tbody>
                     <tr>
                         <td class="tb_ccell"><h4>SIZE</h4></td>
-                        <td class="tb_ccell">1</td>
+                    </tr>
+                    <tr>
+                        <td class="tb_ccell">{{ polity.size.total }}</td>
+                    </tr>
+                    <tr>
+                        <td class="tb_lcell">{{ polity.size.source_summary }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -129,6 +135,19 @@
                     <tr>
                         <td class="tb_lcell"><h4>UNREST</h4></td>
                         <td class="tb_ccell">{{ polity.unrest }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table style="margin: 0 auto; ">
+                <tbody>
+                    <tr>
+                        <td class="tb_ccell"><h4>CONSUMPTION</h4></td>
+                    </tr>
+                    <tr>
+                        <td class="tb_ccell">{{ polity.consumption.total }}</td>
+                    </tr>
+                    <tr>
+                        <td class="tb_lcell">{{ polity.consumption.source_summary }}</td>
                     </tr>
                 </tbody>
             </table>

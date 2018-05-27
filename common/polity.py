@@ -1,4 +1,5 @@
 from polity.models import Polity
+from .territory import get_territory_effects
 
 
 class PolityAttribute:
@@ -9,12 +10,14 @@ class PolityAttribute:
         self.from_government = 0
         self.from_alignment = 0
         self.from_leadership = 0
+        self.from_terrain = 0
 
     def get_total(self):
         self.total = 0 \
             + self.from_government \
             + self.from_alignment \
-            + self.from_leadership
+            + self.from_leadership \
+            + self.from_terrain
         sources = []
         if self.from_government > 0:
             sources.append("+%s from government" % self.from_government)
@@ -28,6 +31,10 @@ class PolityAttribute:
             sources.append("+%s from leadership" % self.from_leadership)
         elif self.from_leadership < 0:
             sources.append("-%s from leadership" % self.from_leadership)
+        if self.from_terrain > 0:
+            sources.append("+%s from terrain" % self.from_terrain)
+        elif self.from_terrain < 0:
+            sources.append("-%s from terrain" % self.from_terrain)
         self.source_summary = ", ".join(sources)
 
 
@@ -55,6 +62,7 @@ def get_polity_details(id):
     polity.income = PolityAttribute('income')
     polity.defense = PolityAttribute('defense')
     polity.unrest_mod = PolityAttribute('unrest')
+    polity.consumption = PolityAttribute('consumption')
 
     # determine roles
     # define roles
@@ -87,10 +95,13 @@ def get_polity_details(id):
     apply_leadership_modifiers(polity)
     # apply settlement modifiers
     apply_settlement_modifiers(polity)
-    # calculate total attributes
+    # apply military modifiers
+    apply_military_modifiers(polity)
+    # calculate total major attributes
     polity.economy.get_total()
     polity.loyalty.get_total()
     polity.stability.get_total()
+    # calculate total minor attributes
     polity.fame.get_total()
     polity.infamy.get_total()
     polity.corruption.get_total()
@@ -99,6 +110,13 @@ def get_polity_details(id):
     polity.lore.get_total()
     polity.productivity.get_total()
     polity.society.get_total()
+    # calculate total misc attributes
+    polity.population.get_total()
+    polity.size.get_total()
+    polity.income.get_total()
+    polity.defense.get_total()
+    polity.unrest_mod.get_total()
+    polity.consumption.get_total()
     # calculate control dc
     polity.control_dc = 20 + polity.size.total  # + num_districts in all settlements
 
@@ -229,29 +247,27 @@ def apply_leadership_modifiers(polity):
     return {}
 
 
-def get_ability_score_mod(score):
-    mod = 0
-    if score in [12, 13]: mod = 1
-    elif score in [14, 15]: mod = 2
-    elif score in [16, 17]: mod = 3
-    elif score in [18, 19]: mod = 4
-    elif score in [20, 21]: mod = 5
-    elif score in [8, 9]: mod = -1
-    elif score in [6, 7]: mod = -2
-    elif score in [4, 5]: mod = -3
-    elif score in [2, 3]: mod = -4
-    elif score in [1]: mod = -5
-    elif score in [22, 23]: mod = 6
-    elif score in [24, 25]: mod = 7
-    elif score in [26, 27]: mod = 8
-    return {'mod': mod}
-
-
 def apply_terrain_modifiers(polity):
+    territories = polity.territory.all()
+    get_territory_effects(territories)
+    for territory in territories:
+        polity.population.from_terrain += territory.pop_bonus
+        polity.economy.from_terrain += territory.eco_bonus
+        polity.loyalty.from_terrain += territory.loy_bonus
+        polity.stability.from_terrain += territory.sta_bonus
+        polity.defense.from_terrain += territory.def_bonus
+        polity.consumption.from_terrain += territory.con_bonus
+        polity.income.from_terrain += territory.inc_bonus
+        polity.unrest_mod.from_terrain += territory.unr_bonus
+    polity.size.from_terrain += len(territories)
     return {}
 
 
 def apply_settlement_modifiers(polity):
+    return {}
+
+
+def apply_military_modifiers(polity):
     return {}
 
 
@@ -388,3 +404,21 @@ def determine_polity_leadership_roles(polity):
             polity.leadership.append(person)
 
     return {}
+
+
+def get_ability_score_mod(score):
+    mod = 0
+    if score in [12, 13]: mod = 1
+    elif score in [14, 15]: mod = 2
+    elif score in [16, 17]: mod = 3
+    elif score in [18, 19]: mod = 4
+    elif score in [20, 21]: mod = 5
+    elif score in [8, 9]: mod = -1
+    elif score in [6, 7]: mod = -2
+    elif score in [4, 5]: mod = -3
+    elif score in [2, 3]: mod = -4
+    elif score in [1]: mod = -5
+    elif score in [22, 23]: mod = 6
+    elif score in [24, 25]: mod = 7
+    elif score in [26, 27]: mod = 8
+    return {'mod': mod}
