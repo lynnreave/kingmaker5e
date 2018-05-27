@@ -3,11 +3,11 @@
 {% extends 'table.html' %}
 
 {% block subnav_items %}
-<li class="disabled"><a href="#">|</a></li>
-<li role="presentation"><a href="{% url 'people:noble_ranks' %}">
-    Noble Ranks
-</a></li>
-<li role="presentation"><a href="{% url 'people:awards' %}">
-    Awards
-</a></li>
+    <li class="disabled"><a href="#">|</a></li>
+    <li role="presentation"><a href="{% url 'people:noble_ranks' %}">
+        Noble Ranks
+    </a></li>
+    <li role="presentation"><a href="{% url 'people:awards' %}">
+        Awards
+    </a></li>
 {% endblock %}
