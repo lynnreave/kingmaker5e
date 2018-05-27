@@ -97,6 +97,41 @@
                     </tr>
                 </tbody>
             </table>
+            <table style="float: left;">
+                <tbody>
+                    <tr>
+                        <td class="tb_lcell"><h4>TREASURY</h4></td>
+                        <td class="tb_ccell">{{ polity.treasury }}</td>
+                    </tr>
+                    <tr>
+                        <td class="tb_lcell"><h4>INCOME</h4></td>
+                        <td class="tb_ccell">{{ polity.income.total }}</td>
+                        <td class="tb_lcell">{{ polity.income.source_summary }}</td>
+                    </tr>
+                    <tr>
+                        <td class="tb_lcell"><h4>REVENUE DIVISOR</h4></td>
+                        <td class="tb_ccell"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table style="float: right;">
+                <tbody>
+                    <tr>
+                        <td class="tb_lcell"><h4>DEFENSE</h4></td>
+                        <td class="tb_ccell">{{ polity.defense.total }}</td>
+                        <td class="tb_lcell">{{ polity.defense.source_summary }}</td>
+                    </tr>
+                    <tr>
+                        <td class="tb_lcell"><h4>UNREST INCREMENT</h4></td>
+                        <td class="tb_ccell">{{ polity.unrest_mod.total }}</td>
+                        <td class="tb_lcell">{{ polity.unrest_mod.source_summary }}</td>
+                    </tr>
+                    <tr>
+                        <td class="tb_lcell"><h4>UNREST</h4></td>
+                        <td class="tb_ccell">{{ polity.unrest }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
     <div class="panel panel-primary" style="display: inline-block;">
@@ -142,10 +177,54 @@
                         <td class="tb_ccell">
                             {{ person.first_name }} {{ person.last_name }}
                         </td>
-                        <td class="tb_ccell"></td>
-                        <td class="tb_ccell"></td>
-                        <td class="tb_ccell"></td>
-                        <td class="tb_ccell"></td>
+                        <td class="tb_ccell">{{ person.leadership_mod }}</td>
+                        <td class="tb_ccell">
+                            {% if person.leadership_role|title == "Ruler" %}
+                                {{ polity.ruler_attribute_1.name }}
+                            {% elif person.leadership_role|title == "Co-Ruler" %}
+                                {{ polity.ruler_attribute_1.name }}
+                            {% elif person.leadership_role|title == "Consort" %}
+                                Loyalty
+                            {% elif person.leadership_role|title == "Councilor" %}
+                                Loyalty
+                            {% elif person.leadership_role|title == "General" %}
+                                Stability
+                            {% elif person.leadership_role|title == "Grand Diplomat" %}
+                                Stability
+                            {% elif person.leadership_role|title == "Heir" %}
+                                Loyalty
+                            {% elif person.leadership_role|title == "High Priest" %}
+                                Stability
+                            {% elif person.leadership_role|title == "Magister" %}
+                                Economy
+                            {% elif person.leadership_role|title == "Marshal" %}
+                                Economy
+                            {% elif person.leadership_role|title == "Royal Enforcer" %}
+                                Loyalty
+                            {% elif person.leadership_role|title == "Spymaster" %}
+                                {{ polity.spymaster_attribute.name }}
+                            {% elif person.leadership_role|title == "Treasurer" %}
+                                Economy
+                            {% elif person.leadership_role|title == "Viceroy" %}
+                                Economy
+                            {% elif person.leadership_role|title == "Warden" %}
+                                Loyalty
+                            {% endif %}
+                        </td>
+                        <td class="tb_ccell">
+                            {% if person.leadership_role|title == "Ruler" %}
+                                {{ polity.ruler_attribute_2.name }}
+                            {% elif person.leadership_role|title == "Co-Ruler" %}
+                                {{ polity.ruler_attribute_2.name }}
+                            {% endif %}
+                        </td>
+                        <td class="tb_ccell">
+                            {% if person.leadership_role|title == "Ruler" %}
+                                {{ polity.ruler_attribute_3.name }}
+                            {% elif person.leadership_role|title == "Co-Ruler" %}
+                                {{ polity.ruler_attribute_3.name }}
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

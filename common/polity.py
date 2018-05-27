@@ -1,5 +1,4 @@
 from polity.models import Polity
-from collections import OrderedDict
 
 
 class PolityAttribute:
@@ -31,6 +30,7 @@ class PolityAttribute:
             sources.append("-%s from leadership" % self.from_leadership)
         self.source_summary = ", ".join(sources)
 
+
 def get_polity_details(id):
     polity = Polity.objects.get(id=id)
 
@@ -52,10 +52,8 @@ def get_polity_details(id):
     polity.population = PolityAttribute('population')
     polity.size = PolityAttribute('size')
     polity.control_dc = 0
-    polity.treasury = 0
     polity.income = PolityAttribute('income')
     polity.defense = PolityAttribute('defense')
-    polity.unrest = PolityAttribute('unrest')
     polity.unrest_mod = PolityAttribute('unrest')
 
     # determine roles
@@ -83,10 +81,10 @@ def get_polity_details(id):
     apply_alignment_modifiers(polity)
     # apply government bonuses
     apply_government_modifiers(polity)
-    # apply leadership modifiers
-    apply_leadership_modifiers(polity)
     # apply terrain modifiers
     apply_terrain_modifiers(polity)
+    # apply leadership modifiers
+    apply_leadership_modifiers(polity)
     # apply settlement modifiers
     apply_settlement_modifiers(polity)
     # calculate total attributes
@@ -141,7 +139,112 @@ def apply_government_modifiers(polity):
 
 
 def apply_leadership_modifiers(polity):
+    # ruler
+    # determine mod
+    if polity.ruler is not None:
+        ruler_mod = polity.ruler.leadership_mod
+    elif polity.co_ruler is not None:
+        ruler_mod = polity.co_ruler.leadership_mod
+    else:
+        ruler_mod = 0
+    # update attribute
+    if polity.ruler_attribute_1 is not None:
+        if polity.ruler_attribute_1.name.lower() == 'economy':
+            polity.economy.from_leadership += ruler_mod
+        elif polity.ruler_attribute_1.name.lower() == 'loyalty':
+            polity.loyalty.from_leadership += ruler_mod
+        elif polity.ruler_attribute_1.name.lower() == 'stability':
+            polity.stability.from_leadership += ruler_mod
+    if polity.ruler_attribute_2 is not None and polity.size > 25:
+        if polity.ruler_attribute_2.name.lower() == 'economy':
+            polity.economy.from_leadership += ruler_mod
+        elif polity.ruler_attribute_2.name.lower() == 'loyalty':
+            polity.loyalty.from_leadership += ruler_mod
+        elif polity.ruler_attribute_2.name.lower() == 'stability':
+            polity.stability.from_leadership += ruler_mod
+    if polity.ruler_attribute_3 is not None and polity.size > 100:
+        if polity.ruler_attribute_3.name.lower() == 'economy':
+            polity.economy.from_leadership += ruler_mod
+        elif polity.ruler_attribute_3.name.lower() == 'loyalty':
+            polity.loyalty.from_leadership += ruler_mod
+        elif polity.ruler_attribute_3.name.lower() == 'stability':
+            polity.stability.from_leadership += ruler_mod
+
+    # consort
+    if polity.consort is not None:
+        polity.loyalty.from_leadership += (polity.consort.leadership_mod / 2)
+
+    # councilor
+    if polity.councilor is not None:
+        polity.loyalty.from_leadership += polity.councilor.leadership_mod
+
+    # general
+    if polity.general is not None:
+        polity.stability.from_leadership += polity.general.leadership_mod
+
+    # grand_diplomat
+    if polity.grand_diplomat is not None:
+        polity.stability.from_leadership += polity.grand_diplomat.leadership_mod
+
+    # heir
+    if polity.heir is not None:
+        polity.loyalty.from_leadership += (polity.heir.leadership_mod / 2)
+
+    # high_priest
+    if polity.high_priest is not None:
+        polity.stability.from_leadership += polity.high_priest.leadership_mod
+
+    # magister
+    if polity.magister is not None:
+        polity.economy.from_leadership += polity.magister.leadership_mod
+
+    # marshal
+    if polity.marshal is not None:
+        polity.economy.from_leadership += polity.marshal.leadership_mod
+
+    # royal_enforcer
+    if polity.royal_enforcer is not None:
+        polity.loyalty.from_leadership += polity.royal_enforcer.leadership_mod
+
+    # spymaster
+    if polity.spymaster is not None:
+        if polity.spymaster_attribute.name.lower() == 'economy':
+            polity.economy.from_leadership += polity.spymaster.leadership_mod
+        elif polity.spymaster_attribute.name.lower() == 'loyalty':
+            polity.loyalty.from_leadership += polity.spymaster.leadership_mod
+        elif polity.spymaster_attribute.name.lower() == 'stability':
+            polity.stability.from_leadership += polity.spymaster.leadership_mod
+
+    # treasurer
+    if polity.treasurer is not None:
+        polity.economy.from_leadership += polity.treasurer.leadership_mod
+
+    # viceroy
+    if polity.viceroy is not None:
+        polity.economy.from_leadership += (polity.viceroy.leadership_mod / 2)
+
+    # warden
+    if polity.warden is not None:
+        polity.loyalty.from_leadership += polity.warden.leadership_mod
     return {}
+
+
+def get_ability_score_mod(score):
+    mod = 0
+    if score in [12, 13]: mod = 1
+    elif score in [14, 15]: mod = 2
+    elif score in [16, 17]: mod = 3
+    elif score in [18, 19]: mod = 4
+    elif score in [20, 21]: mod = 5
+    elif score in [8, 9]: mod = -1
+    elif score in [6, 7]: mod = -2
+    elif score in [4, 5]: mod = -3
+    elif score in [2, 3]: mod = -4
+    elif score in [1]: mod = -5
+    elif score in [22, 23]: mod = 6
+    elif score in [24, 25]: mod = 7
+    elif score in [26, 27]: mod = 8
+    return {'mod': mod}
 
 
 def apply_terrain_modifiers(polity):
@@ -159,34 +262,126 @@ def determine_polity_leadership_roles(polity):
         role = person.leadership_role.name.lower()
         if role == 'ruler':
             polity.ruler = person
+            polity.ruler.leadership_mod = get_ability_score_mod(polity.ruler.cha)['mod']
         elif role == 'co-ruler':
             polity.co_ruler = person
+            polity.co_ruler.leadership_mod = get_ability_score_mod(polity.co_ruler.cha)['mod']
         elif role == 'consort':
             polity.consort = person
+            polity.consort.leadership_mod = get_ability_score_mod(polity.consort.cha)['mod']
         elif role == 'councilor':
-            polity.ruler = person
+            polity.councilor = person
+            if polity.councilor.cha > polity.councilor.wis:
+                polity.councilor.leadership_mod = get_ability_score_mod(
+                    polity.councilor.cha
+                )['mod']
+            else:
+                polity.councilor.leadership_mod = get_ability_score_mod(
+                    polity.councilor.wis
+                )['mod']
         elif role == 'general':
             polity.general = person
+            if polity.general.cha > polity.general.str:
+                polity.general.leadership_mod = get_ability_score_mod(
+                    polity.general.cha
+                )['mod']
+            else:
+                polity.general.leadership_mod = get_ability_score_mod(
+                    polity.general.str
+                )['mod']
         elif role == 'grand diplomat':
             polity.grand_diplomat = person
+            if polity.grand_diplomat.cha > polity.grand_diplomat.int:
+                polity.grand_diplomat.leadership_mod = get_ability_score_mod(
+                    polity.grand_diplomat.cha
+                )['mod']
+            else:
+                polity.grand_diplomat.leadership_mod = get_ability_score_mod(
+                    polity.grand_diplomat.int
+                )['mod']
         elif role == 'heir':
             polity.heir = person
+            polity.heir.leadership_mod = get_ability_score_mod(polity.heir.cha)['mod']
         elif role == 'high priest':
             polity.high_priest = person
+            if polity.high_priest.cha > polity.high_priest.wis:
+                polity.high_priest.leadership_mod = get_ability_score_mod(
+                    polity.high_priest.cha
+                )['mod']
+            else:
+                polity.high_priest.leadership_mod = get_ability_score_mod(
+                    polity.high_priest.wis
+                )['mod']
         elif role == 'magister':
             polity.magister = person
+            if polity.magister.cha > polity.magister.int:
+                polity.magister.leadership_mod = get_ability_score_mod(
+                    polity.magister.cha
+                )['mod']
+            else:
+                polity.magister.leadership_mod = get_ability_score_mod(
+                    polity.magister.int
+                )['mod']
         elif role == 'marshal':
             polity.marshal = person
+            if polity.marshal.dex > polity.marshal.wis:
+                polity.marshal.leadership_mod = get_ability_score_mod(
+                    polity.marshal.dex
+                )['mod']
+            else:
+                polity.marshal.leadership_mod = get_ability_score_mod(
+                    polity.marshal.wis
+                )['mod']
         elif role == 'royal enforcer':
             polity.royal_enforcer = person
+            if polity.royal_enforcer.dex > polity.royal_enforcer.str:
+                polity.royal_enforcer.leadership_mod = get_ability_score_mod(
+                    polity.royal_enforcer.dex
+                )['mod']
+            else:
+                polity.royal_enforcer.leadership_mod = get_ability_score_mod(
+                    polity.royal_enforcer.str
+                )['mod']
         elif role == 'spymaster':
             polity.spymaster = person
+            if polity.spymaster.dex > polity.spymaster.int:
+                polity.spymaster.leadership_mod = get_ability_score_mod(
+                    polity.spymaster.dex
+                )['mod']
+            else:
+                polity.spymaster.leadership_mod = get_ability_score_mod(
+                    polity.spymaster.int
+                )['mod']
         elif role == 'treasurer':
             polity.treasurer = person
+            if polity.treasurer.int > polity.treasurer.wis:
+                polity.treasurer.leadership_mod = get_ability_score_mod(
+                    polity.treasurer.int
+                )['mod']
+            else:
+                polity.treasurer.leadership_mod = get_ability_score_mod(
+                    polity.treasurer.wis
+                )['mod']
         elif role == 'viceroy':
             polity.viceroy = person
+            if polity.viceroy.int > polity.viceroy.wis:
+                polity.viceroy.leadership_mod = get_ability_score_mod(
+                    polity.viceroy.int
+                )['mod']
+            else:
+                polity.viceroy.leadership_mod = get_ability_score_mod(
+                    polity.viceroy.wis
+                )['mod']
         elif role == 'warden':
             polity.warden = person
+            if polity.warden.con > polity.warden.str:
+                polity.warden.leadership_mod = get_ability_score_mod(
+                    polity.warden.con
+                )['mod']
+            else:
+                polity.warden.leadership_mod = get_ability_score_mod(
+                    polity.warden.str
+                )['mod']
         else:
             role = None
         if role is not None:

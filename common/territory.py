@@ -22,9 +22,6 @@ def get_territory_effects(territories):
         has_resource = False
         has_farm = False
         has_fishery = False
-        has_mine = False
-        has_quarry = False
-        has_sawmill = False
         improvements = []
         # add bonuses from each improvement
         for improvement in territory.improvements.all():
@@ -45,14 +42,6 @@ def get_territory_effects(territories):
             if improvement.name.lower() == 'fishery': has_fishery = True
             if improvement.name.lower() in ['mine', 'quarry', 'sawmill']:
                 improvements.append(improvement)
-            '''if improvement.name.lower() == 'mine':
-                improvements.append(improvement)
-                has_mine = True
-            if improvement.name.lower() == 'quarry':
-                improvements.append(improvement)
-                has_quarry = True
-            if improvement.name.lower() == 'sawmill': 
-                has_sawmill = True'''
         # add bonuses from each feature
         for feature in territory.features.all():
             territory.pop_bonus += feature.pop_bonus
@@ -72,7 +61,6 @@ def get_territory_effects(territories):
         # add rules bonuses
         if has_lair and (has_fort or has_watchtower): territory.def_bonus += 1
         if has_landmark and (has_road or has_highway): territory.loy_bonus += 1
-        #if has_resource and (has_mine or has_quarry or has_sawmill) > 0:
         if len(improvements) > 0:
             for improvement in improvements:
                 if improvement.eco_bonus != 0: territory.eco_bonus += 1

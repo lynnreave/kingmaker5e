@@ -90,6 +90,13 @@ class Government(models.Model):
         return "%s (%s)" % (self.name, effects_summary)
 
 
+class Attribute(models.Model):
+    name = models.CharField(max_length=default_max_length)
+
+    def __str__(self):
+        return self.name
+
+
 class Polity(models.Model):
     name = models.CharField(max_length=default_max_length)
     government = models.ForeignKey(
@@ -101,7 +108,21 @@ class Polity(models.Model):
     alignment_ge = models.ForeignKey(
         AlignmentGE, on_delete=models.CASCADE,
         related_name='polity', related_query_name='polity')
+    treasury = models.IntegerField(default=0)
+    unrest = models.IntegerField(default=0)
     desc = models.TextField(default="", blank=True)
+    ruler_attribute_1 = models.ForeignKey(
+        Attribute, on_delete=models.CASCADE, null=True, blank=True,
+        related_name='polity_ruler_1', related_query_name='polity_ruler_1')
+    ruler_attribute_2 = models.ForeignKey(
+        Attribute, on_delete=models.CASCADE, null=True, blank=True,
+        related_name='polity_ruler_2', related_query_name='polity_ruler_2')
+    ruler_attribute_3 = models.ForeignKey(
+        Attribute, on_delete=models.CASCADE, null=True, blank=True,
+        related_name='polity_ruler_3', related_query_name='polity_ruler_3')
+    spymaster_attribute = models.ForeignKey(
+        Attribute, on_delete=models.CASCADE, null=True, blank=True,
+        related_name='polity_spymaster', related_query_name='polity_spymaster')
 
     def __str__(self):
         return self.name
