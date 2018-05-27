@@ -68,3 +68,23 @@
 .person h1 a, .person h1 a:visited {
     color: #000000;
 }
+
+.ul_centered {
+    text-align: justify;
+}
+.ul_centered:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+}
+.ul_centered:before {
+    content: '';
+    display: block;
+    margin-top: -1.25em;
+}
+.li_centered {
+    display: inline-block;
+    margin-right: -.25em;
+    position: relative;
+    top: 1.25em;
+}
