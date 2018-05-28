@@ -39,12 +39,14 @@ def buildings(request, settlement_id):
     obj_plural = b_plural.replace(' ', '_')
     settlement = Settlement.objects.get(pk=settlement_id)
     get_settlement_details(settlement)
-    items = b_obj.objects.filter(settlement=settlement).order_by('name')
+    buildings = b_obj.objects.filter(settlement=settlement).order_by('name')
+    for building in buildings:
+        get_building_details(building)
     return render(
         request, '%s/%s.html' % (app_name, obj_plural),
         {
-            'title': '%s %s' % (settlement.name.title(), obj_plural_s.title()), obj_plural: items,
-            'settlement_id': settlement_id
+            'title': '%s %s' % (settlement.name.title(), obj_plural_s.title()),
+            obj_plural: buildings, 'settlement_id': settlement_id
         }
     )
 

@@ -21,3 +21,9 @@ def get_settlement_details(settlement):
     else:
         settlement.type = Type.objects.get(name="Village")
     return {}
+
+
+def get_building_details(building):
+    # effects summary
+    building.effects_summary = building.type.get_effects_summary()
+    return {}

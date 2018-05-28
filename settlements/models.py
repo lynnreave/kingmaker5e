@@ -58,8 +58,31 @@ class BuildingType(models.Model):
     limit = models.IntegerField(null=True, blank=True)
     magic_items = models.CharField(max_length=300, blank=True, null=True)
 
+    def get_effects_summary(self):
+        effects = []
+        t = 0
+        if self.pop_bonus != t: effects.append('pop +%s' % self.pop_bonus)
+        if self.dan_bonus != t: effects.append('danger +%s' % self.dan_bonus)
+        if self.eco_bonus != t: effects.append('economy +%s' % self.eco_bonus)
+        if self.loy_bonus != t: effects.append('loyalty +%s' % self.loy_bonus)
+        if self.sta_bonus != t: effects.append('stability +%s' % self.sta_bonus)
+        if self.fam_bonus != t: effects.append('fame +%s' % self.fam_bonus)
+        if self.inf_bonus != t: effects.append('infamy +%s' % self.inf_bonus)
+        if self.cor_bonus != t: effects.append('corruption +%s' % self.cor_bonus)
+        if self.cri_bonus != t: effects.append('crime +%s' % self.cri_bonus)
+        if self.law_bonus != t: effects.append('law +%s' % self.law_bonus)
+        if self.lor_bonus != t: effects.append('lore +%s' % self.lor_bonus)
+        if self.pro_bonus != t: effects.append('productivity +%s' % self.pro_bonus)
+        if self.soc_bonus != t: effects.append('society +%s' % self.soc_bonus)
+        if self.def_bonus != t: effects.append('defense +%s' % self.def_bonus)
+        if self.con_bonus != t: effects.append('consumption %s' % self.con_bonus)
+        if self.inc_bonus != t: effects.append('income %s' % self.inc_bonus)
+        if self.unr_bonus != t: effects.append('unrest %s' % self.unr_bonus)
+        return ', '.join(effects)
+
     def __str__(self):
-        return self.name
+        self.get_effects_summary()
+        return "%s (%s)" % (self.name, self.get_effects_summary())
 
 
 class Settlement(models.Model):
