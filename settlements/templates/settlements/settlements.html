@@ -3,54 +3,22 @@
 {% extends 'settlements/base.html' %}
 
 {% block table_header %}
+    <th class="th_ccell"><h4>OWNER</h4></th>
     <th class="th_ccell"><h4>NAME</h4></th>
-    <th class="th_ccell"><h4>DESCRIPTION</h4></th>
-    <th class="th_ccell"><h4>POLITY</h4></th>
-    <th class="th_ccell"><h4>ECO. MOD</h4></th>
-    <th class="th_ccell"><h4>LOY. MOD</h4></th>
-    <th class="th_ccell"><h4>STA. MOD</h4></th>
-    <th class="th_ccell"><h4>FAME MOD</h4></th>
-    <th class="th_ccell"><h4>INFAMY MOD</h4></th>
-    <th class="th_ccell"><h4>CORR. MOD</h4></th>
-    <th class="th_ccell"><h4>CRIME MOD</h4></th>
-    <th class="th_ccell"><h4>LAW MOD</h4></th>
-    <th class="th_ccell"><h4>LORE MOD</h4></th>
-    <th class="th_ccell"><h4>PROD. MOD</h4></th>
-    <th class="th_ccell"><h4>SOC. MOD</h4></th>
-    <th class="th_ccell"><h4>DEF. MOD</h4></th>
-    <th class="th_ccell"><h4>CONS. MOD (BP)</h4></th>
-    <th class="th_ccell"><h4>INCOME MOD (BP)</h4></th>
-    <th class="th_ccell"><h4>UNREST MOD</h4></th>
     <th class="th_ccell"><h4></h4></th>
 {% endblock %}
 
 {% block table_body %}
-    {% for event in events %}
+    {% for settlement in settlements %}
         <tr>
-            <td class="tb_ccell">{{ event.name }}</td>
-            <td class="tb_ccell">{{ event.desc }}</td>
-            <td class="tb_ccell">{{ event.polity.name }}</td>
-            <td class="tb_ccell">{{ event.eco_bonus }}</td>
-            <td class="tb_ccell">{{ event.loy_bonus }}</td>
-            <td class="tb_ccell">{{ event.sta_bonus }}</td>
-            <td class="tb_ccell">{{ event.fam_bonus }}</td>
-            <td class="tb_ccell">{{ event.inf_bonus }}</td>
-            <td class="tb_ccell">{{ event.cor_bonus }}</td>
-            <td class="tb_ccell">{{ event.cri_bonus }}</td>
-            <td class="tb_ccell">{{ event.law_bonus }}</td>
-            <td class="tb_ccell">{{ event.lor_bonus }}</td>
-            <td class="tb_ccell">{{ event.pro_bonus }}</td>
-            <td class="tb_ccell">{{ event.soc_bonus }}</td>
-            <td class="tb_ccell">{{ event.def_bonus }}</td>
-            <td class="tb_ccell">{{ event.con_bonus }}</td>
-            <td class="tb_ccell">{{ event.inc_bonus }}</td>
-            <td class="tb_ccell">{{ event.unr_bonus }}</td>
+            <td class="tb_ccell">{{ settlement.territory.polity.name }}</td>
+            <td class="tb_ccell">{{ settlement.name }}</td>
             <td class="tb_ccell">
                 {% if user.is_authenticated %}
-                    <a class="btn btn-default" href="{% url 'events:event_edit' pk=event.pk %}">
+                    <a class="btn btn-default" href="{% url 'settlements:settlement_edit' pk=settlement.pk %}">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
-                    <a class="btn btn-default" href="{% url 'events:event_delete' pk=event.pk %}">
+                    <a class="btn btn-default" href="{% url 'settlements:settlement_delete' pk=settlement.pk %}">
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>
                 {% endif %}
@@ -60,7 +28,7 @@
 {% endblock %}
 
 {% block table_new_item %}
-    <a class="btn btn-default" href="{% url 'events:event_new' %}">
+    <a class="btn btn-default" href="{% url 'settlements:settlement_new' %}">
         <div><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;New</div>
     </a>
 {% endblock %}

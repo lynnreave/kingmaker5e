@@ -7,7 +7,7 @@ class TerritoryForm(forms.ModelForm):
     class Meta:
         model = Territory
         fields = (
-            'polity', 'type', 'features', 'improvements',
+            'hex', 'polity', 'type', 'features', 'improvements',
         )
 
 

@@ -75,4 +75,4 @@ class Territory(models.Model):
         return self.type.name
 
     def __str__(self):
-        return "%s (%s)" % (self.type, self.pk)
+        return "%s (%s)" % (self.hex, self.polity.name)

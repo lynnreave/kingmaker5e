@@ -60,3 +60,14 @@ class Building(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Settlement(models.Model):
+    territory = models.ForeignKey(
+        'territory.Territory', on_delete=models.CASCADE,
+        related_name='settlement', related_query_name='settlement'
+    )
+    name = models.CharField(max_length=default_max_length)
+
+    def __str__(self):
+        return self.name
