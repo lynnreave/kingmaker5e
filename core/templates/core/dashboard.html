@@ -3,7 +3,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="panel panel-primary" style="display: inline-block;">
+    <div class="panel panel-primary" style="margin: 0 auto; display: inline-block;">
         <div class="panel-heading">
             <h3 style="color: #ffffff; text-align: center; ">Polity Attributes</h3>
         </div>
@@ -157,102 +157,100 @@
                 </tbody>
             </table>
         </div>
-    </div>
-    <div class="panel panel-primary" style="display: inline-block;">
         <div class="panel-heading">
             <h3 style="color: #ffffff; text-align: center; ">Leadership</h3>
         </div>
         <div class="panel-body">
             <table width="100%">
-            <thead>
-                <tr>
-                    <th class="th_ccell"><h4>ROLE</h4></th>
-                    <th class="th_ccell"><h4>RANK</h4></th>
-                    <th class="th_ccell"><h4>PERSON</h4></th>
-                    <th class="th_ccell"><h4>BONUS</h4></th>
-                    <th class="th_ccell"><h4>ATTRIBUTE</h4></th>
-                    <th class="th_ccell"><h4></h4></th>
-                    <th class="th_ccell"><h4></h4></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for person in polity.leadership %}
+                <thead>
                     <tr>
-                        <td class="tb_lcell">{{ person.leadership_role }}</td>
-                        <td class="tb_ccell">
-                            {% if person.noble_rank is not None %}
-                                {% if person.gender.name == "Female" %}
-                                    {{ person.noble_rank.female_honorific }},&nbsp;
-                                {% else %}
-                                    {{ person.noble_rank.male_honorific }},&nbsp;
-                                {% endif %}
-                            {% endif %}
-
-                            <b>
-                            {% if person.noble_rank is not None %}
-                                {% if person.gender.name == "Female" %}
-                                    {{ person.noble_rank.female_title }}
-                                {% else %}
-                                    {{ person.noble_rank.male_title }}
-                                {% endif %}
-                            {% endif %}
-                            </b>
-                        </td>
-                        <td class="tb_ccell">
-                            {{ person.first_name }} {{ person.last_name }}
-                        </td>
-                        <td class="tb_ccell">{{ person.leadership_mod }}</td>
-                        <td class="tb_ccell">
-                            {% if person.leadership_role|title == "Ruler" %}
-                                {{ polity.ruler_attribute_1.name }}
-                            {% elif person.leadership_role|title == "Co-Ruler" %}
-                                {{ polity.ruler_attribute_1.name }}
-                            {% elif person.leadership_role|title == "Consort" %}
-                                Loyalty
-                            {% elif person.leadership_role|title == "Councilor" %}
-                                Loyalty
-                            {% elif person.leadership_role|title == "General" %}
-                                Stability
-                            {% elif person.leadership_role|title == "Grand Diplomat" %}
-                                Stability
-                            {% elif person.leadership_role|title == "Heir" %}
-                                Loyalty
-                            {% elif person.leadership_role|title == "High Priest" %}
-                                Stability
-                            {% elif person.leadership_role|title == "Magister" %}
-                                Economy
-                            {% elif person.leadership_role|title == "Marshal" %}
-                                Economy
-                            {% elif person.leadership_role|title == "Royal Enforcer" %}
-                                Loyalty
-                            {% elif person.leadership_role|title == "Spymaster" %}
-                                {{ polity.spymaster_attribute.name }}
-                            {% elif person.leadership_role|title == "Treasurer" %}
-                                Economy
-                            {% elif person.leadership_role|title == "Viceroy" %}
-                                Economy
-                            {% elif person.leadership_role|title == "Warden" %}
-                                Loyalty
-                            {% endif %}
-                        </td>
-                        <td class="tb_ccell">
-                            {% if person.leadership_role|title == "Ruler" %}
-                                {{ polity.ruler_attribute_2.name }}
-                            {% elif person.leadership_role|title == "Co-Ruler" %}
-                                {{ polity.ruler_attribute_2.name }}
-                            {% endif %}
-                        </td>
-                        <td class="tb_ccell">
-                            {% if person.leadership_role|title == "Ruler" %}
-                                {{ polity.ruler_attribute_3.name }}
-                            {% elif person.leadership_role|title == "Co-Ruler" %}
-                                {{ polity.ruler_attribute_3.name }}
-                            {% endif %}
-                        </td>
+                        <th class="th_ccell"><h4>ROLE</h4></th>
+                        <th class="th_ccell"><h4>RANK</h4></th>
+                        <th class="th_ccell"><h4>PERSON</h4></th>
+                        <th class="th_ccell"><h4>BONUS</h4></th>
+                        <th class="th_ccell"><h4>ATTRIBUTE</h4></th>
+                        <th class="th_ccell"><h4></h4></th>
+                        <th class="th_ccell"><h4></h4></th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for person in polity.leadership %}
+                        <tr>
+                            <td class="tb_lcell">{{ person.leadership_role }}</td>
+                            <td class="tb_ccell">
+                                {% if person.noble_rank is not None %}
+                                    {% if person.gender.name == "Female" %}
+                                        {{ person.noble_rank.female_honorific }},&nbsp;
+                                    {% else %}
+                                        {{ person.noble_rank.male_honorific }},&nbsp;
+                                    {% endif %}
+                                {% endif %}
+
+                                <b>
+                                {% if person.noble_rank is not None %}
+                                    {% if person.gender.name == "Female" %}
+                                        {{ person.noble_rank.female_title }}
+                                    {% else %}
+                                        {{ person.noble_rank.male_title }}
+                                    {% endif %}
+                                {% endif %}
+                                </b>
+                            </td>
+                            <td class="tb_ccell">
+                                {{ person.first_name }} {{ person.last_name }}
+                            </td>
+                            <td class="tb_ccell">{{ person.leadership_mod }}</td>
+                            <td class="tb_ccell">
+                                {% if person.leadership_role|title == "Ruler" %}
+                                    {{ polity.ruler_attribute_1.name }}
+                                {% elif person.leadership_role|title == "Co-Ruler" %}
+                                    {{ polity.ruler_attribute_1.name }}
+                                {% elif person.leadership_role|title == "Consort" %}
+                                    Loyalty
+                                {% elif person.leadership_role|title == "Councilor" %}
+                                    Loyalty
+                                {% elif person.leadership_role|title == "General" %}
+                                    Stability
+                                {% elif person.leadership_role|title == "Grand Diplomat" %}
+                                    Stability
+                                {% elif person.leadership_role|title == "Heir" %}
+                                    Loyalty
+                                {% elif person.leadership_role|title == "High Priest" %}
+                                    Stability
+                                {% elif person.leadership_role|title == "Magister" %}
+                                    Economy
+                                {% elif person.leadership_role|title == "Marshal" %}
+                                    Economy
+                                {% elif person.leadership_role|title == "Royal Enforcer" %}
+                                    Loyalty
+                                {% elif person.leadership_role|title == "Spymaster" %}
+                                    {{ polity.spymaster_attribute.name }}
+                                {% elif person.leadership_role|title == "Treasurer" %}
+                                    Economy
+                                {% elif person.leadership_role|title == "Viceroy" %}
+                                    Economy
+                                {% elif person.leadership_role|title == "Warden" %}
+                                    Loyalty
+                                {% endif %}
+                            </td>
+                            <td class="tb_ccell">
+                                {% if person.leadership_role|title == "Ruler" %}
+                                    {{ polity.ruler_attribute_2.name }}
+                                {% elif person.leadership_role|title == "Co-Ruler" %}
+                                    {{ polity.ruler_attribute_2.name }}
+                                {% endif %}
+                            </td>
+                            <td class="tb_ccell">
+                                {% if person.leadership_role|title == "Ruler" %}
+                                    {{ polity.ruler_attribute_3.name }}
+                                {% elif person.leadership_role|title == "Co-Ruler" %}
+                                    {{ polity.ruler_attribute_3.name }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}
