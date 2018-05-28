@@ -38,6 +38,7 @@ def buildings(request, settlement_id):
     obj_plural_s = b_plural
     obj_plural = b_plural.replace(' ', '_')
     settlement = Settlement.objects.get(pk=settlement_id)
+    get_settlement_details(settlement)
     items = b_obj.objects.filter(settlement=settlement).order_by('name')
     return render(
         request, '%s/%s.html' % (app_name, obj_plural),
@@ -53,14 +54,14 @@ def building_new(request, settlement_id):
     obj_name = b_name.replace(' ', '_')
     obj_plural = b_plural.replace(' ', '_')
     settlement = Settlement.objects.get(pk=settlement_id)
-    tgt = '%s:%s settlement_id=%s' % (app_name, obj_plural, settlement.pk)
+    tgt = "%s:%s" % (app_name, obj_plural)
     if request.method == "POST":
         form = b_form(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.settlement = settlement
             instance.save()
-            return redirect(tgt)
+            return redirect(tgt, settlement_id=settlement.pk)
     else:
         form = b_form()
     return render(
@@ -70,19 +71,19 @@ def building_new(request, settlement_id):
     )
 
 
-def building_edit(request, pk):
+def building_edit(request, pk, settlement_id):
     obj_name_s = b_name
     obj_name = b_name.replace(' ', '_')
     obj_plural = b_plural.replace(' ', '_')
     item = get_object_or_404(b_obj, pk=pk)
-    tgt = '%s:%s settlement_id=%s' % (app_name, obj_plural, item.settlement.pk)
+    tgt = "%s:%s" % (app_name, obj_plural)
     if request.method == "POST":
         form = b_form(request.POST, instance=item)
         if form.is_valid():
             instance = form.save(commit=False)
             instance.settlement = item.settlement
             instance.save()
-            return redirect(tgt)
+            return redirect(tgt, settlement_id=settlement_id)
     else:
         form = b_form(instance=item)
     return render(
@@ -90,9 +91,9 @@ def building_edit(request, pk):
     )
 
 
-def building_delete(request, pk):
+def building_delete(request, pk, settlement_id):
     obj_plural = b_plural.replace(' ', '_')
     item = get_object_or_404(b_obj, pk=pk)
-    tgt = '%s:%s settlement_id=%s' % (app_name, obj_plural, item.settlement.pk)
+    tgt = "%s:%s" % (app_name, obj_plural)
     item.delete()
-    return redirect(tgt)
+    return redirect(tgt, settlement_id=settlement_id)

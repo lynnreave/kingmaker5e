@@ -10,7 +10,7 @@ urlpatterns = [
     path('settlement/<int:pk>/edit/', views.settlement_edit, name='settlement_edit'),
     path('settlement/<int:pk>/delete/', views.settlement_delete, name='settlement_delete'),
     path(
-        'settlement/<int:settlement_id>/details/', views.buildings, name='settlement_details'
+        'settlement/<int:settlement_id>/details/', views.buildings, name='buildings'
     ),
     path(
         'settlement/<int:settlement_id>/add_building/', views.building_new, name='building_new'
