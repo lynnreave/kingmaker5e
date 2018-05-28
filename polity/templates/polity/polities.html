@@ -6,11 +6,11 @@
     <th class="th_ccell"><h4>NAME</h4></th>
     <th class="th_ccell"><h4>FORM OF GOVERNMENT</h4></th>
     <th class="th_ccell"><h4>ALIGNMENT</h4></th>
+    <th class="th_ccell"><h4>TAX LEVEL</h4></th>
+    <th class="th_ccell"><h4>ATTITUDE</h4></th>
+    <th class="th_ccell"><h4>HOLIDAY FREQUENCY</h4></th>
+    <th class="th_ccell"><h4>MILITARISM</h4></th>
     <th class="th_ccell"><h4>DESCRIPTION</h4></th>
-    <th class="th_ccell"><h4>RULER ATTRIBUTE 1</h4></th>
-    <th class="th_ccell"><h4>RULER ATTRIBUTE 2</h4></th>
-    <th class="th_ccell"><h4>RULER ATTRIBUTE 3</h4></th>
-    <th class="th_ccell"><h4>SPYMASTER ATTRIBUTE</h4></th>
     <th class="th_ccell"><h4></h4></th>
 {% endblock %}
 
@@ -26,11 +26,11 @@
                     {{ polity.alignment_lc.name }} {{ polity.alignment_ge.name }}
                 {% endif %}
             </td>
+            <td class="tb_ccell">{{ polity.tax_edict.tax_level }}</td>
+            <td class="tb_ccell">{{ polity.promotion_edict.attitude }}</td>
+            <td class="tb_ccell">{{ polity.holiday_edict.frequency }}</td>
+            <td class="tb_ccell">{{ polity.recruitment_edict.militarism }}</td>
             <td class="tb_ccell">{{ polity.desc }}</td>
-            <td class="tb_ccell">{{ polity.ruler_attribute_1.name }}</td>
-            <td class="tb_ccell">{{ polity.ruler_attribute_2.name }}</td>
-            <td class="tb_ccell">{{ polity.ruler_attribute_3.name }}</td>
-            <td class="tb_ccell">{{ polity.spymaster_attribute.name }}</td>
             <td class="tb_ccell">
                 {% if user.is_authenticated %}
                     <a class="btn btn-default" href="{% url 'polity:polity_edit' pk=polity.pk %}">

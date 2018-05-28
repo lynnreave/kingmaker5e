@@ -1,14 +1,19 @@
 from polity.models import Polity
 from .territory import get_territory_effects
+from .utils import get_signed_number
 
 
 class PolityAttribute:
     def __init__(self, name):
         self.name = name
         self.total = 0
+        self.total_dice = ""
+        self.dice = []
         self.source_summary = ""
         self.from_government = 0
         self.from_alignment = 0
+        self.from_edicts = 0
+        self.from_edicts_dice = []
         self.from_leadership = 0
         self.from_terrain = 0
 
@@ -17,24 +22,27 @@ class PolityAttribute:
             + self.from_government \
             + self.from_alignment \
             + self.from_leadership \
-            + self.from_terrain
+            + self.from_terrain \
+            + self.from_edicts
+        if len(self.dice) > 0:
+            self.total_dice = ' + ' + " + ".join(self.dice)
+
         sources = []
-        if self.from_government > 0:
-            sources.append("+%s from government" % self.from_government)
-        elif self.from_government < 0:
-            sources.append("-%s from government" % self.from_government)
-        if self.from_alignment > 0:
-            sources.append("+%s from alignment" % self.from_alignment)
-        elif self.from_alignment < 0:
-            sources.append("-%s from alignment" % self.from_alignment)
-        if self.from_leadership > 0:
-            sources.append("+%s from leadership" % self.from_leadership)
-        elif self.from_leadership < 0:
-            sources.append("-%s from leadership" % self.from_leadership)
-        if self.from_terrain > 0:
-            sources.append("+%s from terrain" % self.from_terrain)
-        elif self.from_terrain < 0:
-            sources.append("-%s from terrain" % self.from_terrain)
+        if self.from_government != 0:
+            sources.append("%s from government" % get_signed_number(self.from_government)['s'])
+        if self.from_alignment != 0:
+            sources.append("%s from alignment" % get_signed_number(self.from_alignment)['s'])
+
+        if self.from_edicts != 0 or len(self.from_edicts_dice) > 0:
+            s = ''
+            if self.from_edicts != 0: s += ' %s' % get_signed_number(self.from_edicts)['s']
+            if len(self.from_edicts_dice) > 0:
+                s += ' + ' + " + ".join(self.from_edicts_dice)
+            sources.append(s + ' from edicts')
+        if self.from_leadership != 0:
+            sources.append("%s from leadership" % get_signed_number(self.from_leadership)['s'])
+        if self.from_terrain != 0:
+            sources.append("%s from terrain" % get_signed_number(self.from_terrain)['s'])
         self.source_summary = ", ".join(sources)
 
 
@@ -89,6 +97,8 @@ def get_polity_details(id):
     apply_alignment_modifiers(polity)
     # apply government bonuses
     apply_government_modifiers(polity)
+    # apply edict modifiers
+    apply_edict_modifiers(polity)
     # apply terrain modifiers
     apply_terrain_modifiers(polity)
     # apply leadership modifiers
@@ -153,6 +163,42 @@ def apply_government_modifiers(polity):
     polity.lore.from_government += polity.government.lor_bonus
     polity.productivity.from_government += polity.government.pro_bonus
     polity.society.from_government += polity.government.soc_bonus
+    return {}
+
+
+def apply_edict_modifiers(polity):
+    # tax edict
+    polity.economy.from_edicts += polity.tax_edict.eco_bonus
+    polity.loyalty.from_edicts += polity.tax_edict.loy_bonus
+    # promotion edict
+    polity.economy.from_edicts += polity.promotion_edict.eco_bonus
+    polity.loyalty.from_edicts += polity.promotion_edict.loy_bonus
+    polity.stability.from_edicts += polity.promotion_edict.sta_bonus
+    if polity.promotion_edict.con_dice is not None:
+        dice_s = 'd'.join(
+            [str(polity.promotion_edict.con_bonus), str(polity.promotion_edict.con_dice)]
+        )
+        polity.consumption.dice.append(dice_s)
+        polity.consumption.from_edicts_dice.append(dice_s)
+    else:
+        polity.consumption.from_edicts += polity.promotion_edict.con_bonus
+    # holiday edict
+    polity.economy.from_edicts += polity.holiday_edict.eco_bonus
+    polity.loyalty.from_edicts += polity.holiday_edict.loy_bonus
+    if polity.holiday_edict.con_dice is not None:
+        dice_s = 'd'.join(
+            [str(polity.holiday_edict.con_bonus), str(polity.holiday_edict.con_dice)]
+        )
+        polity.consumption.dice.append(dice_s)
+        polity.consumption.from_edicts_dice.append(dice_s)
+    else:
+        polity.consumption.from_edicts += polity.holiday_edict.con_bonus
+    # recruitment edict
+    polity.fame.from_edicts += polity.recruitment_edict.fam_bonus
+    polity.infamy.from_edicts += polity.recruitment_edict.inf_bonus
+    polity.defense.from_edicts += polity.recruitment_edict.def_bonus
+    polity.economy.from_edicts += polity.recruitment_edict.eco_bonus
+    polity.society.from_edicts += polity.recruitment_edict.soc_bonus
     return {}
 
 

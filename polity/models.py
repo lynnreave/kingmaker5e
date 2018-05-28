@@ -111,6 +111,18 @@ class Polity(models.Model):
     treasury = models.IntegerField(default=0)
     unrest = models.IntegerField(default=0)
     desc = models.TextField(default="", blank=True)
+    tax_edict = models.ForeignKey(
+        'core.TaxEdict', on_delete=models.CASCADE,
+        related_name='polity', related_query_name='polity')
+    promotion_edict = models.ForeignKey(
+        'core.PromotionEdict', on_delete=models.CASCADE,
+        related_name='polity', related_query_name='polity')
+    holiday_edict = models.ForeignKey(
+        'core.HolidayEdict', on_delete=models.CASCADE,
+        related_name='polity', related_query_name='polity')
+    recruitment_edict = models.ForeignKey(
+        'core.RecruitmentEdict', on_delete=models.CASCADE,
+        related_name='polity', related_query_name='polity')
     ruler_attribute_1 = models.ForeignKey(
         Attribute, on_delete=models.CASCADE, null=True, blank=True,
         related_name='polity_ruler_1', related_query_name='polity_ruler_1')

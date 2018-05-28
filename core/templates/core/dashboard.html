@@ -42,7 +42,7 @@
                         <td class="tb_ccell">{{ polity.size.total }}</td>
                     </tr>
                     <tr>
-                        <td class="tb_lcell">{{ polity.size.source_summary }}</td>
+                        <td class="tb_ccell">{{ polity.size.source_summary }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -116,7 +116,7 @@
                     </tr>
                     <tr>
                         <td class="tb_lcell"><h4>REVENUE DIVISOR</h4></td>
-                        <td class="tb_ccell"></td>
+                        <td class="tb_ccell">{{ polity.tax_edict.revenue_divisor }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -144,10 +144,15 @@
                         <td class="tb_ccell"><h4>CONSUMPTION</h4></td>
                     </tr>
                     <tr>
-                        <td class="tb_ccell">{{ polity.consumption.total }}</td>
+                        <td class="tb_ccell">
+                            {{ polity.consumption.total }}
+                            {% if polity.consumption.total_dice != '' %}
+                                {{ polity.consumption.total_dice }}
+                            {% endif %}
+                        </td>
                     </tr>
                     <tr>
-                        <td class="tb_lcell">{{ polity.consumption.source_summary }}</td>
+                        <td class="tb_ccell">{{ polity.consumption.source_summary }}</td>
                     </tr>
                 </tbody>
             </table>
