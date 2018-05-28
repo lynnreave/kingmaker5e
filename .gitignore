@@ -107,3 +107,8 @@ venv.bak/
 /.idea/modules.xml
 /.idea/vcs.xml
 /.idea/workspace.xml
+/db.sqlite3-journal
+/file.dmp
+/sqldiff.exe
+/sqlite3.exe
+/sqlite3_analyzer.exe

@@ -24,7 +24,7 @@ class BuildingType(models.Model):
     lots = models.IntegerField(default=1)
     pop_bonus = models.IntegerField(default=0)
     required_settlement_type = models.ForeignKey(
-        Type, on_delete=models.CASCADE,
+        Type, on_delete=models.CASCADE, default=1,
         related_name='building_type', related_query_name='building_type',
         null=True, blank=True,
     )
