@@ -17,13 +17,17 @@ class PolityAttribute:
         self.from_leadership = 0
         self.from_terrain = 0
 
+
+        self.from_events = 0
+
     def get_total(self):
         self.total = 0 \
             + self.from_government \
             + self.from_alignment \
             + self.from_leadership \
             + self.from_terrain \
-            + self.from_edicts
+            + self.from_edicts \
+            + self.from_events
         if len(self.dice) > 0:
             self.total_dice = ' + ' + " + ".join(self.dice)
 
@@ -43,6 +47,9 @@ class PolityAttribute:
             sources.append("%s from leadership" % get_signed_number(self.from_leadership)['s'])
         if self.from_terrain != 0:
             sources.append("%s from terrain" % get_signed_number(self.from_terrain)['s'])
+
+        if self.from_events != 0:
+            sources.append("%s from events" % get_signed_number(self.from_events)['s'])
         self.source_summary = ", ".join(sources)
 
 
@@ -107,6 +114,8 @@ def get_polity_details(id):
     apply_settlement_modifiers(polity)
     # apply military modifiers
     apply_military_modifiers(polity)
+    # apply event modifiers
+    apply_event_modifiers(polity)
     # calculate total major attributes
     polity.economy.get_total()
     polity.loyalty.get_total()
@@ -314,6 +323,27 @@ def apply_settlement_modifiers(polity):
 
 
 def apply_military_modifiers(polity):
+    return {}
+
+
+def apply_event_modifiers(polity):
+    events = polity.event.all()
+    for event in events:
+        polity.economy.from_events += event.eco_bonus
+        polity.loyalty.from_events += event.loy_bonus
+        polity.stability.from_events += event.sta_bonus
+        polity.fame.from_events += event.fam_bonus
+        polity.infamy.from_events += event.inf_bonus
+        polity.corruption.from_events += event.cor_bonus
+        polity.crime.from_events += event.cri_bonus
+        polity.law.from_events += event.law_bonus
+        polity.lore.from_events += event.lor_bonus
+        polity.productivity.from_events += event.pro_bonus
+        polity.society.from_events += event.soc_bonus
+        polity.defense.from_events += event.def_bonus
+        polity.consumption.from_events += event.con_bonus
+        polity.income.from_events += event.inc_bonus
+        polity.unrest_mod.from_events += event.unr_bonus
     return {}
 
 

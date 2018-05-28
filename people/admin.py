@@ -12,8 +12,6 @@ class CustomModelAdmin(admin.ModelAdmin):
         self.list_display = [field.name for field in model._meta.fields if field.name != "id"]
         super(CustomModelAdmin, self).__init__(model, admin_site)
 
-# Register your models here.
-
 
 admin.site.register(Person, CustomModelAdmin)
 admin.site.register(Award, CustomModelAdmin)
