@@ -1,8 +1,5 @@
 from django.contrib import admin
-from .models import Territory
-from .models import Type
-from .models import Feature
-from .models import Improvement
+from .models import Building, Type
 
 
 class CustomModelAdmin(admin.ModelAdmin):
@@ -12,7 +9,5 @@ class CustomModelAdmin(admin.ModelAdmin):
         super(CustomModelAdmin, self).__init__(model, admin_site)
 
 
-admin.site.register(Territory, CustomModelAdmin)
+admin.site.register(Building, CustomModelAdmin)
 admin.site.register(Type, CustomModelAdmin)
-admin.site.register(Feature, CustomModelAdmin)
-admin.site.register(Improvement, CustomModelAdmin)

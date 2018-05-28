@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+{% extends 'settlements/base.html' %}
+
+{% block content %}
+    <div class="well well-large">
+        <h1>{{ object }}</h1>
+        <form method="POST">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+    </div>
+{% endblock %}

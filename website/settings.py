@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'events',
     'people',
     'polity',
+    'settlements',
     'territory',
 ]
 

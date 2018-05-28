@@ -27,5 +27,6 @@ urlpatterns = [
     path('events/', include('events.urls')),
     path('polity/', include('polity.urls')),
     path('people/', include('people.urls')),
+    path('settlements/', include('settlements.urls')),
     path('territory/', include('territory.urls')),
 ]
