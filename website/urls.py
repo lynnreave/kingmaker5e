@@ -23,6 +23,7 @@ urlpatterns = [
     path('login/', auth_views.login, name='login'),
     path('logout/', auth_views.logout, {'next_page': 'core:home'}, name='logout'),
     path('admin/', admin.site.urls),
+    path('diplomacy/', include('diplomacy.urls')),
     path('events/', include('events.urls')),
     path('polity/', include('polity.urls')),
     path('people/', include('people.urls')),

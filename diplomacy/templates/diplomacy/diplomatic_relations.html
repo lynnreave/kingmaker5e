@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+{% extends 'diplomacy/base.html' %}
+
+{% block table_header %}
+    <th class="th_ccell"><h4>HOLDER</h4></th>
+    <th class="th_ccell"><h4>TARGET</h4></th>
+    <th class="th_ccell"><h4>ATTITUDE</h4></th>
+    <th class="th_ccell"><h4>SIZE</h4></th>
+    <th class="th_ccell"><h4>ECONOMY</h4></th>
+    <th class="th_ccell"><h4>STABILITY</h4></th>
+    <th class="th_ccell"><h4>TREATIES</h4></th>
+    <th class="th_ccell"><h4>BASE DIPLOMATIC DC</h4></th>
+    <th class="th_ccell"><h4></h4></th>
+{% endblock %}
+
+{% block table_body %}
+    {% for diplomatic_relation in diplomatic_relations %}
+        <tr>
+            <td class="tb_ccell">{{ diplomatic_relation.holder }}</td>
+            <td class="tb_ccell">{{ diplomatic_relation.target }}</td>
+            <td class="tb_ccell">
+                {% if diplomatic_relation.attitude is not None %}
+                    {{ diplomatic_relation.attitude.name }}
+                {% else %}
+                    Unknown
+                {% endif %}
+            </td>
+            <td class="tb_ccell">
+                {% if diplomatic_relation.size is not None %}
+                    {{ diplomatic_relation.size }}
+                {% else %}
+                    Unknown
+                {% endif %}
+            </td>
+            <td class="tb_ccell">
+                {% if diplomatic_relation.economy is not None %}
+                    {{ diplomatic_relation.economy }}
+                {% else %}
+                    Unknown
+                {% endif %}
+            </td>
+            <td class="tb_ccell">
+                {% if diplomatic_relation.stability is not None %}
+                    {{ diplomatic_relation.stability }}
+                {% else %}
+                    Unknown
+                {% endif %}
+            </td>
+            <td class="tb_ccell">
+                {% if diplomatic_relation.treaties.all %}
+                    {{ diplomatic_relation.treaties.all|join:", " }}
+                {% else %}
+                    None
+                {% endif %}
+            </td>
+            <td class="tb_ccell">{{ diplomatic_relation.dc }}</td>
+            <td class="tb_ccell">
+                {% if user.is_authenticated %}
+                    <a class="btn btn-default" href="{% url 'diplomacy:diplomatic_relation_edit' pk=diplomatic_relation.pk %}">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a class="btn btn-default" href="{% url 'diplomacy:diplomatic_relation_delete' pk=diplomatic_relation.pk %}">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block table_new_item %}
+    <a class="btn btn-default" href="{% url 'diplomacy:diplomatic_relation_new' %}">
+        <div><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;New</div>
+    </a>
+{% endblock %}

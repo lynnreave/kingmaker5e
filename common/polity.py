@@ -1,6 +1,7 @@
 from polity.models import Polity
 from .territory import get_territory_effects
 from .utils import get_signed_number
+import math
 
 
 class PolityAttribute:
@@ -16,6 +17,7 @@ class PolityAttribute:
         self.from_edicts_dice = []
         self.from_leadership = 0
         self.from_terrain = 0
+        self.from_diplomacy = 0
 
 
         self.from_events = 0
@@ -27,7 +29,9 @@ class PolityAttribute:
             + self.from_leadership \
             + self.from_terrain \
             + self.from_edicts \
+            + self.from_diplomacy \
             + self.from_events
+        self.total = math.floor(self.total)
         if len(self.dice) > 0:
             self.total_dice = ' + ' + " + ".join(self.dice)
 
@@ -47,6 +51,8 @@ class PolityAttribute:
             sources.append("%s from leadership" % get_signed_number(self.from_leadership)['s'])
         if self.from_terrain != 0:
             sources.append("%s from terrain" % get_signed_number(self.from_terrain)['s'])
+        if self.from_diplomacy != 0:
+            sources.append("%s from diplomacy" % get_signed_number(self.from_diplomacy)['s'])
 
         if self.from_events != 0:
             sources.append("%s from events" % get_signed_number(self.from_events)['s'])
@@ -110,6 +116,8 @@ def get_polity_details(id):
     apply_terrain_modifiers(polity)
     # apply leadership modifiers
     apply_leadership_modifiers(polity)
+    # apply diplomacy modifiers
+    apply_diplomacy_modifiers(polity)
     # apply settlement modifiers
     apply_settlement_modifiers(polity)
     # apply military modifiers
@@ -160,18 +168,16 @@ def apply_alignment_modifiers(polity):
     return {}
 
 
-def apply_government_modifiers(polity):
-    polity.economy.from_government += polity.government.eco_bonus
-    polity.loyalty.from_government += polity.government.loy_bonus
-    polity.stability.from_government += polity.government.sta_bonus
-    polity.fame.from_government += polity.government.fam_bonus
-    polity.infamy.from_government += polity.government.inf_bonus
-    polity.corruption.from_government += polity.government.cor_bonus
-    polity.crime.from_government += polity.government.cri_bonus
-    polity.law.from_government += polity.government.law_bonus
-    polity.lore.from_government += polity.government.lor_bonus
-    polity.productivity.from_government += polity.government.pro_bonus
-    polity.society.from_government += polity.government.soc_bonus
+def apply_diplomacy_modifiers(polity):
+    diplomatic_relations = polity.diplomatic_relation.all()
+    for diplomatic_relation in diplomatic_relations:
+        for treaty in diplomatic_relation.treaties.all():
+            polity.economy.from_diplomacy += (
+                    treaty.eco_mult * diplomatic_relation.economy
+            )
+            polity.stability.from_diplomacy += (
+                    treaty.sta_mult * diplomatic_relation.stability
+            )
     return {}
 
 
@@ -208,6 +214,42 @@ def apply_edict_modifiers(polity):
     polity.defense.from_edicts += polity.recruitment_edict.def_bonus
     polity.economy.from_edicts += polity.recruitment_edict.eco_bonus
     polity.society.from_edicts += polity.recruitment_edict.soc_bonus
+    return {}
+
+
+def apply_event_modifiers(polity):
+    events = polity.event.all()
+    for event in events:
+        polity.economy.from_events += event.eco_bonus
+        polity.loyalty.from_events += event.loy_bonus
+        polity.stability.from_events += event.sta_bonus
+        polity.fame.from_events += event.fam_bonus
+        polity.infamy.from_events += event.inf_bonus
+        polity.corruption.from_events += event.cor_bonus
+        polity.crime.from_events += event.cri_bonus
+        polity.law.from_events += event.law_bonus
+        polity.lore.from_events += event.lor_bonus
+        polity.productivity.from_events += event.pro_bonus
+        polity.society.from_events += event.soc_bonus
+        polity.defense.from_events += event.def_bonus
+        polity.consumption.from_events += event.con_bonus
+        polity.income.from_events += event.inc_bonus
+        polity.unrest_mod.from_events += event.unr_bonus
+    return {}
+
+
+def apply_government_modifiers(polity):
+    polity.economy.from_government += polity.government.eco_bonus
+    polity.loyalty.from_government += polity.government.loy_bonus
+    polity.stability.from_government += polity.government.sta_bonus
+    polity.fame.from_government += polity.government.fam_bonus
+    polity.infamy.from_government += polity.government.inf_bonus
+    polity.corruption.from_government += polity.government.cor_bonus
+    polity.crime.from_government += polity.government.cri_bonus
+    polity.law.from_government += polity.government.law_bonus
+    polity.lore.from_government += polity.government.lor_bonus
+    polity.productivity.from_government += polity.government.pro_bonus
+    polity.society.from_government += polity.government.soc_bonus
     return {}
 
 
@@ -302,6 +344,14 @@ def apply_leadership_modifiers(polity):
     return {}
 
 
+def apply_military_modifiers(polity):
+    return {}
+
+
+def apply_settlement_modifiers(polity):
+    return {}
+
+
 def apply_terrain_modifiers(polity):
     territories = polity.territory.all()
     get_territory_effects(territories)
@@ -315,35 +365,6 @@ def apply_terrain_modifiers(polity):
         polity.income.from_terrain += territory.inc_bonus
         polity.unrest_mod.from_terrain += territory.unr_bonus
     polity.size.from_terrain += len(territories)
-    return {}
-
-
-def apply_settlement_modifiers(polity):
-    return {}
-
-
-def apply_military_modifiers(polity):
-    return {}
-
-
-def apply_event_modifiers(polity):
-    events = polity.event.all()
-    for event in events:
-        polity.economy.from_events += event.eco_bonus
-        polity.loyalty.from_events += event.loy_bonus
-        polity.stability.from_events += event.sta_bonus
-        polity.fame.from_events += event.fam_bonus
-        polity.infamy.from_events += event.inf_bonus
-        polity.corruption.from_events += event.cor_bonus
-        polity.crime.from_events += event.cri_bonus
-        polity.law.from_events += event.law_bonus
-        polity.lore.from_events += event.lor_bonus
-        polity.productivity.from_events += event.pro_bonus
-        polity.society.from_events += event.soc_bonus
-        polity.defense.from_events += event.def_bonus
-        polity.consumption.from_events += event.con_bonus
-        polity.income.from_events += event.inc_bonus
-        polity.unrest_mod.from_events += event.unr_bonus
     return {}
 
 

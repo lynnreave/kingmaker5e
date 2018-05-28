@@ -1,5 +1,3 @@
-
-
 def get_territory_effects(territories):
     for territory in territories:
         # set base by type of terrain
