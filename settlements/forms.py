@@ -1,5 +1,5 @@
 from django import forms
-from .models import Settlement
+from .models import Settlement, Building
 
 
 class SettlementForm(forms.ModelForm):
@@ -7,5 +7,14 @@ class SettlementForm(forms.ModelForm):
     class Meta:
         model = Settlement
         fields = (
-            'name', 'territory',
+            'name', 'territory', 'districts'
+        )
+
+
+class BuildingForm(forms.ModelForm):
+
+    class Meta:
+        model = Building
+        fields = (
+            'name', 'type', 'lots'
         )

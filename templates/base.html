@@ -20,6 +20,13 @@
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
+    <script>
+        jQuery(document).ready(function($) {
+            $(".clickable-row").click(function() {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
 
     <!-- display page title -->
     <title>Kingmaker5E</title>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+{% extends 'settlements/base.html' %}
+
+{% block table_header %}
+    <th><h4>NAME</h4></th>
+    <th><h4>TYPE</h4></th>
+    <th><h4></h4></th>
+{% endblock %}
+
+{% block table_body %}
+    {% for building in settlement.buildings %}
+        <tr class="clickable-row" style="cursor: pointer;" data-href="{% url 'settlements:building_edit' pk=building.pk %}">
+            <td>{{ building.name }}</td>
+            <td>{{ settlement.type.name }}</td>
+            <td>
+                {% if user.is_authenticated %}
+                    <a class="btn btn-default" href="{% url 'settlements:building_delete' pk=building.pk %}">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block table_new_item %}
+    <a class="btn btn-default" href="{% url 'settlements:building_new' settlement_id=settlement_id %}">
+        <div><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;Add</div>
+    </a>
+{% endblock %}
