@@ -7,7 +7,7 @@ class SettlementForm(forms.ModelForm):
     class Meta:
         model = Settlement
         fields = (
-            'name', 'territory', 'districts'
+            'name', 'territory', 'districts', 'capital'
         )
 
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 {% extends 'settlements/base.html' %}
+{% load staticfiles %}
 
 {% block table_header %}
     <th><h4>OWNER</h4></th>
@@ -8,6 +9,7 @@
     <th><h4>TYPE</h4></th>
     <th><h4>DISTRICTS</h4></th>
     <th><h4>LOTS</h4></th>
+    <th><h4>SUMMARY</h4></th>
     <th><h4></h4></th>
 {% endblock %}
 
@@ -15,10 +17,22 @@
     {% for settlement in settlements %}
         <tr class="clickable-row" style="cursor: pointer;" data-href="{% url 'settlements:buildings' settlement_id=settlement.pk %}">
             <td>{{ settlement.territory.polity.name }}</td>
-            <td>{{ settlement.name }}</td>
+            <td>
+                {% if settlement.capital %}
+                    <div>
+                        <img src="{% static 'img/glyphicons-halflings-211-king.png' %}" alt="My image"/>
+                    <b>{{ settlement.name }}</b>
+                    </div>
+                {% else %}
+                    <div>
+                    {{ settlement.name }}
+                    </div>
+                {% endif %}
+            </td>
             <td>{{ settlement.type.name }}</td>
             <td>{{ settlement.districts }}</td>
             <td>{{ settlement.lots }}</td>
+            <td>{{ settlement.att_summary }}</td>
             <td>
                 {% if user.is_authenticated %}
                     <a class="btn btn-default" href="{% url 'settlements:settlement_edit' pk=settlement.pk %}">

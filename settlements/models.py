@@ -92,6 +92,7 @@ class Settlement(models.Model):
     )
     name = models.CharField(max_length=default_max_length)
     districts = models.IntegerField(default=0)
+    capital = models.BooleanField(default=False)
 
     def __str__(self):
         return "%s (%s)" % (self.name, self.territory.polity.name)
