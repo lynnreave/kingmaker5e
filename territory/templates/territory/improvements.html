@@ -5,9 +5,12 @@
 {% block table_header %}
     <th class="th_ccell"><h4>NAME</h4></th>
     <th class="th_ccell"><h4>POPULATION BONUS</h4></th>
+    <th class="th_ccell"><h4>DANGER BONUS</h4></th>
     <th class="th_ccell"><h4>ECONOMY BONUS</h4></th>
     <th class="th_ccell"><h4>LOYALTY BONUS</h4></th>
     <th class="th_ccell"><h4>STABILITY BONUS</h4></th>
+    <th class="th_ccell"><h4>FAME BONUS</h4></th>
+    <th class="th_ccell"><h4>INFAMY BONUS</h4></th>
     <th class="th_ccell"><h4>DEFENSE BONUS</h4></th>
     <th class="th_ccell"><h4>CONSUMPTION (BP)</h4></th>
     <th class="th_ccell"><h4>INCOME BONUS (BP)</h4></th>
@@ -23,9 +26,12 @@
         <tr>
             <td class="tb_ccell">{{ improvement.name }}</td>
             <td class="tb_ccell">{{ improvement.pop_bonus }}</td>
+            <td class="tb_ccell">{{ improvement.dan_bonus }}</td>
             <td class="tb_ccell">{{ improvement.eco_bonus }}</td>
             <td class="tb_ccell">{{ improvement.loy_bonus }}</td>
             <td class="tb_ccell">{{ improvement.sta_bonus }}</td>
+            <td class="tb_ccell">{{ improvement.fam_bonus }}</td>
+            <td class="tb_ccell">{{ improvement.inf_bonus }}</td>
             <td class="tb_ccell">{{ improvement.def_bonus }}</td>
             <td class="tb_ccell">{{ improvement.con_bonus }}</td>
             <td class="tb_ccell">{{ improvement.inc_bonus }}</td>

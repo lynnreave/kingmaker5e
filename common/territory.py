@@ -1,5 +1,5 @@
 from .settlements import get_settlement_details
-from settlements.models import Settlement
+from .utils import get_effects_summary
 
 
 def get_territory_effects(territories):
@@ -10,6 +10,14 @@ def get_territory_effects(territories):
         territory.eco_bonus = 0
         territory.loy_bonus = 0
         territory.sta_bonus = 0
+        territory.fam_bonus = 0
+        territory.inf_bonus = 0
+        territory.cor_bonus = 0
+        territory.cri_bonus = 0
+        territory.law_bonus = 0
+        territory.lor_bonus = 0
+        territory.pro_bonus = 0
+        territory.soc_bonus = 0
         territory.def_bonus = 0
         territory.con_bonus = 0
         territory.inc_bonus = 0
@@ -25,14 +33,19 @@ def get_territory_effects(territories):
         has_resource = False
         has_farm = False
         has_fishery = False
+        has_automatons = False
+        has_deathless = False
         improvements = []
 
         # add bonuses from each improvement
         for improvement in territory.improvements.all():
             territory.pop_bonus += improvement.pop_bonus
+            territory.dan_bonus += improvement.dan_bonus
             territory.eco_bonus += improvement.eco_bonus
             territory.loy_bonus += improvement.loy_bonus
             territory.sta_bonus += improvement.sta_bonus
+            territory.fam_bonus += improvement.fam_bonus
+            territory.inf_bonus += improvement.inf_bonus
             territory.def_bonus += improvement.def_bonus
             territory.con_bonus += improvement.con_bonus
             territory.inc_bonus += improvement.inc_bonus
@@ -46,6 +59,8 @@ def get_territory_effects(territories):
             if improvement.name.lower() == 'fishery': has_fishery = True
             if improvement.name.lower() in ['mine', 'quarry', 'sawmill']:
                 improvements.append(improvement)
+            if improvement.name.lower() == 'animated automation': has_automatons = True
+            if improvement.name.lower() == 'deathless laborers': has_deathless = True
 
         # add bonuses from each feature
         for feature in territory.features.all():
@@ -79,20 +94,12 @@ def get_territory_effects(territories):
                 if improvement.sta_bonus != 0: territory.sta_bonus += 1
                 if improvement.def_bonus != 0: territory.def_bonus += 1
                 if improvement.inc_bonus != 0: territory.inc_bonus += 1
+                if has_automatons or has_deathless: territory.inc_bonus += 1
         if has_resource and (has_farm or has_fishery): territory.con_bonus -= 1
+        if (has_automatons or has_deathless) and (has_farm or has_fishery):
+            territory.con_bonus -= 1
 
         # build effects summary
-        effects = []
-        t = 0
-        if territory.pop_bonus != t: effects.append('pop +%s' % territory.pop_bonus)
-        if territory.dan_bonus != t: effects.append('danger +%s' % territory.dan_bonus)
-        if territory.eco_bonus != t: effects.append('economy +%s' % territory.eco_bonus)
-        if territory.loy_bonus != t: effects.append('loyalty +%s' % territory.loy_bonus)
-        if territory.sta_bonus != t: effects.append('stability +%s' % territory.sta_bonus)
-        if territory.def_bonus != t: effects.append('defense +%s' % territory.def_bonus)
-        if territory.con_bonus != t: effects.append('consumption %s' % territory.con_bonus)
-        if territory.inc_bonus != t: effects.append('income %s' % territory.inc_bonus)
-        if territory.unr_bonus != t: effects.append('unrest %s' % territory.unr_bonus)
-        territory.effects_summary = ', '.join(effects)
+        territory.effects_summary = get_effects_summary(territory)
 
     return {'territories': territories}

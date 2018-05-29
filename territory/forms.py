@@ -37,7 +37,8 @@ class ImprovementForm(forms.ModelForm):
     class Meta:
         model = Improvement
         fields = (
-            'name', 'pop_bonus', 'eco_bonus', 'loy_bonus', 'sta_bonus', 'def_bonus',
+            'name', 'pop_bonus', 'dan_bonus','eco_bonus', 'loy_bonus', 'sta_bonus',
+            'fam_bonus', 'inf_bonus', 'def_bonus',
             'con_bonus', 'inc_bonus', 'unr_bonus', 'cost_per_month', 'construction_time',
             'exclusive', 'desc',
         )

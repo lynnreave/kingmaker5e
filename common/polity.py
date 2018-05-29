@@ -478,6 +478,14 @@ def apply_terrain_modifiers(polity):
         polity.economy.from_terrain += territory.eco_bonus
         polity.loyalty.from_terrain += territory.loy_bonus
         polity.stability.from_terrain += territory.sta_bonus
+        polity.fame.from_terrain += territory.fam_bonus
+        polity.infamy.from_terrain += territory.inf_bonus
+        polity.corruption.from_terrain += territory.cor_bonus
+        polity.crime.from_terrain += territory.cri_bonus
+        polity.law.from_terrain += territory.law_bonus
+        polity.lore.from_terrain += territory.lor_bonus
+        polity.productivity.from_terrain += territory.pro_bonus
+        polity.society.from_terrain += territory.soc_bonus
         polity.defense.from_terrain += territory.def_bonus
         polity.consumption.from_terrain += territory.con_bonus
         polity.income.from_terrain += territory.inc_bonus

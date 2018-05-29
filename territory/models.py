@@ -36,9 +36,12 @@ class Feature(models.Model):
 class Improvement(models.Model):
     name = models.CharField(max_length=default_max_length)
     pop_bonus = models.IntegerField(default=0)
+    dan_bonus = models.IntegerField(default=0)
     eco_bonus = models.FloatField(default=0)
     loy_bonus = models.FloatField(default=0)
     sta_bonus = models.FloatField(default=0)
+    fam_bonus = models.IntegerField(default=0)
+    inf_bonus = models.IntegerField(default=0)
     def_bonus = models.IntegerField(default=0)
     con_bonus = models.IntegerField(default=0)
     inc_bonus = models.IntegerField(default=0)
