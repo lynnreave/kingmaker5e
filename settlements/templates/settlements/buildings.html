@@ -10,6 +10,7 @@
     <th><h4>NAME</h4></th>
     <th><h4>TYPE</h4></th>
     <th><h4>LOTS</h4></th>
+    <th><h4>ENHANCEMENTS</h4></th>
     <th><h4>EFFECTS</h4></th>
     <th><h4></h4></th>
 {% endblock %}
@@ -26,6 +27,7 @@
                     {{ building.type.lots }}
                 {% endif %}
             </td>
+            <td>{{ building.enhancements_list|join:", " }}</td>
             <td>{{ building.effects_summary }}</td>
             <td>
                 {% if user.is_authenticated %}

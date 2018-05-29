@@ -365,49 +365,104 @@ def apply_settlement_modifiers(polity):
         polity.size.from_settlements += settlement.districts
         polity.population.from_settlements += settlement.population
         # economy
+        bonus = 0
         if settlement.economy > 0:
             bonus = settlement.economy + settlement.type.att_mod
-            if bonus > 0: polity.economy.from_settlements += bonus
+            if bonus < 0: bonus = 0
+        elif settlement.economy < 0:
+            bonus = settlement.economy - settlement.type.att_mod
+            if bonus > 0: bonus = 0
+        if bonus != 0: polity.economy.from_settlements += bonus
         # loyalty
+        bonus = 0
         if settlement.loyalty > 0:
             bonus = settlement.loyalty + settlement.type.att_mod
-            if bonus > 0: polity.loyalty.from_settlements += bonus
+            if bonus < 0: bonus = 0
+        elif settlement.loyalty < 0:
+            bonus = settlement.loyalty - settlement.type.att_mod
+            if bonus > 0: bonus = 0
+        if bonus != 0: polity.loyalty.from_settlements += bonus
         # stability
+        bonus = 0
         if settlement.stability > 0:
             bonus = settlement.stability + settlement.type.att_mod
-            if bonus > 0: polity.stability.from_settlements += bonus
+            if bonus < 0: bonus = 0
+        elif settlement.stability < 0:
+            bonus = settlement.stability - settlement.type.att_mod
+            if bonus > 0: bonus = 0
+        if bonus != 0: polity.stability.from_settlements += bonus
         # fame
+        bonus = 0
         if settlement.fame > 0:
             bonus = settlement.fame + settlement.type.att_mod
-            if bonus > 0: polity.fame.from_settlements += bonus
+            if bonus < 0: bonus = 0
+        elif settlement.fame < 0:
+            bonus = settlement.fame - settlement.type.att_mod
+            if bonus > 0: bonus = 0
+        if bonus != 0: polity.fame.from_settlements += bonus
         # infamy
+        bonus = 0
         if settlement.infamy > 0:
             bonus = settlement.infamy + settlement.type.att_mod
-            if bonus > 0: polity.infamy.from_settlements += bonus
+            if bonus < 0: bonus = 0
+        elif settlement.infamy < 0:
+            bonus = settlement.infamy - settlement.type.att_mod
+            if bonus > 0: bonus = 0
+        if bonus != 0: polity.infamy.from_settlements += bonus
         # corruption
+        bonus = 0
         if settlement.corruption > 0:
             bonus = settlement.corruption + settlement.type.att_mod
-            if bonus > 0: polity.corruption.from_settlements += bonus
+            if bonus < 0: bonus = 0
+        elif settlement.corruption < 0:
+            bonus = settlement.corruption - settlement.type.att_mod
+            if bonus > 0: bonus = 0
+        if bonus != 0: polity.corruption.from_settlements += bonus
         # crime
+        bonus = 0
         if settlement.crime > 0:
             bonus = settlement.crime + settlement.type.att_mod
-            if bonus > 0: polity.crime.from_settlements += bonus
+            if bonus < 0: bonus = 0
+        elif settlement.crime < 0:
+            bonus = settlement.crime - settlement.type.att_mod
+            if bonus > 0: bonus = 0
+        if bonus != 0: polity.crime.from_settlements += bonus
         # law
+        bonus = 0
         if settlement.law > 0:
             bonus = settlement.law + settlement.type.att_mod
-            if bonus > 0: polity.law.from_settlements += bonus
+            if bonus < 0: bonus = 0
+        elif settlement.law < 0:
+            bonus = settlement.law - settlement.type.att_mod
+            if bonus > 0: bonus = 0
+        if bonus != 0: polity.law.from_settlements += bonus
         # lore
+        bonus = 0
         if settlement.lore > 0:
             bonus = settlement.lore + settlement.type.att_mod
-            if bonus > 0: polity.lore.from_settlements += bonus
+            if bonus < 0: bonus = 0
+        elif settlement.lore < 0:
+            bonus = settlement.lore - settlement.type.att_mod
+            if bonus > 0: bonus = 0
+        if bonus != 0: polity.lore.from_settlements += bonus
         # productivity
+        bonus = 0
         if settlement.productivity > 0:
             bonus = settlement.productivity + settlement.type.att_mod
-            if bonus > 0: polity.productivity.from_settlements += bonus
+            if bonus < 0: bonus = 0
+        elif settlement.productivity < 0:
+            bonus = settlement.productivity - settlement.type.att_mod
+            if bonus > 0: bonus = 0
+        if bonus != 0: polity.productivity.from_settlements += bonus
         # society
+        bonus = 0
         if settlement.society > 0:
-            bonus = settlement.society
-            if bonus > 0: polity.society.from_settlements += bonus
+            bonus = settlement.society + settlement.type.att_mod
+            if bonus < 0: bonus = 0
+        elif settlement.society < 0:
+            bonus = settlement.society - settlement.type.att_mod
+            if bonus > 0: bonus = 0
+        if bonus != 0: polity.society.from_settlements += bonus
         # other
         polity.defense.from_settlements += settlement.defense
         polity.consumption.from_settlements += settlement.consumption

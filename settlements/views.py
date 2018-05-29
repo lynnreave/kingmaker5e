@@ -85,6 +85,7 @@ def building_edit(request, pk, settlement_id):
             instance = form.save(commit=False)
             instance.settlement = item.settlement
             instance.save()
+            form.save_m2m()
             return redirect(tgt, settlement_id=settlement_id)
     else:
         form = b_form(instance=item)
