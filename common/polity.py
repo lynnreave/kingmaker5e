@@ -123,7 +123,7 @@ def get_polity_details(id):
     apply_diplomacy_modifiers(polity)
     # apply settlement modifiers
     apply_settlement_modifiers(polity)
-    # apply military modifiers
+    # apply armies modifiers
     apply_military_modifiers(polity)
     # apply event modifiers
     apply_event_modifiers(polity)

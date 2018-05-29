@@ -73,26 +73,7 @@ def get_settlement_details(settlement):
     settlement.danger += settlement.type.dan_mod
 
     # summary
-    attributes = []
-    t = 0
-    if settlement.population != t: attributes.append('pop %s' % settlement.population)
-    if settlement.danger != t: attributes.append('danger %s' % settlement.danger)
-    if settlement.economy != t: attributes.append('economy %s' % settlement.economy)
-    if settlement.loyalty != t: attributes.append('loyalty %s' % settlement.loyalty)
-    if settlement.stability != t: attributes.append('stability %s' % settlement.stability)
-    if settlement.fame != t: attributes.append('fame %s' % settlement.fame)
-    if settlement.infamy != t: attributes.append('infamy %s' % settlement.infamy)
-    if settlement.corruption != t: attributes.append('corruption %s' % settlement.corruption)
-    if settlement.crime != t: attributes.append('crime %s' % settlement.crime)
-    if settlement.law != t: attributes.append('law %s' % settlement.law)
-    if settlement.lore != t: attributes.append('lore %s' % settlement.lore)
-    if settlement.productivity != t:
-        attributes.append('productivity %s' % settlement.productivity)
-    if settlement.society != t: attributes.append('society %s' % settlement.society)
-    if settlement.defense != t: attributes.append('defense %s' % settlement.defense)
-    if settlement.consumption != t: attributes.append('consumption %s' % settlement.consumption)
-    if settlement.income != t: attributes.append('income %s' % settlement.income)
-    settlement.att_summary = ', '.join(attributes)
+    settlement.att_summary = get_effects_summary_for_obj(settlement)
 
     return {'settlement': settlement}
 
