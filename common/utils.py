@@ -50,3 +50,14 @@ def get_effects_summary_for_obj(obj):
     if obj.income != t: effects.append('income %s' % get_signed_number(obj.income)['s'])
     if obj.unrest != t: effects.append('unrest %s' % get_signed_number(obj.unrest)['s'])
     return ', '.join(effects)
+
+
+def get_mixed_number_string(num):
+    if num == 0:
+        s = '0'
+    elif num < 1:
+        s = '%s/%s' % float(num).as_integer_ratio()
+    else:
+        s = '%s' % int(num)
+
+    return s

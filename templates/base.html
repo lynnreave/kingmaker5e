@@ -39,7 +39,11 @@
                 <ul class="nav nav-pills">
                     <li role="presentation"><a href="{% url 'core:home' %}">Home</a></li>
                     <li role="presentation"><a href="{% url 'polity:polities' %}">Polities</a></li>
-                    <li role="presentation"><a href="{% url 'armies:armies' %}">Armies</a></li>
+                    <li role="presentation">
+                        <a href="{% url 'armed_forces:armed_forces' %}">
+                            Armed Forces
+                        </a>
+                    </li>
                     <li role="presentation">
                         <a href="{% url 'diplomacy:diplomatic_relations' %}">
                             Diplomacy

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+{% extends 'armed_forces/base.html' %}
+{% load staticfiles %}
+
+{% block table_header %}
+    <th class="th_ccell"><h4>NAME</h4></th>
+    <th class="th_ccell"><h4>DESCRIPTION</h4></th>
+    <th class="th_ccell"><h4>OWNER</h4></th>
+    <th class="th_ccell"><h4>TYPE</h4></th>
+    <th class="th_ccell"><h4>SIZE</h4></th>
+    <th class="th_ccell"><h4>ACR</h4></th>
+    <th class="th_ccell"><h4>HP</h4></th>
+    <th class="th_ccell"><h4>OM</h4></th>
+    <th class="th_ccell"><h4>DV</h4></th>
+    <th class="th_ccell"><h4>SPEED</h4></th>
+    <th class="th_ccell"><h4>MORALE</h4></th>
+    <th class="th_ccell"><h4>EQUIP COST</h4></th>
+    <th class="th_ccell"><h4>CAMO</h4></th>
+    <th class="th_ccell"><h4>CONSUMPTION</h4></th>
+    <th class="th_ccell"><h4></h4></th>
+{% endblock %}
+
+{% block table_body %}
+    {% for armed_force in armed_forces %}
+        <tr>
+            <td class="tb_ccell"><b>{{ armed_force.name }}</b></td>
+            <td class="tb_ccell">{{ armed_force.desc }}</td>
+            <td class="tb_lcell">{{ armed_force.polity.name }}</td>
+            <td class="tb_ccell">{{ armed_force.type }}</td>
+            <td class="tb_ccell">{{ armed_force.size }}</td>
+            <td class="tb_ccell">{{ armed_force.acr_string }}</td>
+            <td class="tb_ccell">{{ armed_force.hp }}</td>
+            <td class="tb_ccell">{{ armed_force.om_string }}</td>
+            <td class="tb_ccell">{{ armed_force.dv }}</td>
+            <td class="tb_ccell">{{ armed_force.speed }}</td>
+            <td class="tb_ccell">{{ armed_force.morale }}</td>
+            <td class="tb_ccell">{{ armed_force.equip_cost_mult }}</td>
+            <td class="tb_ccell">
+                {% if armed_force.camo_mod == 0 %}
+                    N/A
+                {% else %}
+                    {{ armed_force.camo_mod_string }}
+                {% endif %}
+            </td>
+            <td class="tb_ccell">{{ armed_force.consumption }}</td>
+            <td class="tb_ccell">
+                {% if user.is_authenticated %}
+                    <a class="btn btn-default" href="{% url 'armed_forces:armed_force_edit' pk=armed_force.pk %}">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a class="btn btn-default" href="{% url 'armed_forces:armed_force_delete' pk=armed_force.pk %}">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><h4>COMMANDER</h4></td>
+            <td>
+                {% if armed_force.commander %}
+                    {% if armed_force.commander.noble_rank is not None %}
+                        {% if armed_force.commander.gender.name == "Female" %}
+                            {{ armed_force.commander.noble_rank.female_honorific }},
+                        {% else %}
+                            {{ armed_force.commander.noble_rank.male_honorific }},
+                        {% endif %}
+                    {% endif %}
+                    {% if armed_force.commander.noble_rank is not None %}
+                        {% if armed_force.commander.gender.name == "Female" %}
+                            {{ armed_force.commander.noble_rank.female_title }}
+                        {% else %}
+                            {{ armed_force.commander.noble_rank.male_title }}
+                        {% endif %}
+                    {% endif %}
+                    {{ armed_force.commander.last_name }}
+                {% else %}
+                    None
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block table_new_item %}
+    <a class="btn btn-default" href="{% url 'armed_forces:armed_force_new' %}">
+        <div><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;New</div>
+    </a>
+{% endblock %}

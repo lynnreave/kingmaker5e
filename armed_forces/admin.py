@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Army
+from .models import ArmedForce, SoldierType, UnitType
 
 
 class CustomModelAdmin(admin.ModelAdmin):
@@ -9,4 +9,6 @@ class CustomModelAdmin(admin.ModelAdmin):
         super(CustomModelAdmin, self).__init__(model, admin_site)
 
 
-admin.site.register(Army, CustomModelAdmin)
+admin.site.register(ArmedForce, CustomModelAdmin)
+admin.site.register(SoldierType, CustomModelAdmin)
+admin.site.register(UnitType, CustomModelAdmin)

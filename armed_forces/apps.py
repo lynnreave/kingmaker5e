@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class MilitaryConfig(AppConfig):
-    name = 'armies'
+    name = 'armed_forces'
