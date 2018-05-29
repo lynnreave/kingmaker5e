@@ -1,6 +1,7 @@
 from polity.models import Polity
 from .territory import get_territory_effects
 from .utils import get_signed_number
+from .settlements import get_settlement_details
 import math
 
 
@@ -18,7 +19,7 @@ class PolityAttribute:
         self.from_leadership = 0
         self.from_terrain = 0
         self.from_diplomacy = 0
-
+        self.from_settlements = 0
 
         self.from_events = 0
 
@@ -28,6 +29,7 @@ class PolityAttribute:
             + self.from_alignment \
             + self.from_leadership \
             + self.from_terrain \
+            + self.from_settlements \
             + self.from_edicts \
             + self.from_diplomacy \
             + self.from_events
@@ -40,7 +42,6 @@ class PolityAttribute:
             sources.append("%s from government" % get_signed_number(self.from_government)['s'])
         if self.from_alignment != 0:
             sources.append("%s from alignment" % get_signed_number(self.from_alignment)['s'])
-
         if self.from_edicts != 0 or len(self.from_edicts_dice) > 0:
             s = ''
             if self.from_edicts != 0: s += ' %s' % get_signed_number(self.from_edicts)['s']
@@ -51,6 +52,8 @@ class PolityAttribute:
             sources.append("%s from leadership" % get_signed_number(self.from_leadership)['s'])
         if self.from_terrain != 0:
             sources.append("%s from terrain" % get_signed_number(self.from_terrain)['s'])
+        if self.from_settlements != 0:
+            sources.append("%s from settlements" % get_signed_number(self.from_settlements)['s'])
         if self.from_diplomacy != 0:
             sources.append("%s from diplomacy" % get_signed_number(self.from_diplomacy)['s'])
 
@@ -349,6 +352,66 @@ def apply_military_modifiers(polity):
 
 
 def apply_settlement_modifiers(polity):
+    # get all settlements for polity
+    territories = polity.territory.all()
+    polity.settlements = []
+    for territory in territories:
+        settlements = territory.settlement.all()
+        if len(settlements) > 0:
+            for settlement in settlements:
+                polity.settlements.append(get_settlement_details(settlement)['settlement'])
+    # apply modifiers
+    for settlement in polity.settlements:
+        polity.size.from_settlements += settlement.districts
+        polity.population.from_settlements += settlement.population
+        # economy
+        if settlement.economy > 0:
+            bonus = settlement.economy + settlement.type.att_mod
+            if bonus > 0: polity.economy.from_settlements += bonus
+        # loyalty
+        if settlement.loyalty > 0:
+            bonus = settlement.loyalty + settlement.type.att_mod
+            if bonus > 0: polity.loyalty.from_settlements += bonus
+        # stability
+        if settlement.stability > 0:
+            bonus = settlement.stability + settlement.type.att_mod
+            if bonus > 0: polity.stability.from_settlements += bonus
+        # fame
+        if settlement.fame > 0:
+            bonus = settlement.fame + settlement.type.att_mod
+            if bonus > 0: polity.fame.from_settlements += bonus
+        # infamy
+        if settlement.infamy > 0:
+            bonus = settlement.infamy + settlement.type.att_mod
+            if bonus > 0: polity.infamy.from_settlements += bonus
+        # corruption
+        if settlement.corruption > 0:
+            bonus = settlement.corruption + settlement.type.att_mod
+            if bonus > 0: polity.corruption.from_settlements += bonus
+        # crime
+        if settlement.crime > 0:
+            bonus = settlement.crime + settlement.type.att_mod
+            if bonus > 0: polity.crime.from_settlements += bonus
+        # law
+        if settlement.law > 0:
+            bonus = settlement.law + settlement.type.att_mod
+            if bonus > 0: polity.law.from_settlements += bonus
+        # lore
+        if settlement.lore > 0:
+            bonus = settlement.lore + settlement.type.att_mod
+            if bonus > 0: polity.lore.from_settlements += bonus
+        # productivity
+        if settlement.productivity > 0:
+            bonus = settlement.productivity + settlement.type.att_mod
+            if bonus > 0: polity.productivity.from_settlements += bonus
+        # society
+        if settlement.society > 0:
+            bonus = settlement.society
+            if bonus > 0: polity.society.from_settlements += bonus
+        # other
+        polity.defense.from_settlements += settlement.defense
+        polity.consumption.from_settlements += settlement.consumption
+        polity.income.from_settlements += settlement.income
     return {}
 
 
@@ -363,7 +426,6 @@ def apply_terrain_modifiers(polity):
         polity.defense.from_terrain += territory.def_bonus
         polity.consumption.from_terrain += territory.con_bonus
         polity.income.from_terrain += territory.inc_bonus
-        polity.unrest_mod.from_terrain += territory.unr_bonus
     polity.size.from_terrain += len(territories)
     return {}
 

@@ -16,7 +16,7 @@
 
 {% block table_body %}
     {% for building in buildings %}
-        <tr class="clickable-row" style="cursor: pointer;" data-href="{% url 'settlements:building_edit' pk=building.pk settlement_id=settlement_id %}">
+        <tr>
             <td>{{ building.name }}</td>
             <td>{{ building.type.name }}</td>
             <td>
@@ -29,6 +29,9 @@
             <td>{{ building.effects_summary }}</td>
             <td>
                 {% if user.is_authenticated %}
+                    <a class="btn btn-default" href="{% url 'settlements:building_edit' pk=building.pk settlement_id=settlement_id %}">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
                     <a class="btn btn-default" href="{% url 'settlements:building_delete' pk=building.pk settlement_id=settlement_id %}">
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>

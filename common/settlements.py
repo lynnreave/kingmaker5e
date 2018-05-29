@@ -66,7 +66,11 @@ def get_settlement_details(settlement):
         settlement.type = Type.objects.get(name="Village")
 
     # apply type modifiers
-    settlement.consumption = math.floor(settlement.consumption + settlement.type.con_bonus)
+    if settlement.type != Type.objects.get(name="Metropolis"):
+        settlement.consumption = math.floor(settlement.consumption + settlement.type.con_bonus)
+    else:
+        settlement.consumption = math.floor(
+            settlement.consumption + (settlement.type.con_bonus * settlement.districts))
     settlement.population = math.floor(settlement.population * settlement.type.pop_mult)
     settlement.danger += settlement.type.dan_mod
 
@@ -90,10 +94,9 @@ def get_settlement_details(settlement):
     if settlement.defense != t: attributes.append('defense %s' % settlement.defense)
     if settlement.consumption != t: attributes.append('consumption %s' % settlement.consumption)
     if settlement.income != t: attributes.append('income %s' % settlement.income)
-    if settlement.unrest != t: attributes.append('unrest %s' % settlement.unrest)
     settlement.att_summary = ', '.join(attributes)
 
-    return {}
+    return {'settlement': settlement}
 
 
 def get_building_details(building):
