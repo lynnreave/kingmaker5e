@@ -1,3 +1,7 @@
+from .settlements import get_settlement_details
+from settlements.models import Settlement
+
+
 def get_territory_effects(territories):
     for territory in territories:
         # set base by type of terrain
@@ -10,6 +14,7 @@ def get_territory_effects(territories):
         territory.con_bonus = 0
         territory.inc_bonus = 0
         territory.unr_bonus = 0
+
         # special vars
         has_lair = False
         has_watchtower = False
@@ -21,6 +26,7 @@ def get_territory_effects(territories):
         has_farm = False
         has_fishery = False
         improvements = []
+
         # add bonuses from each improvement
         for improvement in territory.improvements.all():
             territory.pop_bonus += improvement.pop_bonus
@@ -40,6 +46,7 @@ def get_territory_effects(territories):
             if improvement.name.lower() == 'fishery': has_fishery = True
             if improvement.name.lower() in ['mine', 'quarry', 'sawmill']:
                 improvements.append(improvement)
+
         # add bonuses from each feature
         for feature in territory.features.all():
             territory.pop_bonus += feature.pop_bonus
@@ -55,7 +62,13 @@ def get_territory_effects(territories):
             if feature.name.lower() == 'lair': has_lair = True
             if feature.name.lower() == 'landmark': has_landmark = True
             if feature.name.lower() == 'resource': has_resource = True
+
         # add bonuses from settlement
+        for settlement in territory.settlement.all():
+            get_settlement_details(settlement)
+            territory.dan_bonus += settlement.danger
+            territory.the_settlement = settlement
+
         # add rules bonuses
         if has_lair and (has_fort or has_watchtower): territory.def_bonus += 1
         if has_landmark and (has_road or has_highway): territory.loy_bonus += 1

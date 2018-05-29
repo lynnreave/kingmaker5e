@@ -15,7 +15,7 @@
 
 {% block table_body %}
     {% for settlement in settlements %}
-        <tr class="clickable-row" style="cursor: pointer;" data-href="{% url 'settlements:buildings' settlement_id=settlement.pk %}">
+        <tr class="clickable-object" style="cursor: pointer;" data-href="{% url 'settlements:buildings' settlement_id=settlement.pk %}">
             <td>{{ settlement.territory.polity.name }}</td>
             <td>
                 {% if settlement.capital %}
