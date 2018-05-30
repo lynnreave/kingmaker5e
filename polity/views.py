@@ -10,7 +10,10 @@ a_plural = 'polities'
 a_obj = Polity
 a_form = PolityForm
 
-def polities(request): return show_all_items(request, app_name, a_obj, a_plural, sort='name')
+def polities(request):
+    return show_all_items(
+        request, app_name, a_obj, a_plural, sort='name'
+    )
 def polity_new(request):
     return create_item(request, app_name, a_name, a_form, a_plural, fast_commit=True)
 def polity_edit(request, pk):

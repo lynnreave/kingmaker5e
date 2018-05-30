@@ -23,6 +23,7 @@ class PolityAttribute:
         self.from_diplomacy = 0
         self.from_settlements = 0
         self.from_armed_forces = 0
+        self.from_festivals = 0
 
         self.from_events = 0
 
@@ -37,6 +38,7 @@ class PolityAttribute:
             + self.from_edicts \
             + self.from_diplomacy \
             + self.from_armed_forces \
+            + self.from_festivals \
             + self.from_events
         self.total = math.floor(self.total)
         if len(self.dice) > 0:
@@ -65,6 +67,8 @@ class PolityAttribute:
             sources.append("%s from diplomacy" % get_signed_number(self.from_diplomacy)['s'])
         if self.from_armed_forces != 0:
             sources.append("%s from armed forces" % get_signed_number(self.from_armed_forces)['s'])
+        if self.from_festivals != 0:
+            sources.append("%s from festivals" % get_signed_number(self.from_festivals)['s'])
 
         if self.from_events != 0:
             sources.append("%s from events" % get_signed_number(self.from_events)['s'])
@@ -149,21 +153,14 @@ def get_polity_details(id):
     determine_polity_leadership_roles(polity)
 
     # determine attribute values
-    # apply alignment bonuses
     apply_alignment_modifiers(polity)
-    # apply government bonuses
     apply_government_modifiers(polity)
-    # apply edict modifiers
     apply_edict_modifiers(polity)
-    # apply terrain modifiers
     apply_terrain_modifiers(polity)
-    # apply leadership modifiers
     apply_leadership_modifiers(polity)
-    # apply diplomacy modifiers
     apply_diplomacy_modifiers(polity)
-    # apply settlement modifiers
     apply_settlement_modifiers(polity)
-    # apply event modifiers
+    apply_festival_modifiers(polity)
     apply_event_modifiers(polity)
 
     # apply armed_forces modifiers
@@ -295,6 +292,16 @@ def apply_event_modifiers(polity):
         polity.consumption.from_events += event.con_bonus
         polity.income.from_events += event.inc_bonus
         polity.unrest.from_events += event.unr_bonus
+    return {}
+
+
+def apply_festival_modifiers(polity):
+    festivals = polity.festival.all()
+    for festival in festivals:
+        polity.law.from_festivals += festival.type.law_bonus
+        polity.crime.from_festivals += festival.type.cri_bonus
+        polity.society.from_festivals += festival.type.soc_bonus
+        polity.stability.from_festivals += festival.type.sta_bonus
     return {}
 
 

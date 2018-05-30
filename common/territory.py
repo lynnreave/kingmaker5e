@@ -83,6 +83,9 @@ def get_territory_effects(territories):
             get_settlement_details(settlement)
             territory.dan_bonus += settlement.danger
             territory.the_settlement = settlement
+            for festival in settlement.festival.all():
+                if festival.type.name.lower() == 'civic': territory.civic_festival = True
+                if festival.type.name.lower() == 'religious': territory.religious_festival = True
 
         # add rules bonuses
         if has_lair and (has_fort or has_watchtower): territory.def_bonus += 1
@@ -99,7 +102,16 @@ def get_territory_effects(territories):
         if (has_automatons or has_deathless) and (has_farm or has_fishery):
             territory.con_bonus -= 1
 
+        # festival modifiers
+        territory.civic_festival = False
+        territory.religious_festival = False
+        for festival in territory.festival.all():
+            if festival.type.name.lower() == 'civic': territory.civic_festival = True
+            if festival.type.name.lower() == 'religious': territory.religious_festival = True
+
         # build effects summary
         territory.effects_summary = get_effects_summary(territory)
+        if territory.civic_festival or territory.religious_festival:
+            territory.effects_summary += ', FESTIVAL IN PROGRESS (stability checks here -2)'
 
     return {'territories': territories}

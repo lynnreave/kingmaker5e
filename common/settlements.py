@@ -41,10 +41,6 @@ def get_settlement_details(settlement):
         if festival.type.name.lower() == 'civic': settlement.civic_festival = True
         if festival.type.name.lower() == 'religious': settlement.religious_festival = True
         settlement.festival_effect_mult = festival.success_level.effect_mult
-        # settlement modifiers
-        settlement.law += festival.type.law_bonus
-        settlement.crime += festival.type.cri_bonus
-        settlement.society += festival.type.soc_bonus
 
     # apply building modifiers
     for building in settlement.buildings:
