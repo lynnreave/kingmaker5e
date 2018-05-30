@@ -4,7 +4,8 @@ from django.shortcuts import redirect
 
 def show_all_items(
         request, app_name, obj, obj_plural,
-        sort=None, sort_2=None, sort_3=None, sort_4=None, sort_5=None
+        sort=None, sort_2=None, sort_3=None, sort_4=None, sort_5=None,
+        get_details=None,
 ):
     obj_plural_s = obj_plural
     obj_plural = obj_plural.replace(' ', '_')
@@ -20,6 +21,9 @@ def show_all_items(
         items = obj.objects.order_by(sort, sort_2, sort_3, sort_4)
     else:
         items = obj.objects.order_by(sort, sort_2, sort_3, sort_4, sort_5)
+    if get_details is not None:
+        for item in items:
+            get_details(item)
     return render(
         request, '%s/%s.html' % (app_name, obj_plural),
         {'title': obj_plural_s.title(), obj_plural: items}

@@ -26,5 +26,10 @@ class Event(models.Model):
     inc_bonus = models.IntegerField(default=0)
     unr_bonus = models.IntegerField(default=0)
 
+    treasury_increment = models.IntegerField(default=0)
+    fame_increment = models.IntegerField(default=0)
+    infamy_increment = models.IntegerField(default=0)
+    unrest_increment = models.IntegerField(default=0)
+
     def __str__(self):
         return self.name
