@@ -7,10 +7,10 @@ class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = (
-            'first_name', 'last_name', 'middle_name', 'gender', 'noble_rank', 'leadership_role',
-            'awards', 'hit_dice',
+            'polity', 'first_name', 'last_name', 'middle_name', 'gender', 'noble_rank',
+            'leadership_role', 'awards', 'hit_dice',
             'str', 'dex', 'con', 'int', 'wis', 'cha',
-            'notes', 'polity', 'boons'
+            'notes', 'boons'
         )
 
 
