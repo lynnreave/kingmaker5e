@@ -338,14 +338,20 @@ def apply_leadership_modifiers(polity):
     # councilor
     if polity.councilor is not None:
         polity.loyalty.from_leadership += polity.councilor.leadership_mod
+    else:
+        polity.loyalty.from_leadership -= 2
 
     # general
     if polity.general is not None:
         polity.stability.from_leadership += polity.general.leadership_mod
+    else:
+        polity.loyalty.from_leadership -= 4
 
     # grand_diplomat
     if polity.grand_diplomat is not None:
         polity.stability.from_leadership += polity.grand_diplomat.leadership_mod
+    else:
+        polity.stability.from_leadership -= 2
 
     # heir
     if polity.heir is not None:
@@ -354,14 +360,21 @@ def apply_leadership_modifiers(polity):
     # high_priest
     if polity.high_priest is not None:
         polity.stability.from_leadership += polity.high_priest.leadership_mod
+    else:
+        polity.loyalty.from_leadership -= 2
+        polity.stability.from_leadership -= 2
 
     # magister
     if polity.magister is not None:
         polity.economy.from_leadership += polity.magister.leadership_mod
+    else:
+        polity.economy.from_leadership -= 4
 
     # marshal
     if polity.marshal is not None:
         polity.economy.from_leadership += polity.marshal.leadership_mod
+    else:
+        polity.economy.from_leadership -= 4
 
     # royal_enforcer
     if polity.royal_enforcer is not None:
@@ -375,10 +388,14 @@ def apply_leadership_modifiers(polity):
             polity.loyalty.from_leadership += polity.spymaster.leadership_mod
         elif polity.spymaster_attribute.name.lower() == 'stability':
             polity.stability.from_leadership += polity.spymaster.leadership_mod
+    else:
+        polity.economy.from_leadership -= 4
 
     # treasurer
     if polity.treasurer is not None:
         polity.economy.from_leadership += polity.treasurer.leadership_mod
+    else:
+        polity.economy.from_leadership -= 4
 
     # viceroy
     if polity.viceroy is not None:
@@ -387,6 +404,9 @@ def apply_leadership_modifiers(polity):
     # warden
     if polity.warden is not None:
         polity.loyalty.from_leadership += polity.warden.leadership_mod
+    else:
+        polity.loyalty.from_leadership -= 2
+        polity.stability.from_leadership -= 2
     return {}
 
 
