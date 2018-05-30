@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'core',
     'diplomacy',
     'events',
+    'festivals',
     'people',
     'polity',
     'settlements',
