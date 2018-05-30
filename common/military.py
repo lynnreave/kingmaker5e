@@ -90,6 +90,12 @@ def get_armed_force_details(armed_force):
         armed_force.morale += item.morale_mod
     armed_force.equipment_string = ', '.join(eqt)
 
+    # tactics
+    tactics_known = []
+    for tactic in armed_force.tactics_known.all():
+        tactics_known.append(tactic.name)
+    armed_force.tactics_known_string = ', '.join(tactics_known)
+
     # special abilities
     abilities = []
     for ability in armed_force.special_abilities.all():

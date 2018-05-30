@@ -58,6 +58,14 @@ class SpecialAbility(models.Model):
         return self.name
 
 
+class Tactic(models.Model):
+    name = models.CharField(max_length=default_max_length)
+    desc = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+
 class ArmedForce(models.Model):
     polity = models.ForeignKey(
         'polity.Polity', on_delete=models.CASCADE,
@@ -86,6 +94,9 @@ class ArmedForce(models.Model):
     )
     special_abilities = models.ManyToManyField(
         SpecialAbility, related_name='armed_force', related_query_name='armed_force', blank=True,
+    )
+    tactics_known = models.ManyToManyField(
+        Tactic, related_name='armed_force', related_query_name='armed_force', blank=True, default=20,
     )
     custom_cr = models.FloatField(null=True, blank=True)
     mount_cr = models.FloatField(null=True, blank=True)

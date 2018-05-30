@@ -8,7 +8,8 @@ class ArmedForceForm(forms.ModelForm):
         model = ArmedForce
         fields = (
             'polity', 'name', 'desc', 'commander', 'morale', 'speed', 'active',
-            'hit_die', 'type', 'size', 'custom_cr', 'mount_cr', 'equipment', 'special_abilities'
+            'hit_die', 'type', 'size', 'custom_cr', 'mount_cr', 'equipment', 'special_abilities',
+            'tactics_known',
         )
 
 
@@ -18,5 +19,5 @@ class EquipmentForm(forms.ModelForm):
         model = Equipment
         fields = (
             'name', 'desc', 'requirements', 'cost', 'om_mod', 'om_melee_mod', 'om_ranged_mod',
-            'dv_mod', 'speed_mod', 'morale_mod',
+            'dv_mod', 'speed_mod', 'morale_mod'
         )
