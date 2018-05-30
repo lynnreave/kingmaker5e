@@ -8,7 +8,7 @@ class PersonForm(forms.ModelForm):
         model = Person
         fields = (
             'first_name', 'last_name', 'middle_name', 'gender', 'noble_rank', 'leadership_role',
-            'awards',
+            'awards', 'hit_dice',
             'str', 'dex', 'con', 'int', 'wis', 'cha',
             'notes', 'polity',
         )

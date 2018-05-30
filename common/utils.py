@@ -1,3 +1,21 @@
+def get_ability_score_mod(score):
+    mod = 0
+    if score in [12, 13]: mod = 1
+    elif score in [14, 15]: mod = 2
+    elif score in [16, 17]: mod = 3
+    elif score in [18, 19]: mod = 4
+    elif score in [20, 21]: mod = 5
+    elif score in [8, 9]: mod = -1
+    elif score in [6, 7]: mod = -2
+    elif score in [4, 5]: mod = -3
+    elif score in [2, 3]: mod = -4
+    elif score in [1]: mod = -5
+    elif score in [22, 23]: mod = 6
+    elif score in [24, 25]: mod = 7
+    elif score in [26, 27]: mod = 8
+    return {'mod': mod}
+
+
 def get_signed_number(number):
     if number >= 0:
         s = '+%s' % number

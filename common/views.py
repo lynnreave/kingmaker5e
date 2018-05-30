@@ -41,6 +41,7 @@ def create_item(
             if not fast_commit:
                 instance = form.save(commit=False)
                 instance.save()
+                form.save_m2m()
             else:
                 form.save(commit=True)
             return redirect(tgt)
@@ -67,6 +68,7 @@ def edit_item(
             if not fast_commit:
                 instance = form.save(commit=False)
                 instance.save()
+                form.save_m2m()
             else:
                 form.save(commit=True)
             return redirect(tgt)

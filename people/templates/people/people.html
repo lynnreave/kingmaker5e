@@ -7,6 +7,7 @@
     <th class="th_lcell"><h4>RANK</h4></th>
     <th class="th_lcell"><h4>NAME</h4></th>
     <th class="th_lcell"><h4>AWARDS</h4></th>
+    <th class="th_lcell"><h4>LEVEL/HD</h4></th>
     <th class="th_ccell"><h4>STR</h4></th>
     <th class="th_ccell"><h4>DEX</h4></th>
     <th class="th_ccell"><h4>CON</h4></th>
@@ -44,6 +45,7 @@
                 {{ person.first_name }} {{ person.last_name }}
             </td>
             <td class="tb_ccell">{{ person.awards.all|join:", " }}</td>
+            <td class="tb_ccell">{{ person.hit_dice }}</td>
             <td class="tb_ccell">{{ person.str }}</td>
             <td class="tb_ccell">{{ person.dex }}</td>
             <td class="tb_ccell">{{ person.con }}</td>

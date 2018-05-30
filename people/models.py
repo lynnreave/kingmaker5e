@@ -52,6 +52,7 @@ class Person(models.Model):
         Award, blank=True,
         related_name='person', related_query_name='person',
     )
+    hit_dice = models.IntegerField(default=1)
     str = models.IntegerField(default=10)
     dex = models.IntegerField(default=10)
     con = models.IntegerField(default=10)

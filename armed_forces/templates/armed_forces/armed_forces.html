@@ -7,11 +7,12 @@
     <th class="th_ccell"><h4>NAME</h4></th>
     <th class="th_ccell"><h4>DESCRIPTION</h4></th>
     <th class="th_ccell"><h4>OWNER</h4></th>
+    <th class="th_ccell"><h4>ACTIVE</h4></th>
     <th class="th_ccell"><h4>TYPE</h4></th>
     <th class="th_ccell"><h4>SIZE</h4></th>
     <th class="th_ccell"><h4>ACR</h4></th>
     <th class="th_ccell"><h4>HP</h4></th>
-    <th class="th_ccell"><h4>OM</h4></th>
+    <th class="th_ccell"><h4>OM (M/R)</h4></th>
     <th class="th_ccell"><h4>DV</h4></th>
     <th class="th_ccell"><h4>SPEED</h4></th>
     <th class="th_ccell"><h4>MORALE</h4></th>
@@ -27,6 +28,13 @@
             <td class="tb_ccell"><b>{{ armed_force.name }}</b></td>
             <td class="tb_ccell">{{ armed_force.desc }}</td>
             <td class="tb_lcell">{{ armed_force.polity.name }}</td>
+            <td class="tb_lcell">
+                {% if armed_force.active %}
+                    Yes
+                {% else %}
+                    In Reserve
+                {% endif %}
+            </td>
             <td class="tb_ccell">{{ armed_force.type }}</td>
             <td class="tb_ccell">{{ armed_force.size }}</td>
             <td class="tb_ccell">{{ armed_force.acr_string }}</td>
@@ -79,6 +87,10 @@
                     None
                 {% endif %}
             </td>
+            <td><h4>LEADERSHIP BONUS</h4></td>
+            <td>{{ armed_force.leadership_bonus_string }}</td>
+            <td><h4>EQUIPMENT</h4></td>
+            <td>{{ armed_force.equipment_string }}</td>
         </tr>
     {% endfor %}
 {% endblock %}

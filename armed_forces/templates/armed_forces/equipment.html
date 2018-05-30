@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+{% extends 'armed_forces/base.html' %}
+
+{% block table_header %}
+    <th class="th_ccell"><h4>NAME</h4></th>
+    <th class="th_ccell"><h4>DESCRIPTION</h4></th>
+    <th class="th_ccell"><h4>REQUIREMENTS</h4></th>
+    <th class="th_ccell"><h4>COST</h4></th>
+    <th class="th_ccell"><h4>OFFENSE MOD</h4></th>
+    <th class="th_ccell"><h4>DEFENSE MOD</h4></th>
+    <th class="th_ccell"><h4>SPEED MOD</h4></th>
+    <th class="th_ccell"><h4>MORALE MOD</h4></th>
+    <th class="th_ccell"><h4></h4></th>
+{% endblock %}
+
+{% block table_body %}
+    {% for item in equipment %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.desc }}</td>
+            <td>{{ item.requirements_string }}</td>
+            <td>{{ item.cost }}</td>
+            <td>{{ item.om_mod_string }}</td>
+            <td>{{ item.dv_mod_string }}</td>
+            <td>{{ item.speed_mod_string }}</td>
+            <td>{{ item.morale_mod_string }}</td>
+            <td>
+                {% if user.is_authenticated %}
+                    <a class="btn btn-default" href="{% url 'armed_forces:item_edit' pk=item.pk %}">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a class="btn btn-default" href="{% url 'armed_forces:item_delete' pk=item.pk %}">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block table_new_item %}
+    <a class="btn btn-default" href="{% url 'armed_forces:item_new' %}">
+        <div><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;New</div>
+    </a>
+{% endblock %}
