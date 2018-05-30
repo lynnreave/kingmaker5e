@@ -1,6 +1,7 @@
 import math
 from settlements.models import Type
 from .utils import get_effects_summary_for_obj
+from festivals.models import CIVIC_BUILDINGS, RELIGIOUS_BUILDINGS
 
 
 def get_settlement_details(settlement):
@@ -32,31 +33,56 @@ def get_settlement_details(settlement):
     settlement.magic_items_string = ''
     settlement.endowment_upkeep = 0
 
+    # if festival
+    settlement.civic_festival = False
+    settlement.religious_festival = False
+    settlement.festival_effect_mult = 1.0
+    for festival in settlement.festival.all():
+        if festival.type.name.lower() == 'civic': settlement.civic_festival = True
+        if festival.type.name.lower() == 'religious': settlement.religious_festival = True
+        settlement.festival_effect_mult = festival.success_level.effect_mult
+        # settlement modifiers
+        settlement.law += festival.type.law_bonus
+        settlement.crime += festival.type.cri_bonus
+        settlement.society += festival.type.soc_bonus
+
     # apply building modifiers
     for building in settlement.buildings:
         get_building_details(building)
         # lots
         settlement.lots += building.lots
+        # festival effects
+        # civil
+        effect_mult = 1.0
+        if settlement.civic_festival and building.type.name.lower() in CIVIC_BUILDINGS:
+            effect_mult = settlement.festival_effect_mult
+        # religious
+        if settlement.religious_festival and building.type.name.lower() in RELIGIOUS_BUILDINGS:
+            effect_mult = settlement.festival_effect_mult
         # attributes
         settlement.population += building.population
         settlement.danger += building.danger
-        settlement.economy += building.economy
-        settlement.loyalty += building.loyalty
-        settlement.stability += building.stability
-        settlement.fame += building.fame
-        settlement.infamy += building.infamy
-        settlement.corruption += building.corruption
-        settlement.crime += building.crime
-        settlement.law += building.law
-        settlement.lore += building.lore
-        settlement.productivity += building.productivity
-        settlement.society += building.society
-        settlement.defense += building.defense
-        settlement.consumption += building.consumption
-        settlement.income += building.income
+        settlement.economy += math.floor(building.economy * effect_mult)
+        settlement.loyalty += math.floor(building.loyalty * effect_mult)
+        settlement.stability += math.floor(building.stability * effect_mult)
+        settlement.fame += math.floor(building.fame * effect_mult)
+        settlement.infamy += math.floor(building.infamy * effect_mult)
+        settlement.corruption += math.floor(building.corruption * effect_mult)
+        settlement.crime += math.floor(building.crime * effect_mult)
+        settlement.law += math.floor(building.law * effect_mult)
+        settlement.lore += math.floor(building.lore * effect_mult)
+        settlement.productivity += math.floor(building.productivity * effect_mult)
+        settlement.society += math.floor(building.society * effect_mult)
+        settlement.defense += math.floor(building.defense * effect_mult)
+        settlement.consumption += math.floor(building.consumption * effect_mult)
+        settlement.income += math.floor(building.income * effect_mult)
         settlement.unrest += building.unrest
-        if building.type.magic_items != '':
-            settlement.magic_items.append(building.type.magic_items)
+        if building.magic_items != '':
+            settlement.magic_items.append(building.magic_items)
+            if settlement.civic_festival and building.type.name.lower() in CIVIC_BUILDINGS:
+                settlement.magic_items.append(building.magic_items)
+            if settlement.religious_festival and building.type.name.lower() in RELIGIOUS_BUILDINGS:
+                settlement.magic_items.append(building.magic_items)
         settlement.endowment_upkeep += building.endowment_upkeep
 
     # determine type
@@ -84,6 +110,8 @@ def get_settlement_details(settlement):
     settlement.magic_items_string = ', '.join(settlement.magic_items)
     if settlement.endowment_upkeep > 0:
         settlement.att_summary += ', %sgp endowment upkeep' % settlement.endowment_upkeep
+    if settlement.civic_festival or settlement.religious_festival:
+        settlement.att_summary += ', FESTIVAL IN PROGRESS (stability checks here -2)'
 
     return {'settlement': settlement}
 
@@ -111,6 +139,7 @@ def get_building_details(building):
     building.endowment_upkeep = 0
     building.unrest = 0
     building.income = 0
+    building.magic_items = building.type.magic_items
 
     # apply type modifiers
     if building.lots is None:

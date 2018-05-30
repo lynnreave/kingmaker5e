@@ -188,7 +188,9 @@ def get_polity_details(id):
     polity.stability.get_total()
     # calculate total minor attributes
     polity.fame.get_total()
+    if polity.fame.total < 0: polity.fame.total = 0
     polity.infamy.get_total()
+    if polity.infamy.total < 0: polity.infamy.total = 0
     polity.corruption.get_total()
     polity.crime.get_total()
     polity.law.get_total()
@@ -200,6 +202,7 @@ def get_polity_details(id):
     polity.income.get_total()
     polity.defense.get_total()
     polity.unrest.get_total()
+    if polity.unrest.total < 0: polity.unrest.total = 0
     polity.consumption.get_total()
     # calculate control dc
     polity.control_dc = 20 + polity.size.total  # + num_districts in all settlements

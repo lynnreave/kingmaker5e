@@ -60,7 +60,10 @@ class BuildingType(models.Model):
     magic_items = models.CharField(max_length=300, blank=True, null=True)
 
     def get_effects_summary(self):
-        return get_effects_summary(self)
+        effects_summary = get_effects_summary(self)
+        if self.magic_items != '' and self.magic_items is not None:
+            effects_summary += ', %s' % self.magic_items
+        return effects_summary
 
     def __str__(self):
         self.get_effects_summary()

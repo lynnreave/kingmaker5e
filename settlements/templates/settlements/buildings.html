@@ -13,6 +13,7 @@
     <th><h4>LOTS</h4></th>
     <th><h4>ENHANCEMENTS</h4></th>
     <th><h4>EFFECTS</h4></th>
+    <th><h4>MAGICAL ITEMS</h4></th>
     <th><h4></h4></th>
 {% endblock %}
 
@@ -35,6 +36,7 @@
             </td>
             <td>{{ building.enhancements_list|join:", " }}</td>
             <td>{{ building.effects_summary }}</td>
+            <td>{{ building.magic_items }}</td>
             <td>
                 {% if user.is_authenticated %}
                     <a class="btn btn-default" href="{% url 'settlements:building_edit' pk=building.pk settlement_id=settlement_id %}">

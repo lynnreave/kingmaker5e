@@ -1,6 +1,14 @@
 from django.db import models
 
 default_max_length = 100
+CIVIC_BUILDINGS = [
+    'arena', 'black market', 'bordello', 'dance hall', 'gambling den', 'inn', 'luxury shop',
+    'market', 'monument', 'palace', 'park', 'shop', 'tavern'
+]
+RELIGIOUS_BUILDINGS = [
+    'cathedral', 'graveyard', 'inn', 'luxury shop', 'market', 'monument', 'park', 'shop', 'shrine',
+    'temple'
+]
 
 
 class Type(models.Model):
@@ -18,8 +26,6 @@ class Type(models.Model):
 class SuccessLevel(models.Model):
     name = models.CharField(max_length=default_max_length)
     effect_mult = models.FloatField(default=1.0)
-    #fam_bonus = models.IntegerField(default=0)
-    #unr_bonus = models.CharField(max_length=default_max_length)
 
     def __str__(self):
         return self.name
