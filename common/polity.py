@@ -13,6 +13,7 @@ class PolityAttribute:
         self.total_dice = ""
         self.dice = []
         self.source_summary = ""
+        self.from_base = 0
         self.from_government = 0
         self.from_alignment = 0
         self.from_edicts = 0
@@ -27,6 +28,7 @@ class PolityAttribute:
 
     def get_total(self):
         self.total = 0 \
+            + self.from_base \
             + self.from_government \
             + self.from_alignment \
             + self.from_leadership \
@@ -41,6 +43,8 @@ class PolityAttribute:
             self.total_dice = ' + ' + " + ".join(self.dice)
 
         sources = []
+        if self.from_base != 0:
+            sources.append("%s base" % self.from_base)
         if self.from_government != 0:
             sources.append("%s from government" % get_signed_number(self.from_government)['s'])
         if self.from_alignment != 0:
@@ -71,13 +75,18 @@ def get_polity_details(id):
     polity = Polity.objects.get(id=id)
 
     # define attributes
+    fame = polity.fame
+    infamy = polity.infamy
+    unrest = polity.unrest
     # major
     polity.economy = PolityAttribute('economy')
     polity.loyalty = PolityAttribute('loyalty')
     polity.stability = PolityAttribute('stability')
     # minor
     polity.fame = PolityAttribute('fame')
+    polity.fame.from_base += fame
     polity.infamy = PolityAttribute('infamy')
+    polity.infamy.from_base += infamy
     polity.corruption = PolityAttribute('corruption')
     polity.crime = PolityAttribute('crime')
     polity.law = PolityAttribute('law')
@@ -90,7 +99,8 @@ def get_polity_details(id):
     polity.control_dc = 0
     polity.income = PolityAttribute('income')
     polity.defense = PolityAttribute('defense')
-    polity.unrest_mod = PolityAttribute('unrest')
+    polity.unrest = PolityAttribute('unrest')
+    polity.unrest.from_base += unrest
     polity.consumption = PolityAttribute('consumption')
     polity.endowment_upkeep = 0
     # military
@@ -189,7 +199,7 @@ def get_polity_details(id):
     polity.size.get_total()
     polity.income.get_total()
     polity.defense.get_total()
-    polity.unrest_mod.get_total()
+    polity.unrest.get_total()
     polity.consumption.get_total()
     # calculate control dc
     polity.control_dc = 20 + polity.size.total  # + num_districts in all settlements
@@ -281,7 +291,7 @@ def apply_event_modifiers(polity):
         polity.defense.from_events += event.def_bonus
         polity.consumption.from_events += event.con_bonus
         polity.income.from_events += event.inc_bonus
-        polity.unrest_mod.from_events += event.unr_bonus
+        polity.unrest.from_events += event.unr_bonus
     return {}
 
 
