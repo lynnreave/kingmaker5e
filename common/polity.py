@@ -2,6 +2,7 @@ from polity.models import Polity
 from .territory import get_territory_effects
 from .utils import get_signed_number, get_ability_score_mod
 from .settlements import get_settlement_details
+from .military import get_armed_force_details
 import math
 
 
@@ -20,6 +21,7 @@ class PolityAttribute:
         self.from_terrain = 0
         self.from_diplomacy = 0
         self.from_settlements = 0
+        self.from_armed_forces = 0
 
         self.from_events = 0
 
@@ -32,6 +34,7 @@ class PolityAttribute:
             + self.from_settlements \
             + self.from_edicts \
             + self.from_diplomacy \
+            + self.from_armed_forces \
             + self.from_events
         self.total = math.floor(self.total)
         if len(self.dice) > 0:
@@ -56,6 +59,8 @@ class PolityAttribute:
             sources.append("%s from settlements" % get_signed_number(self.from_settlements)['s'])
         if self.from_diplomacy != 0:
             sources.append("%s from diplomacy" % get_signed_number(self.from_diplomacy)['s'])
+        if self.from_armed_forces != 0:
+            sources.append("%s from armed forces" % get_signed_number(self.from_armed_forces)['s'])
 
         if self.from_events != 0:
             sources.append("%s from events" % get_signed_number(self.from_events)['s'])
@@ -348,6 +353,12 @@ def apply_leadership_modifiers(polity):
 
 
 def apply_military_modifiers(polity):
+    # get armed forces
+    armed_forces = polity.armed_force.all()
+    for armed_force in armed_forces:
+        get_armed_force_details(armed_force)
+        if armed_force.type.name.lower() != 'allied':
+            polity.consumption.from_armed_forces += armed_force.consumption
     return {}
 
 

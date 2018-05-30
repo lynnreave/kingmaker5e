@@ -69,7 +69,7 @@ class Tactic(models.Model):
 class ArmedForce(models.Model):
     polity = models.ForeignKey(
         'polity.Polity', on_delete=models.CASCADE,
-        related_name='army', related_query_name='army'
+        related_name='armed_force', related_query_name='armed_force'
     )
     active = models.BooleanField(default=True)
     name = models.CharField(max_length=default_max_length)
