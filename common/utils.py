@@ -27,8 +27,14 @@ def get_signed_number(number):
 def get_effects_summary(self):
     effects = []
     t = 0
-    if self.pop_bonus != t: effects.append('pop %s' % get_signed_number(self.pop_bonus)['s'])
-    if self.dan_bonus != t: effects.append('danger %s' % get_signed_number(self.dan_bonus)['s'])
+    try:
+        if self.pop_bonus != t: effects.append('pop %s' % get_signed_number(self.pop_bonus)['s'])
+    except BaseException:
+        pass
+    try:
+        if self.dan_bonus != t: effects.append('danger %s' % get_signed_number(self.dan_bonus)['s'])
+    except BaseException:
+        pass
     if self.eco_bonus != t: effects.append('economy %s' % get_signed_number(self.eco_bonus)['s'])
     if self.loy_bonus != t: effects.append('loyalty %s' % get_signed_number(self.loy_bonus)['s'])
     if self.sta_bonus != t: effects.append('stability %s' % get_signed_number(self.sta_bonus)['s'])
@@ -40,10 +46,22 @@ def get_effects_summary(self):
     if self.lor_bonus != t: effects.append('lore %s' % get_signed_number(self.lor_bonus)['s'])
     if self.pro_bonus != t: effects.append('productivity %s' % get_signed_number(self.pro_bonus)['s'])
     if self.soc_bonus != t: effects.append('society %s' % get_signed_number(self.soc_bonus)['s'])
-    if self.def_bonus != t: effects.append('defense %s' % get_signed_number(self.def_bonus)['s'])
-    if self.con_bonus != t: effects.append('consumption %s' % get_signed_number(self.con_bonus)['s'])
-    if self.inc_bonus != t: effects.append('income %s' % get_signed_number(self.inc_bonus)['s'])
-    if self.unr_bonus != t: effects.append('unrest %s' % get_signed_number(self.unr_bonus)['s'])
+    try:
+        if self.def_bonus != t: effects.append('defense %s' % get_signed_number(self.def_bonus)['s'])
+    except BaseException:
+        pass
+    try:
+        if self.con_bonus != t: effects.append('consumption %s' % get_signed_number(self.con_bonus)['s'])
+    except BaseException:
+        pass
+    try:
+        if self.inc_bonus != t: effects.append('income %s' % get_signed_number(self.inc_bonus)['s'])
+    except BaseException:
+        pass
+    try:
+        if self.unr_bonus != t: effects.append('unrest %s' % get_signed_number(self.unr_bonus)['s'])
+    except BaseException:
+        pass
     return ', '.join(effects)
 
 
