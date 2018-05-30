@@ -20,14 +20,10 @@
             <td>{{ settlement.territory.polity.name }}</td>
             <td>
                 {% if settlement.capital %}
-                    <div>
-                        <img src="{% static 'img/glyphicons-halflings-211-king.png' %}" alt="My image"/>
+                    <img src="{% static 'img/glyphicons-halflings-211-king.png' %}" alt="capital"/>
                     <b>{{ settlement.name }}</b>
-                    </div>
                 {% else %}
-                    <div>
                     {{ settlement.name }}
-                    </div>
                 {% endif %}
             </td>
             <td>{{ settlement.type.name }}</td>

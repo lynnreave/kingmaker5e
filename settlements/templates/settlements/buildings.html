@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 {% extends 'settlements/base.html' %}
+{% load staticfiles %}
 
 {% block back_button %}
 <li role="presentation"><a href="{% url 'settlements:settlements' %}">Back</a></li>
@@ -18,7 +19,12 @@
 {% block table_body %}
     {% for building in buildings %}
         <tr>
-            <td>{{ building.name }}</td>
+            <td>
+                {% if building.endowment %}
+                    <img src="{% static 'img/glyphicons-halflings-233-education.png' %}" alt="endowment"/>
+                {% endif %}
+                {{ building.name }}
+            </td>
             <td>{{ building.type.name }}</td>
             <td>
                 {% if building.lots is not None %}

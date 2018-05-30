@@ -121,6 +121,8 @@ class Building(models.Model):
     enhancements = models.ManyToManyField(
         BuildingEnhancement, related_name='building', related_query_name='building', blank=True,
     )
+    endowment = models.BooleanField(default=False)
+    free_endowment = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
