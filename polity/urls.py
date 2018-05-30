@@ -9,4 +9,5 @@ urlpatterns = [
     path('polity/new/', views.polity_new, name='polity_new'),
     path('polity/<int:pk>/edit/', views.polity_edit, name='polity_edit'),
     path('polity/<int:pk>/delete/', views.polity_delete, name='polity_delete'),
+    path('polity/<int:pk>/details/', views.polity_details, name='polity_details'),
 ]

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-{% extends 'base.html' %}
+{% extends 'polity/base.html' %}
 
 {% block content %}
     <div class="panel panel-primary" style="margin: 0 auto;">
@@ -153,6 +153,82 @@
                     </tr>
                     <tr>
                         <td class="tb_ccell">{{ polity.consumption.source_summary }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="panel-heading">
+            <h3 style="color: #ffffff; text-align: center; ">Recruitment</h3>
+        </div>
+        <div class="panel-body">
+            <table  class="table table-hover table-responsive" width="100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th style="text-align: center;"><h4>ARMED FORCES</h4></th>
+                        <th style="text-align: center;"><h4>MANPOWER</h4></th>
+                        <th style="text-align: center;"><h4>REGULARS</h4></th>
+                        <th style="text-align: center;"><h4>ELITES</h4></th>
+                        <th style="text-align: center;"><h4>MILITIA</h4></th>
+                        <th style="text-align: center;"><h4>CONSCRIPTS</h4></th>
+                        <th style="text-align: center;"><h4>ALLIED</h4></th>
+                        <th></th>
+                        <th></th>
+                        <th style="text-align: center;">POSSIBLE ELITES+</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: right;"><b>TOTAL</b></td>
+                        <td style="text-align: center;">{{ polity.armed_forces }}</td>
+                        <td style="text-align: center;">{{ polity.manpower }}</td>
+                        <td style="text-align: center;">{{ polity.regulars }}</td>
+                        <td style="text-align: center;">{{ polity.elites }}</td>
+                        <td style="text-align: center;">{{ polity.militia }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align: center;"><b>CR 3</b></td>
+                        <td style="text-align: center;">{{ polity.elites_cr3 }}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;"><b>USED</b></td>
+                        <td style="text-align: center;">{{ polity.armed_forces_used }}</td>
+                        <td style="text-align: center;">{{ polity.manpower_used }}</td>
+                        <td style="text-align: center;">{{ polity.regulars_used }}</td>
+                        <td style="text-align: center;">{{ polity.elites_used }}</td>
+                        <td style="text-align: center;">{{ polity.militia_used }}</td>
+                        <td style="text-align: center;">{{ polity.conscripts_used }}</td>
+                        <td style="text-align: center;">{{ polity.allied_used }}</td>
+                        <td></td>
+                        <td style="text-align: center;"><b>CR 4</b></td>
+                        <td style="text-align: center;">{{ polity.elites_cr4 }}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;"><b>AVAILABLE</b></td>
+                        <td style="text-align: center;">{{ polity.armed_forces_available }}</td>
+                        <td style="text-align: center;">{{ polity.manpower_available }}</td>
+                        <td style="text-align: center;">{{ polity.regulars_available }}</td>
+                        <td style="text-align: center;">{{ polity.elites_available }}</td>
+                        <td style="text-align: center;">{{ polity.militia_available }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align: center;"><b>CR 5</b></td>
+                        <td style="text-align: center;">{{ polity.elites_cr5 }}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align: center;"><b>CR 6</b></td>
+                        <td style="text-align: center;">{{ polity.elites_cr6 }}</td>
                     </tr>
                 </tbody>
             </table>

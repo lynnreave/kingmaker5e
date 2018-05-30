@@ -4,16 +4,4 @@
 {% load staticfiles %}
 
 {% block content %}
-    {% for polity in polities %}
-        <div class="panel panel-primary" style="width:25%; cursor: pointer;" onmouseover="">
-            <div class="panel-heading">
-                <a href="{% url 'core:dashboard' pk=polity.pk %}">
-                <h3 style="color: #ffffff; text-align: center; ">
-                    {{ polity.name }}
-                </h3>
-                </a>
-            </div>
-            <div class="panel-body">{{ polity.desc }}</div>
-        </div>
-    {% endfor %}
 {% endblock %}

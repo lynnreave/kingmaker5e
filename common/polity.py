@@ -71,11 +71,11 @@ def get_polity_details(id):
     polity = Polity.objects.get(id=id)
 
     # define attributes
-    # define major attributes
+    # major
     polity.economy = PolityAttribute('economy')
     polity.loyalty = PolityAttribute('loyalty')
     polity.stability = PolityAttribute('stability')
-    # define minor attributes
+    # minor
     polity.fame = PolityAttribute('fame')
     polity.infamy = PolityAttribute('infamy')
     polity.corruption = PolityAttribute('corruption')
@@ -84,7 +84,7 @@ def get_polity_details(id):
     polity.lore = PolityAttribute('lore')
     polity.productivity = PolityAttribute('productivity')
     polity.society = PolityAttribute('society')
-    # define other attributes
+    # other
     polity.population = PolityAttribute('population')
     polity.size = PolityAttribute('size')
     polity.control_dc = 0
@@ -92,6 +92,24 @@ def get_polity_details(id):
     polity.defense = PolityAttribute('defense')
     polity.unrest_mod = PolityAttribute('unrest')
     polity.consumption = PolityAttribute('consumption')
+    # military
+    polity.armed_forces = 0
+    polity.armed_forces_used = 0
+    polity.armed_forces_available = 0
+    polity.manpower = 0
+    polity.manpower_used = 0
+    polity.manpower_available = 0
+    polity.regulars = 0
+    polity.regulars_used = 0
+    polity.regulars_available = 0
+    polity.elites = 0
+    polity.elites_used = 0
+    polity.elites_available = 0
+    polity.militia = 0
+    polity.militia_used = 0
+    polity.militia_available = 0
+    polity.conscripts_used = 0
+    polity.allied_used = 0
 
     # determine roles
     # define roles
@@ -128,10 +146,25 @@ def get_polity_details(id):
     apply_diplomacy_modifiers(polity)
     # apply settlement modifiers
     apply_settlement_modifiers(polity)
-    # apply armed_forces modifiers
-    apply_military_modifiers(polity)
     # apply event modifiers
     apply_event_modifiers(polity)
+
+    # apply armed_forces modifiers
+    polity.population.get_total()
+    polity.loyalty.get_total()
+    polity.armed_forces = math.floor(polity.loyalty.total * polity.recruitment_edict.manpower_mult)
+    if polity.armed_forces < 0: polity.armed_forces = 0
+    polity.armed_forces += get_ability_score_mod(polity.general.cha)['mod']
+    polity.manpower = math.floor(polity.population.total * polity.recruitment_edict.manpower_mult)
+    polity.regulars = polity.manpower
+    polity.militia = polity.manpower
+    polity.elites = math.floor(polity.population.total * polity.recruitment_edict.elites_mult)
+    polity.elites_cr3 = math.floor(polity.elites * 0.75)
+    polity.elites_cr4 = math.floor(polity.elites * 0.50)
+    polity.elites_cr5 = math.floor(polity.elites * 0.25)
+    polity.elites_cr6 = math.floor(polity.elites * 0.10)
+    apply_military_modifiers(polity)
+
     # calculate total major attributes
     polity.economy.get_total()
     polity.loyalty.get_total()
@@ -146,7 +179,6 @@ def get_polity_details(id):
     polity.productivity.get_total()
     polity.society.get_total()
     # calculate total misc attributes
-    polity.population.get_total()
     polity.size.get_total()
     polity.income.get_total()
     polity.defense.get_total()
@@ -357,8 +389,38 @@ def apply_military_modifiers(polity):
     armed_forces = polity.armed_force.all()
     for armed_force in armed_forces:
         get_armed_force_details(armed_force)
+        # attribute modifiers
         if armed_force.type.name.lower() != 'allied':
             polity.consumption.from_armed_forces += armed_force.consumption
+
+        # manpower modifiers
+        # armed forces
+        polity.armed_forces_used += 1
+        # regulars
+        if armed_force.type.name.lower() == 'regulars':
+            polity.regulars_used += armed_force.size.num_soldiers
+        # militia
+        if armed_force.type.name.lower() == 'militia':
+            polity.militia_used += armed_force.size.num_soldiers
+        # elites
+        if armed_force.type.name.lower() == 'elites':
+            polity.elites_used += armed_force.size.num_soldiers
+        # conscripts
+        if armed_force.type.name.lower() == 'conscripts':
+            polity.conscripts_used += armed_force.size.num_soldiers
+        # allied
+        if armed_force.type.name.lower() == 'allied':
+            polity.allied_used += armed_force.size.num_soldiers
+        # manpower
+        if armed_force.type.name.lower() not in ['conscripts', 'allied']:
+            polity.manpower_used += armed_force.size.num_soldiers
+
+    # available manpower
+    polity.armed_forces_available = polity.armed_forces - polity.armed_forces_used
+    polity.manpower_available = polity.manpower - polity.manpower_used
+    polity.regulars_available = polity.regulars - polity.regulars_used
+    polity.elites_available = polity.elites - polity.elites_used
+    polity.militia_available = polity.militia - polity.militia_used
     return {}
 
 

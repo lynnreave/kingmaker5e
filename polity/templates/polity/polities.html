@@ -18,7 +18,7 @@
 
 {% block table_body %}
     {% for polity in polities %}
-        <tr>
+        <tr class="clickable-object" style="cursor: pointer;" data-href="{% url 'polity:polity_details' pk=polity.pk %}">
             <td class="tb_ccell">{{ polity.name }}</td>
             <td class="tb_ccell">{{ polity.government.name }}</td>
             <td class="tb_ccell">
