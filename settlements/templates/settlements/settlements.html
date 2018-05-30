@@ -10,6 +10,7 @@
     <th><h4>DISTRICTS</h4></th>
     <th><h4>LOTS</h4></th>
     <th><h4>SUMMARY</h4></th>
+    <th><h4>MAGIC ITEMS</h4></th>
     <th><h4></h4></th>
 {% endblock %}
 
@@ -33,6 +34,7 @@
             <td>{{ settlement.districts }}</td>
             <td>{{ settlement.lots }}</td>
             <td>{{ settlement.att_summary }}</td>
+            <td>{{ settlement.magic_items_string }}</td>
             <td>
                 {% if user.is_authenticated %}
                     <a class="btn btn-default" href="{% url 'settlements:settlement_edit' pk=settlement.pk %}">

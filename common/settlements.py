@@ -28,6 +28,8 @@ def get_settlement_details(settlement):
     settlement.defense = 0
     settlement.unrest = 0
     settlement.consumption = 0
+    settlement.magic_items = []
+    settlement.magic_items_string = ''
 
     # apply building modifiers
     for building in settlement.buildings:
@@ -52,6 +54,8 @@ def get_settlement_details(settlement):
         settlement.consumption += building.consumption
         settlement.income += building.income
         settlement.unrest += building.unrest
+        if building.type.magic_items != '':
+            settlement.magic_items.append(building.type.magic_items)
 
     # determine type
     if settlement.districts > 0:
@@ -71,9 +75,11 @@ def get_settlement_details(settlement):
             settlement.consumption + (settlement.type.con_bonus * settlement.districts))
     settlement.population = math.floor(settlement.population * settlement.type.pop_mult)
     settlement.danger += settlement.type.dan_mod
+    settlement.magic_items.insert(0, settlement.type.magic_items)
 
     # summary
     settlement.att_summary = get_effects_summary_for_obj(settlement)
+    settlement.magic_items_string = ', '.join(settlement.magic_items)
 
     return {'settlement': settlement}
 
