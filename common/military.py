@@ -10,6 +10,7 @@ def get_armed_force_details(armed_force):
     armed_force.camo_mod = armed_force.size.camo_mod
     armed_force.camo_mod_string = get_signed_number(armed_force.size.camo_mod)['s']
     armed_force.equipment_string = ''
+    armed_force.commander_boons = ''
     # derived
     armed_force.acr = 0
     armed_force.hp = 0
@@ -63,7 +64,19 @@ def get_armed_force_details(armed_force):
     if armed_force.commander is not None:
         armed_force.leadership_bonus = math.floor(armed_force.commander.hit_dice / 5) + \
             get_ability_score_mod(armed_force.commander.cha)['mod']
+        if get_ability_score_mod(armed_force.commander.cha)['mod'] >= 3:
+            armed_force.leadership_bonus += 1
+        if get_ability_score_mod(armed_force.commander.wis)['mod'] >= 3:
+            armed_force.leadership_bonus += 1
+        if get_ability_score_mod(armed_force.commander.int)['mod'] >= 3:
+            armed_force.leadership_bonus += 1
         armed_force.leadership_bonus_string = get_signed_number(armed_force.leadership_bonus)['s']
+
+    # determine commander boons
+        boons = []
+        for boon in armed_force.commander.boons.all():
+            boons.append(boon.name)
+        armed_force.commander_boons = ', '.join(boons)
 
     # apply equipment modifiers
     eqt = []

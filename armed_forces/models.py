@@ -42,6 +42,14 @@ class Equipment(models.Model):
         return self.name
 
 
+class Boon(models.Model):
+    name = models.CharField(max_length=default_max_length)
+    desc = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+
 class ArmedForce(models.Model):
     polity = models.ForeignKey(
         'polity.Polity', on_delete=models.CASCADE,

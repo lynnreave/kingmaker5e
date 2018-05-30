@@ -68,6 +68,10 @@ class Person(models.Model):
         LeadershipRole, on_delete=models.CASCADE, blank=True, null=True,
         related_name='person', related_query_name='person'
     )
+    boons = models.ManyToManyField(
+        'armed_forces.Boon', blank=True,
+        related_name='person', related_query_name='person',
+    )
 
     def __str__(self):
         return "%s %s" % (self.first_name, self.last_name)
