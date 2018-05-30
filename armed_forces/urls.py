@@ -13,4 +13,8 @@ urlpatterns = [
     path('item/new/', views.item_new, name='item_new'),
     path('item/<int:pk>/edit/', views.item_edit, name='item_edit'),
     path('item/<int:pk>/delete/', views.item_delete, name='item_delete'),
+    path('casualties', views.casualties, name='casualties'),
+    path('casualty/new/', views.casualty_new, name='casualty_new'),
+    path('casualty/<int:pk>/edit/', views.casualty_edit, name='casualty_edit'),
+    path('casualty/<int:pk>/delete/', views.casualty_delete, name='casualty_delete'),
 ]

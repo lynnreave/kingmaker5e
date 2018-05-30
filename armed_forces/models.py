@@ -103,3 +103,15 @@ class ArmedForce(models.Model):
 
     def __str__(self):
         return "%s (%s)" % (self.name, self.polity.name)
+
+
+class Casualty(models.Model):
+    unit = models.ForeignKey(
+        ArmedForce, on_delete=models.CASCADE,
+        related_name='casualty', related_query_name='casualty'
+    )
+    num = models.IntegerField()
+    months = models.IntegerField()
+
+    def __str__(self):
+        return "%s from %s" % (self.num, self.unit.name)

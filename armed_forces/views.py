@@ -1,6 +1,6 @@
 from common import *
-from .models import ArmedForce, Equipment
-from .forms import ArmedForceForm, EquipmentForm
+from .models import ArmedForce, Equipment, Casualty
+from .forms import ArmedForceForm, EquipmentForm, CasualtyForm
 from .vars import app_name
 
 
@@ -48,3 +48,18 @@ def item_new(request):
 def item_edit(request, pk):
     return edit_item(request, app_name, pk, b_obj, b_name, b_form, b_plural, fast_commit=True)
 def item_delete(request, pk): return delete_item(request, app_name, pk, b_obj, b_plural)
+
+
+# CASUALTIES
+c_name = 'casualty'
+c_plural = 'casualties'
+c_obj = Casualty
+c_form = CasualtyForm
+
+def casualties(request):
+    return show_all_items(request, app_name, c_obj, c_plural, sort='months')
+def casualty_new(request):
+    return create_item(request, app_name, c_name, c_form, c_plural, fast_commit=True)
+def casualty_edit(request, pk):
+    return edit_item(request, app_name, pk, c_obj, c_name, c_form, c_plural, fast_commit=True)
+def casualty_delete(request, pk): return delete_item(request, app_name, pk, c_obj, c_plural)

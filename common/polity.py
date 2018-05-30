@@ -98,6 +98,7 @@ def get_polity_details(id):
     polity.armed_forces_available = 0
     polity.manpower = 0
     polity.manpower_used = 0
+    polity.manpower_casualties = 0
     polity.manpower_available = 0
     polity.regulars = 0
     polity.regulars_used = 0
@@ -415,12 +416,19 @@ def apply_military_modifiers(polity):
         if armed_force.type.name.lower() not in ['conscripts', 'allied']:
             polity.manpower_used += armed_force.size.num_soldiers
 
+        # casualties
+        casualties = armed_force.casualty.all()
+        for casualty in casualties:
+            polity.manpower_casualties += casualty.num
+
     # available manpower
     polity.armed_forces_available = polity.armed_forces - polity.armed_forces_used
-    polity.manpower_available = polity.manpower - polity.manpower_used
-    polity.regulars_available = polity.regulars - polity.regulars_used
+    polity.manpower_available = polity.manpower - polity.manpower_used - polity.manpower_casualties
+    polity.regulars_available = polity.regulars - polity.manpower_used - polity.manpower_casualties
     polity.elites_available = polity.elites - polity.elites_used
-    polity.militia_available = polity.militia - polity.militia_used
+    if polity.elites_available > polity.manpower_available:
+        polity.elites_available = polity.manpower_available
+    polity.militia_available = polity.militia - polity.manpower_used - polity.manpower_casualties
     return {}
 
 
