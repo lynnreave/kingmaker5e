@@ -30,6 +30,7 @@ def get_settlement_details(settlement):
     settlement.consumption = 0
     settlement.magic_items = []
     settlement.magic_items_string = ''
+    settlement.endowment_upkeep = 0
 
     # apply building modifiers
     for building in settlement.buildings:
@@ -56,6 +57,7 @@ def get_settlement_details(settlement):
         settlement.unrest += building.unrest
         if building.type.magic_items != '':
             settlement.magic_items.append(building.type.magic_items)
+        settlement.endowment_upkeep += building.endowment_upkeep
 
     # determine type
     if settlement.districts > 0:
@@ -80,6 +82,8 @@ def get_settlement_details(settlement):
     # summary
     settlement.att_summary = get_effects_summary_for_obj(settlement)
     settlement.magic_items_string = ', '.join(settlement.magic_items)
+    if settlement.endowment_upkeep > 0:
+        settlement.att_summary += ', %sgp endowment upkeep' % settlement.endowment_upkeep
 
     return {'settlement': settlement}
 
@@ -104,6 +108,7 @@ def get_building_details(building):
     # other
     building.defense = 0
     building.consumption = 0
+    building.endowment_upkeep = 0
     building.unrest = 0
     building.income = 0
 
@@ -152,6 +157,16 @@ def get_building_details(building):
         building.income += enhancement.inc_bonus
         building.unrest += enhancement.unr_bonus
 
+    # endowment
+    if building.endowment:
+        building.fame += 1
+        building.loyalty += 1
+        if not building.free_endowment:
+            building.consumption += 1
+            building.endowment_upkeep += (building.type.const_cost * building.type.const_time) * 100
+
     # effects summary
     building.effects_summary = get_effects_summary_for_obj(building)
+    if building.endowment_upkeep > 0:
+        building.effects_summary += ', %sgp endowment upkeep' % building.endowment_upkeep
     return {}

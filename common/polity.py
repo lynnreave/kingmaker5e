@@ -92,6 +92,7 @@ def get_polity_details(id):
     polity.defense = PolityAttribute('defense')
     polity.unrest_mod = PolityAttribute('unrest')
     polity.consumption = PolityAttribute('consumption')
+    polity.endowment_upkeep = 0
     # military
     polity.armed_forces = 0
     polity.armed_forces_used = 0
@@ -593,6 +594,7 @@ def apply_settlement_modifiers(polity):
         polity.defense.from_settlements += settlement.defense
         polity.consumption.from_settlements += settlement.consumption
         polity.income.from_settlements += settlement.income
+        polity.endowment_upkeep += settlement.endowment_upkeep
     return {}
 
 

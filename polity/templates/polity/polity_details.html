@@ -154,6 +154,13 @@
                     <tr>
                         <td class="tb_ccell">{{ polity.consumption.source_summary }}</td>
                     </tr>
+                    <tr>
+                        <td>
+                            {% if polity.endowment_upkeep > 0 %}
+                                +{{ polity.endowment_upkeep }}gp endowment upkeep
+                            {% endif %}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
