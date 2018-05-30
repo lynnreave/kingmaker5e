@@ -50,6 +50,14 @@ class Boon(models.Model):
         return self.name
 
 
+class SpecialAbility(models.Model):
+    name = models.CharField(max_length=default_max_length)
+    desc = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+
 class ArmedForce(models.Model):
     polity = models.ForeignKey(
         'polity.Polity', on_delete=models.CASCADE,
@@ -75,6 +83,9 @@ class ArmedForce(models.Model):
     )
     equipment = models.ManyToManyField(
         Equipment, related_name='armed_force', related_query_name='armed_force', blank=True,
+    )
+    special_abilities = models.ManyToManyField(
+        SpecialAbility, related_name='armed_force', related_query_name='armed_force', blank=True,
     )
     custom_cr = models.FloatField(null=True, blank=True)
     mount_cr = models.FloatField(null=True, blank=True)

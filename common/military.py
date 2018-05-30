@@ -90,6 +90,12 @@ def get_armed_force_details(armed_force):
         armed_force.morale += item.morale_mod
     armed_force.equipment_string = ', '.join(eqt)
 
+    # special abilities
+    abilities = []
+    for ability in armed_force.special_abilities.all():
+        abilities.append(ability.name)
+    armed_force.special_abilities_string = ', '.join(abilities)
+
     # summaries
     armed_force.cr_string = get_mixed_number_string(armed_force.cr)
     armed_force.acr_string = get_mixed_number_string(armed_force.acr)

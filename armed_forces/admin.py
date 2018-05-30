@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ArmedForce, SoldierType, UnitType, Equipment, Boon
+from .models import ArmedForce, SoldierType, UnitType, Equipment, Boon, SpecialAbility
 
 
 class CustomModelAdmin(admin.ModelAdmin):
@@ -14,3 +14,4 @@ admin.site.register(SoldierType, CustomModelAdmin)
 admin.site.register(UnitType, CustomModelAdmin)
 admin.site.register(Equipment, CustomModelAdmin)
 admin.site.register(Boon, CustomModelAdmin)
+admin.site.register(SpecialAbility, CustomModelAdmin)

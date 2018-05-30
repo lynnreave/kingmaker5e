@@ -65,6 +65,7 @@
         </tr>
         <tr>
             <td></td>
+            <td></td>
             <td><h4>COMMANDER</h4></td>
             <td>
                 {% if armed_force.commander %}
@@ -93,6 +94,8 @@
             <td>{{ armed_force.commander_boons }}</td>
             <td><h4>EQUIPMENT</h4></td>
             <td>{{ armed_force.equipment_string }}</td>
+            <td><h4>SPECIAL ABILITIES</h4></td>
+            <td>{{ armed_force.special_abilities_string }}</td>
         </tr>
     {% endfor %}
 {% endblock %}
