@@ -102,15 +102,20 @@ def get_polity_details(id):
     polity.manpower_available = 0
     polity.regulars = 0
     polity.regulars_used = 0
+    polity.regulars_casualties = 0
     polity.regulars_available = 0
     polity.elites = 0
     polity.elites_used = 0
+    polity.elites_casualties = 0
     polity.elites_available = 0
     polity.militia = 0
     polity.militia_used = 0
+    polity.militia_casualties = 0
     polity.militia_available = 0
     polity.conscripts_used = 0
+    polity.conscripts_casualties = 0
     polity.allied_used = 0
+    polity.allied_casualties = 0
 
     # determine roles
     # define roles
@@ -419,16 +424,36 @@ def apply_military_modifiers(polity):
         # casualties
         casualties = armed_force.casualty.all()
         for casualty in casualties:
-            polity.manpower_casualties += casualty.num
+            if armed_force.type.name.lower() == 'regulars':
+                polity.manpower_casualties += casualty.num
+                polity.regulars_casualties += casualty.num
+            elif armed_force.type.name.lower() == 'militia':
+                polity.manpower_casualties += casualty.num
+                polity.militia_casualties += casualty.num
+            elif armed_force.type.name.lower() == 'elites':
+                polity.manpower_casualties += casualty.num
+                polity.elites_casualties += casualty.num
+            elif armed_force.type.name.lower() == 'allied':
+                polity.allied_casualties += casualty.num
+            elif armed_force.type.name.lower() == 'conscripts':
+                polity.conscript_casualties += casualty.num
 
     # available manpower
     polity.armed_forces_available = polity.armed_forces - polity.armed_forces_used
     polity.manpower_available = polity.manpower - polity.manpower_used - polity.manpower_casualties
     polity.regulars_available = polity.regulars - polity.manpower_used - polity.manpower_casualties
-    polity.elites_available = polity.elites - polity.elites_used
+    if polity.regulars_available < 0: polity.regulars_available = 0
+    polity.elites_available = polity.elites - polity.elites_used - polity.elites_casualties
     if polity.elites_available > polity.manpower_available:
         polity.elites_available = polity.manpower_available
+    if polity.elites_available < 0: polity.elites_available = 0
     polity.militia_available = polity.militia - polity.manpower_used - polity.manpower_casualties
+    if polity.militia_available < 0: polity.militia_available = 0
+
+    # overdrawn penalties
+    if polity.manpower_available < 0:
+        polity.loyalty.from_armed_forces -= \
+            math.floor((abs(polity.manpower_available)/(polity.manpower * 0.01)))
     return {}
 
 
