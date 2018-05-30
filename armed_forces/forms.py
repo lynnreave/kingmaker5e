@@ -8,7 +8,7 @@ class ArmedForceForm(forms.ModelForm):
         model = ArmedForce
         fields = (
             'polity', 'name', 'desc', 'commander', 'morale', 'speed', 'active',
-            'hit_die', 'type', 'size', 'custom_cr', 'equipment'
+            'hit_die', 'type', 'size', 'custom_cr', 'mount_cr', 'equipment'
         )
 
 
