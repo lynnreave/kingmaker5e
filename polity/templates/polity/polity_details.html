@@ -152,6 +152,18 @@
                         <td style="text-align: center;">
                             <p><font size="5">{{ polity.treasury }}</font></p>
                         </td>
+                        <td style="text-align: left;">
+                            <p>
+                                <a class="btn btn-default" href="{% url 'polity:polity_modify_treasury' pk=polity.pk dir='+' step=1 %}">
+                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                </a>
+                            </p>
+                            <p>
+                                <a class="btn btn-default" href="{% url 'polity:polity_modify_treasury' pk=polity.pk dir='-' step=1 %}">
+                                    <span class="glyphicon glyphicon-minus-sign"></span>
+                                </a>
+                            </p>
+                        </td>
                     </tr>
                     <tr>
                         <td style="text-align: left;"><h4>INCOME</h4></td>
@@ -176,8 +188,25 @@
                     <tr>
                         <td style="text-align: left;"><h4>UNREST</h4></td>
                         <td style="text-align: center;">
-                            <p><font size="5">{{ polity.unrest.total }}</font></p>
-                            <p><font size="1">({{ polity.unrest.source_summary }})</font></p>
+                            <font size="5">{{ polity.unrest.total }}</font>
+                        </td>
+                        <td style="text-align: left;">
+                            <p>
+                                <a class="btn btn-default" href="{% url 'polity:polity_modify_unrest' pk=polity.pk dir='+' step=1 %}">
+                                    <span class="glyphicon glyphicon-plus-sign"></span>
+                                </a>
+                            </p>
+                            <p>
+                                {% if polity.unrest.total > 0 %}
+                                    <a class="btn btn-default" href="{% url 'polity:polity_modify_unrest' pk=polity.pk dir='-' step=1 %}">
+                                        <span class="glyphicon glyphicon-minus-sign"></span>
+                                    </a>
+                                {% else %}
+                                    <a class="btn disabled" href="{% url 'polity:polity_modify_unrest' pk=polity.pk dir='-' step=1 %}">
+                                        <span class="glyphicon glyphicon-minus-sign"></span>
+                                    </a>
+                            {% endif %}
+                            </p>
                         </td>
                     </tr>
                     <tr>
@@ -191,6 +220,13 @@
                                     {% endif %}
                                 </font>
                             </p>
+                            {% if polity.endowment_upkeep > 0 %}
+                                <p>
+                                    <font size="1">
+                                        +{{ polity.endowment_upkeep }}gp endowment upkeep
+                                    </font>
+                                </p>
+                            {% endif %}
                             <p>
                                 <font size="1">
                                     {{ polity.consumption_autumn }} in Autumn,
@@ -203,6 +239,12 @@
                                     <font size="1">!!!SURPLUS!!!</font>
                                 {% endif %}
                             </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><h4>MAGIC ITEMS</h4></td>
+                        <td style="text-align: center; word-wrap:break-word;">
+                            {{ polity.magic_items_string }}
                         </td>
                     </tr>
                 </tbody>

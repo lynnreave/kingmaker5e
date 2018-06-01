@@ -120,6 +120,7 @@ def get_polity_details(id):
     polity.consumption_autumn = 0
     polity.consumption_winter = 0
     polity.endowment_upkeep = 0
+    polity.magic_items = []
     # military
     polity.armed_forces = 0
     polity.armed_forces_used = 0
@@ -239,7 +240,9 @@ def get_polity_details(id):
     polity.unrest.get_total()
     if polity.unrest.total < 0: polity.unrest.total = 0
     # calculate control dc
-    polity.control_dc = 20 + polity.size.total  # + num_districts in all settlements
+    polity.control_dc = 20 + polity.size.total
+    # magic items
+    polity.magic_items_string = ', '.join(polity.magic_items)
 
     return {'polity': polity}
 
@@ -652,6 +655,7 @@ def apply_settlement_modifiers(polity):
         polity.consumption.from_settlements += settlement.consumption
         polity.income.from_settlements += settlement.income
         polity.endowment_upkeep += settlement.endowment_upkeep
+        polity.magic_items.append(settlement.magic_items_string)
     return {}
 
 

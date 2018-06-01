@@ -27,3 +27,23 @@ def polity_details(request, pk):
             'polity': polity,
         }
     )
+
+
+def polity_modify_treasury(request, pk, dir, step):
+    polity = get_object_or_404(Polity, pk=pk)
+    if dir == '+':
+        polity.treasury += step
+    else:
+        polity.treasury -= step
+    polity.save()
+    return redirect('polity:polity_details', pk=pk)
+
+
+def polity_modify_unrest(request, pk, dir, step):
+    polity = get_object_or_404(Polity, pk=pk)
+    if dir == '+':
+        polity.unrest += step
+    else:
+        polity.unrest -= step
+    polity.save()
+    return redirect('polity:polity_details', pk=pk)
