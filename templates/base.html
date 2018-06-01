@@ -35,7 +35,7 @@
     <div class="container-fluid">
         <div class="navbar">
             <div class="navbar-inner">
-                <a class="brand">Kingmaker5E</a>
+                <a class="brand" href="{% url 'polity:polity_details' pk=1 %}">Kingmaker5E</a>
                 <ul class="nav nav-pills">
                     <li role="presentation"><a href="{% url 'core:home' %}">Home</a></li>
                     <li role="presentation"><a href="{% url 'polity:polities' %}">Polities</a></li>
@@ -50,6 +50,7 @@
                         </a>
                     </li>
                     <li role="presentation"><a href="{% url 'events:events' %}">Events</a></li>
+                    <li role="presentation"><a href="{% url 'factions:factions' %}">Factions</a></li>
                     <li role="presentation"><a href="{% url 'festivals:festivals' %}">Festivals</a></li>
                     <li role="presentation"><a href="{% url 'people:people' %}">People</a></li>
                     <li role="presentation">

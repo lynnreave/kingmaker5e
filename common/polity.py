@@ -25,6 +25,7 @@ class PolityAttribute:
         self.from_armed_forces = 0
         self.from_festivals = 0
         self.from_trade = 0
+        self.from_factions = 0
         self.from_events = 0
 
     def get_total(self):
@@ -40,6 +41,7 @@ class PolityAttribute:
             + self.from_armed_forces \
             + self.from_festivals \
             + self.from_trade \
+            + self.from_factions \
             + self.from_events
         self.total = math.floor(self.total)
         if len(self.dice) > 0:
@@ -72,6 +74,8 @@ class PolityAttribute:
             sources.append("%s from festivals" % get_signed_number(self.from_festivals)['s'])
         if self.from_trade != 0:
             sources.append("%s from trade" % get_signed_number(self.from_trade)['s'])
+        if self.from_factions != 0:
+            sources.append("%s from factions" % get_signed_number(self.from_factions)['s'])
         if self.from_events != 0:
             sources.append("%s from events" % get_signed_number(self.from_events)['s'])
         self.source_summary = ", ".join(sources)
@@ -175,6 +179,7 @@ def get_polity_details(id):
     apply_diplomacy_modifiers(polity)
     apply_settlement_modifiers(polity)
     apply_festival_modifiers(polity)
+    apply_faction_modifiers(polity)
     polity.consumption.get_total()
     apply_event_modifiers(polity)
 
@@ -333,6 +338,22 @@ def apply_event_modifiers(polity):
         polity.income.from_events += event.inc_bonus
         polity.unrest.from_events += event.unr_bonus
     return {}
+
+
+def apply_faction_modifiers(polity):
+    factions = polity.faction.all()
+    for faction in factions:
+        polity.economy.from_factions += faction.eco_bonus
+        polity.loyalty.from_factions += faction.loy_bonus
+        polity.stability.from_factions += faction.sta_bonus
+        polity.fame.from_factions += faction.fam_bonus
+        polity.infamy.from_factions += faction.inf_bonus
+        polity.corruption.from_factions += faction.cor_bonus
+        polity.crime.from_factions += faction.cri_bonus
+        polity.law.from_factions += faction.law_bonus
+        polity.lore.from_factions += faction.lor_bonus
+        polity.productivity.from_factions += faction.pro_bonus
+        polity.society.from_factions += faction.soc_bonus
 
 
 def apply_festival_modifiers(polity):
