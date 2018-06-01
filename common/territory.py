@@ -20,6 +20,7 @@ def get_territory_effects(territories):
         territory.soc_bonus = 0
         territory.def_bonus = 0
         territory.con_bonus = 0
+        territory.con_bonus_from_farms = 0
         territory.inc_bonus = 0
         territory.unr_bonus = 0
 
@@ -50,6 +51,9 @@ def get_territory_effects(territories):
             territory.con_bonus += improvement.con_bonus
             territory.inc_bonus += improvement.inc_bonus
             territory.unr_bonus += improvement.unr_bonus
+            # farms
+            if improvement.name.lower() == 'farm':
+                territory.con_bonus_from_farms += abs(improvement.con_bonus)
             # rules flags
             if improvement.name.lower() == 'watchtower': has_watchtower = True
             if improvement.name.lower() == 'fort': has_fort = True

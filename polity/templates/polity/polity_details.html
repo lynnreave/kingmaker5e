@@ -137,10 +137,10 @@
             <table style="margin: 0 auto; ">
                 <tbody>
                     <tr>
-                        <td class="tb_ccell"><h4>CONSUMPTION</h4></td>
+                        <td style="text-align: center;"><h4>CONSUMPTION</h4></td>
                     </tr>
                     <tr>
-                        <td class="tb_ccell">
+                        <td style="text-align: center;">
                             {{ polity.consumption.total }}
                             {% if polity.consumption.total_dice != '' %}
                                 {{ polity.consumption.total_dice }}
@@ -151,7 +151,13 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="tb_ccell">{{ polity.consumption.source_summary }}</td>
+                        <td style="text-align: center;">
+                            {{ polity.consumption_autumn }} in Autumn,
+                            {{ polity.consumption_winter }} in Winter
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">{{ polity.consumption.source_summary }}</td>
                     </tr>
                     <tr>
                         <td>

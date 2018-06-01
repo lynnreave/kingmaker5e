@@ -73,7 +73,7 @@ def get_settlement_details(settlement):
         settlement.consumption += math.floor(building.consumption * effect_mult)
         settlement.income += math.floor(building.income * effect_mult)
         settlement.unrest += building.unrest
-        if building.magic_items != '':
+        if building.magic_items != '' and building.magic_items is not None:
             settlement.magic_items.append(building.magic_items)
             if settlement.civic_festival and building.type.name.lower() in CIVIC_BUILDINGS:
                 settlement.magic_items.append(building.magic_items)

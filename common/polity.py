@@ -109,6 +109,9 @@ def get_polity_details(id):
     polity.unrest.from_base += unrest
     polity.consumption = PolityAttribute('consumption')
     polity.consumption_excess = False
+    polity.consumption_from_farms = 0
+    polity.consumption_autumn = 0
+    polity.consumption_winter = 0
     polity.endowment_upkeep = 0
     # military
     polity.armed_forces = 0
@@ -183,10 +186,20 @@ def get_polity_details(id):
     polity.elites_cr6 = math.floor(polity.elites * 0.10)
     apply_military_modifiers(polity)
 
+    # consumption total
     polity.consumption.get_total()
+    # farms
+    if polity.recruitment_edict.militarism.lower() not in ['aggressive', 'warlike']:
+        polity.consumption_autumn = math.floor(
+            polity.consumption.total - (polity.consumption_from_farms * 0.5))
+    else:
+        polity.consumption_autumn = polity.consumption.total
+    polity.consumption_winter = math.floor(
+        polity.consumption.total + (polity.consumption_from_farms * 0.5))
+    # excess
     if polity.consumption.total < 0:
         polity.consumption_excess = True
-        polity.consumption.total = 0
+    # trade
     apply_trade_modifiers(polity)
 
     # calculate total major attributes
@@ -654,6 +667,8 @@ def apply_terrain_modifiers(polity):
         polity.defense.from_terrain += territory.def_bonus
         polity.consumption.from_terrain += territory.con_bonus
         polity.income.from_terrain += territory.inc_bonus
+        polity.consumption_from_farms += territory.con_bonus_from_farms
+    # size
     polity.size.from_terrain += len(territories)
     return {}
 
