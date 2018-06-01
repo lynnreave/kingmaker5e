@@ -80,6 +80,12 @@ class PolityAttribute:
 def get_polity_details(id):
     polity = Polity.objects.get(id=id)
 
+    # alignment string
+    if polity.alignment_lc.name.lower() == 'neutral' and polity.alignment_ge.name.lower() == 'neutral':
+        polity.alignment_string = 'True Neutral'
+    else:
+        polity.alignment_string = '%s %s' % (polity.alignment_lc.name, polity.alignment_ge.name)
+
     # define attributes
     fame = polity.fame
     infamy = polity.infamy

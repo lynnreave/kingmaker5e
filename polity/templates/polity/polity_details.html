@@ -8,162 +8,116 @@
             <h3 style="color: #ffffff; text-align: center; ">Polity Attributes</h3>
         </div>
         <div class="panel-body">
-            <table style="float: left;">
-                <tbody>
-                    <tr>
-                        <td class="tb_lcell"><h4>ALIGNMENT</h4></td>
-                        <td class="tb_ccell">Lawful Neutral</td>
-                    </tr>
-                    <tr>
-                        <td class="tb_lcell"><h4>GOVERNMENT</h4></td>
-                        <td class="tb_ccell">Feudal Monarchy</td>
-                    </tr>
-                </tbody>
-            </table>
-            <table style="float: right;">
-                <tbody>
-                    <tr>
-                        <td class="tb_lcell"><h4>POPULATION</h4></td>
-                        <td class="tb_ccell">{{ polity.population.total }}</td>
-                        <td class="tb_lcell">{{ polity.population.source_summary }}</td>
-                    </tr>
-                    <tr>
-                        <td class="tb_lcell"><h4>CONTROL DC</h4></td>
-                        <td class="tb_ccell">{{ polity.control_dc }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <table style="margin: 0 auto; ">
-                <tbody>
-                    <tr>
-                        <td class="tb_ccell"><h4>SIZE</h4></td>
-                    </tr>
-                    <tr>
-                        <td class="tb_ccell">{{ polity.size.total }}</td>
-                    </tr>
-                    <tr>
-                        <td class="tb_ccell">{{ polity.size.source_summary }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <table style="margin: 0 auto; ">
+            <table class="table-hover table-responsive" style="float: center;" width="100%">
                 <thead>
                     <tr>
-                        <th class="th_ccell"><h4>ECONOMY</h4></th>
-                        <th class="th_ccell"><h4>LOYALTY</h4></th>
-                        <th class="th_ccell"><h4>STABILITY</h4></th>
+                        <th style="text-align: center;"><h4>GOVERNMENT</h4></th>
+                        <th style="text-align: center;"><h4>ALIGNMENT</h4></th>
+                        <th style="text-align: center;"><h4>SIZE</h4></th>
+                        <th style="text-align: center;"><h4>POPULATION</h4></th>
+                        <th style="text-align: center;"><h4>CONTROL DC</h4></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="tb_ccell">{{ polity.economy.total }}</td>
-                        <td class="tb_ccell">{{ polity.loyalty.total }}</td>
-                        <td class="tb_ccell">{{ polity.stability.total }}</td>
-                    </tr>
-                    <tr>
-                        <td class="tb_lcell">{{ polity.economy.source_summary }}</td>
-                        <td class="tb_lcell">{{ polity.loyalty.source_summary }}</td>
-                        <td class="tb_lcell">{{ polity.stability.source_summary }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <table style="margin: 0 auto; ">
-                <thead>
-                    <tr>
-                        <th class="th_ccell"><h4>FAME</h4></th>
-                        <th class="th_ccell"><h4>INFAMY</h4></th>
-                        <th class="th_ccell"><h4>CORRUPTION</h4></th>
-                        <th class="th_ccell"><h4>CRIME</h4></th>
-                        <th class="th_ccell"><h4>LAW</h4></th>
-                        <th class="th_ccell"><h4>LORE</h4></th>
-                        <th class="th_ccell"><h4>PRODUCTIVITY</h4></th>
-                        <th class="th_ccell"><h4>SOCIETY</h4></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="tb_ccell">{{ polity.fame.total }} ({{ polity.fame_mod }})</td>
-                        <td class="tb_ccell">{{ polity.infamy.total }} ({{ polity.infamy_mod }})</td>
-                        <td class="tb_ccell">{{ polity.corruption.total }} ({{ polity.corruption_mod }})</td>
-                        <td class="tb_ccell">{{ polity.crime.total }} ({{ polity.crime_mod }})</td>
-                        <td class="tb_ccell">{{ polity.law.total }} ({{ polity.law_mod }})</td>
-                        <td class="tb_ccell">{{ polity.lore.total }} ({{ polity.lore_mod }})</td>
-                        <td class="tb_ccell">{{ polity.productivity.total }} ({{ polity.productivity_mod }})</td>
-                        <td class="tb_ccell">{{ polity.society.total }} ({{ polity.society_mod }})</td>
-                    </tr>
-                    <tr>
-                        <td class="tb_lcell">{{ polity.fame.source_summary }}</td>
-                        <td class="tb_lcell">{{ polity.infamy.source_summary }}</td>
-                        <td class="tb_lcell">{{ polity.corruption.source_summary }}</td>
-                        <td class="tb_lcell">{{ polity.crime.source_summary }}</td>
-                        <td class="tb_lcell">{{ polity.law.source_summary }}</td>
-                        <td class="tb_lcell">{{ polity.lore.source_summary }}</td>
-                        <td class="tb_lcell">{{ polity.productivity.source_summary }}</td>
-                        <td class="tb_lcell">{{ polity.society.source_summary }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <table style="float: left;">
-                <tbody>
-                    <tr>
-                        <td class="tb_lcell"><h4>TREASURY</h4></td>
-                        <td class="tb_ccell">{{ polity.treasury }}</td>
-                    </tr>
-                    <tr>
-                        <td class="tb_lcell"><h4>INCOME</h4></td>
-                        <td class="tb_ccell">{{ polity.income.total }}</td>
-                        <td class="tb_lcell">{{ polity.income.source_summary }}</td>
-                    </tr>
-                    <tr>
-                        <td class="tb_lcell"><h4>REVENUE DIVISOR</h4></td>
-                        <td class="tb_ccell">{{ polity.tax_edict.revenue_divisor }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <table style="float: right;">
-                <tbody>
-                    <tr>
-                        <td class="tb_lcell"><h4>DEFENSE</h4></td>
-                        <td class="tb_ccell">{{ polity.defense.total }}</td>
-                        <td class="tb_lcell">{{ polity.defense.source_summary }}</td>
-                    </tr>
-                    <tr>
-                        <td class="tb_lcell"><h4>UNREST</h4></td>
-                        <td class="tb_ccell">{{ polity.unrest.total }}</td>
-                        <td class="tb_lcell">{{ polity.unrest.source_summary }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <table style="margin: 0 auto; ">
-                <tbody>
-                    <tr>
-                        <td style="text-align: center;"><h4>CONSUMPTION</h4></td>
-                    </tr>
-                    <tr>
+                        <td style="text-align: center;">{{ polity.government.name }}</td>
+                        <td style="text-align: center;">{{ polity.alignment_string }}</td>
                         <td style="text-align: center;">
-                            {{ polity.consumption.total }}
-                            {% if polity.consumption.total_dice != '' %}
-                                {{ polity.consumption.total_dice }}
-                            {% endif %}
-                            {% if polity.consumption_excess %}
-                                (food surplus)
-                            {% endif %}
+                            <p>{{ polity.size.total }}</p>
+                            <p><font size="1">({{ polity.size.source_summary }})</font></p>
+                        </td>
+                        <td style="text-align: center;">
+                            <p>{{ polity.population.total }}</p>
+                            <p><font size="1">({{ polity.population.source_summary }})</font></p>
+                        </td>
+                        <td style="text-align: center;">{{ polity.control_dc }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table-hover table-responsive" style="float: left;" width="40%">
+                <tbody>
+                    <tr>
+                        <td style="text-align: left;"><h4>ECONOMY</h4></td>
+                        <td style="text-align: center;">
+                            <p>{{ polity.economy.total }}</p>
+                            <p><font size="1">({{ polity.economy.source_summary }})</font></p>
                         </td>
                     </tr>
                     <tr>
+                        <td style="text-align: left;"><h4>LOYALTY</h4></td>
                         <td style="text-align: center;">
-                            {{ polity.consumption_autumn }} in Autumn,
-                            {{ polity.consumption_winter }} in Winter
+                            <p>{{ polity.loyalty.total }}</p>
+                            <p><font size="1">({{ polity.loyalty.source_summary }})</font></p>
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: center;">{{ polity.consumption.source_summary }}</td>
+                        <td style="text-align: left;"><h4>STABILITY</h4></td>
+                        <td style="text-align: center;">
+                            <p>{{ polity.stability.total }}</p>
+                            <p><font size="1">({{ polity.stability.source_summary }})</font></p>
+                        </td>
                     </tr>
                     <tr>
-                        <td>
-                            {% if polity.endowment_upkeep > 0 %}
-                                +{{ polity.endowment_upkeep }}gp endowment upkeep
-                            {% endif %}
+                        <td style="text-align: left;"><b>FAME</b></td>
+                        <td style="text-align: center;">
+                            <p>{{ polity.fame.total }} ({{ polity.fame_mod }})</p>
+                            <p><font size="1">({{ polity.fame.source_summary }})</font></p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table-hover table-responsive" style="float: right;" width="40%">
+                <tbody>
+                    <tr>
+                        <td style="text-align: left;"><h4>TREASURY</h4></td>
+                        <td style="text-align: center;">{{ polity.treasury }}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><h4>INCOME</h4></td>
+                        <td style="text-align: center;">
+                            <p>{{ polity.income.total }}</p>
+                            <p><font size="1">({{ polity.income.source_summary }})</font></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><h4>REVENUE DIVISOR</h4></td>
+                        <td style="text-align: center;">{{ polity.tax_edict.revenue_divisor }}</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><h4>DEFENSE</h4></td>
+                        <td style="text-align: center;">
+                            <p>{{ polity.defense.total }}</p>
+                            <p><font size="1">({{ polity.defense.source_summary }})</font></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><h4>UNREST</h4></td>
+                        <td style="text-align: center;">
+                            <p>{{ polity.unrest.total }}</p>
+                            <p><font size="1">({{ polity.unrest.source_summary }})</font></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><h4>CONSUMPTION</h4></td>
+                        <td style="text-align: center;">
+                            <p>
+                                {{ polity.consumption.total }}
+                                {% if polity.consumption.total_dice != '' %}
+                                    {{ polity.consumption.total_dice }}
+                                {% endif %}
+                            </p>
+                            <p>
+                                <font size="1">
+                                    {{ polity.consumption_autumn }} in Autumn,
+                                    {{ polity.consumption_winter }} in Winter
+                                </font>
+                            </p>
+                            <p><font size="1">({{ polity.consumption.source_summary }})</font></p>
+                            <p>
+                                {% if polity.consumption_excess %}
+                                    <font size="1">!!!SURPLUS!!!</font>
+                                {% endif %}
+                            </p>
                         </td>
                     </tr>
                 </tbody>
@@ -173,7 +127,7 @@
             <h3 style="color: #ffffff; text-align: center; ">Recruitment</h3>
         </div>
         <div class="panel-body">
-            <table  class="table table-hover table-responsive" width="100%">
+            <table class="table table-hover table-responsive" width="100%">
                 <thead>
                     <tr>
                         <th></th>
@@ -249,7 +203,7 @@
             <h3 style="color: #ffffff; text-align: center; ">Leadership</h3>
         </div>
         <div class="panel-body">
-            <table width="100%">
+            <table class="table table-hover table-responsive" width="100%">
                 <thead>
                     <tr>
                         <th class="th_ccell"><h4>ROLE</h4></th>
