@@ -115,3 +115,19 @@ class Polity(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class LogEntry(models.Model):
+    polity = models.ForeignKey(
+        'polity.Polity', on_delete=models.CASCADE, default=1,
+        related_name='log_entry', related_query_name='log_entry'
+    )
+    year = models.IntegerField(default=1480)
+    month = models.ForeignKey(
+        'core.Month', on_delete=models.CASCADE,
+        related_name='log_entry', related_query_name='log_entry'
+    )
+    log = models.TextField(default="", blank=True)
+
+    def __str__(self):
+        return "%s: %s, %s" % (self.polity.name, self.month.name, self.year)

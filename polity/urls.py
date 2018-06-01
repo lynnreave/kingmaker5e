@@ -18,4 +18,7 @@ urlpatterns = [
         'polity/<int:pk>/modify_unrest/<str:dir><int:step>',
         views.polity_modify_unrest, name='polity_modify_unrest'
     ),
+    path('log_entries', views.log_entries, name='log_entries'),
+    path('log_entry/new/', views.log_entry_new, name='log_entry_new'),
+    path('log_entry/<int:pk>/edit/', views.log_entry_edit, name='log_entry_edit'),
 ]

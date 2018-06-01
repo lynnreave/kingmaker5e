@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+{% extends 'polity/base.html' %}
+
+{% block table_header %}
+    <th><h4>POLITY</h4></th>
+    <th><h4>DATE</h4></th>
+    <th><h4>LOG</h4></th>
+    <th><h4></h4></th>
+{% endblock %}
+
+{% block table_body %}
+    {% for log_entry in log_entries %}
+        <tr>
+            <td>{{ log_entry.polity.name }}</td>
+            <td>{{ log_entry.year }}, {{ log_entry.month.name }} ({{ log_entry.month.equivalent }})</td>
+            <td class="tb_ccell">{{ log_entry.log }}</td>
+            <td style="text-align: center;">
+                {% if user.is_authenticated %}
+                    <a class="btn btn-default" href="{% url 'polity:log_entry_edit' pk=log_entry.pk %}">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block table_new_item %}
+    <a class="btn btn-default" href="{% url 'polity:log_entry_new' %}">
+        <div><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;New</div>
+    </a>
+{% endblock %}

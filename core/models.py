@@ -81,3 +81,11 @@ class TaxEdict(models.Model):
             get_signed_number(self.loy_bonus)['s'],
             self.revenue_divisor
         )
+
+
+class Month(models.Model):
+    name = models.CharField(max_length=default_max_length)
+    equivalent = models.CharField(max_length=default_max_length)
+
+    def __str__(self):
+        return "%s (%s)" % (self.name, self.equivalent)

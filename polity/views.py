@@ -1,10 +1,10 @@
 from common import *
-from .models import Polity
-from .forms import PolityForm
+from .models import Polity, LogEntry
+from .forms import PolityForm, LogEntryForm
 from .vars import app_name
 
 
-# TERRITORIES
+# POLITIES
 a_name = 'polity'
 a_plural = 'polities'
 a_obj = Polity
@@ -47,3 +47,19 @@ def polity_modify_unrest(request, pk, dir, step):
         polity.unrest -= step
     polity.save()
     return redirect('polity:polity_details', pk=pk)
+
+
+# LOG ENTRIES
+b_name = 'log entry'
+b_plural = 'log entries'
+b_obj = LogEntry
+b_form = LogEntryForm
+
+def log_entries(request):
+    return show_all_items(
+        request, app_name, b_obj, b_plural, sort='polity__name', sort_2='year', sort_3='month__pk'
+    )
+def log_entry_new(request):
+    return create_item(request, app_name, b_name, b_form, b_plural, fast_commit=True)
+def log_entry_edit(request, pk):
+    return edit_item(request, app_name, pk, b_obj, b_name, b_form, b_plural, fast_commit=True)
