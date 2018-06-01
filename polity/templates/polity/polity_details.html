@@ -145,6 +145,9 @@
                             {% if polity.consumption.total_dice != '' %}
                                 {{ polity.consumption.total_dice }}
                             {% endif %}
+                            {% if polity.consumption_excess %}
+                                (food surplus)
+                            {% endif %}
                         </td>
                     </tr>
                     <tr>

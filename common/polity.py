@@ -108,6 +108,7 @@ def get_polity_details(id):
     polity.unrest = PolityAttribute('unrest')
     polity.unrest.from_base += unrest
     polity.consumption = PolityAttribute('consumption')
+    polity.consumption_excess = False
     polity.endowment_upkeep = 0
     # military
     polity.armed_forces = 0
@@ -163,7 +164,7 @@ def get_polity_details(id):
     apply_diplomacy_modifiers(polity)
     apply_settlement_modifiers(polity)
     apply_festival_modifiers(polity)
-    apply_trade_modifiers(polity)
+    polity.consumption.get_total()
     apply_event_modifiers(polity)
 
     # apply armed_forces modifiers
@@ -181,6 +182,12 @@ def get_polity_details(id):
     polity.elites_cr5 = math.floor(polity.elites * 0.25)
     polity.elites_cr6 = math.floor(polity.elites * 0.10)
     apply_military_modifiers(polity)
+
+    polity.consumption.get_total()
+    if polity.consumption.total < 0:
+        polity.consumption_excess = True
+        polity.consumption.total = 0
+    apply_trade_modifiers(polity)
 
     # calculate total major attributes
     polity.economy.get_total()
@@ -203,7 +210,6 @@ def get_polity_details(id):
     polity.defense.get_total()
     polity.unrest.get_total()
     if polity.unrest.total < 0: polity.unrest.total = 0
-    polity.consumption.get_total()
     # calculate control dc
     polity.control_dc = 20 + polity.size.total  # + num_districts in all settlements
 
@@ -645,12 +651,14 @@ def apply_terrain_modifiers(polity):
 
 
 def apply_trade_modifiers(polity):
+    from .trade import get_trade_route_details
     trade_routes = polity.trade_route.all()
     for trade_route in trade_routes:
+        get_trade_route_details(trade_route, polity)
         if trade_route.active:
             if trade_route.success_level is not None:
-                polity.economy.from_trade += trade_route.success_level.eco_bonus
-                polity.fame.from_trade += trade_route.success_level.fam_bonus
+                polity.economy.from_trade += trade_route.eco_bonus
+                polity.fame.from_trade += trade_route.fam_bonus
     return {}
 
 
