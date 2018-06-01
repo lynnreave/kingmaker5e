@@ -36,7 +36,15 @@ def get_territory_effects(territories):
         has_fishery = False
         has_automatons = False
         has_deathless = False
+        has_mine = False
         improvements = []
+        # mine types
+        tier_1 = ['iron', 'salt', 'coal', 'copper']
+        tier_2 = ['gold', 'silver', 'gems']
+        tier_3 = ['adamantium', 'platinum', 'mithril']
+        tier_1_resource = False
+        tier_2_resource = False
+        tier_3_resource = False
 
         # add bonuses from each improvement
         for improvement in territory.improvements.all():
@@ -65,6 +73,7 @@ def get_territory_effects(territories):
                 improvements.append(improvement)
             if improvement.name.lower() == 'animated automation': has_automatons = True
             if improvement.name.lower() == 'deathless laborers': has_deathless = True
+            if improvement.name.lower() == 'mine': has_mine = True
 
         # add bonuses from each feature
         for feature in territory.features.all():
@@ -80,7 +89,17 @@ def get_territory_effects(territories):
             # rules flags
             if feature.name.lower() == 'lair': has_lair = True
             if feature.name.lower() == 'landmark': has_landmark = True
-            if feature.name.lower() == 'resource': has_resource = True
+            if 'resource' in feature.name.lower():
+                has_resource = True
+                for t in tier_1:
+                    if t in feature.name.lower():
+                        tier_1_resource = True
+                for t in tier_2:
+                    if t in feature.name.lower():
+                        tier_2_resource = True
+                for t in tier_3:
+                    if t in feature.name.lower():
+                        tier_3_resource = True
 
         # add bonuses from settlement
         for settlement in territory.settlement.all():
@@ -105,6 +124,10 @@ def get_territory_effects(territories):
         if has_resource and (has_farm or has_fishery): territory.con_bonus -= 1
         if (has_automatons or has_deathless) and (has_farm or has_fishery):
             territory.con_bonus -= 1
+        if has_mine:
+            if tier_1_resource: territory.inc_bonus += 1
+            elif tier_2_resource: territory.inc_bonus += 2
+            elif tier_3_resource: territory.inc_bonus += 3
 
         # festival modifiers
         territory.civic_festival = False

@@ -19,7 +19,7 @@ class Type(models.Model):
 
 class Feature(models.Model):
     name = models.CharField(max_length=default_max_length)
-    desc = models.TextField(default="")
+    desc = models.TextField(default="", blank=True, null=True)
     pop_bonus = models.IntegerField(default=0)
     dan_bonus = models.IntegerField(default=0)
     eco_bonus = models.FloatField(default=0)
