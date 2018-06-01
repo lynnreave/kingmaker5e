@@ -196,14 +196,22 @@ def get_polity_details(id):
     # calculate total minor attributes
     polity.fame.get_total()
     if polity.fame.total < 0: polity.fame.total = 0
+    polity.fame_mod = get_signed_number(math.floor(polity.fame.total / 10))['s']
     polity.infamy.get_total()
     if polity.infamy.total < 0: polity.infamy.total = 0
+    polity.infamy_mod = get_signed_number(math.floor(polity.infamy.total / 10))['s']
     polity.corruption.get_total()
+    polity.corruption_mod = get_signed_number(math.floor(polity.corruption.total / 10))['s']
     polity.crime.get_total()
+    polity.crime_mod = get_signed_number(math.floor(polity.crime.total / 10))['s']
     polity.law.get_total()
+    polity.law_mod = get_signed_number(math.floor(polity.law.total / 10))['s']
     polity.lore.get_total()
+    polity.lore_mod = get_signed_number(math.floor(polity.lore.total / 10))['s']
     polity.productivity.get_total()
+    polity.productivity_mod = get_signed_number(math.floor(polity.productivity.total / 10))['s']
     polity.society.get_total()
+    polity.society_mod = get_signed_number(math.floor(polity.society.total / 10))['s']
     # calculate total misc attributes
     polity.size.get_total()
     polity.income.get_total()
