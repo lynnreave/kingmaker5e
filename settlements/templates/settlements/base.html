@@ -4,5 +4,6 @@
 
 {% block subnav_items %}
     <li class="disabled"><a href="#">|</a></li>
-    {% block back_button %}{% endblock %}
+    <li role="presentation"><a href="{% url 'settlements:settlements' %}">Settlements</a></li>
+    <li role="presentation"><a href="{% url 'settlements:strongholds' %}">Strongholds</a></li>
 {% endblock %}

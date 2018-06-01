@@ -143,3 +143,94 @@ class Building(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class StrongholdType(models.Model):
+    name = models.CharField(max_length=default_max_length)
+    desc = models.TextField(blank=True)
+    expansion_slots = models.IntegerField(default=1)
+    cost = models.IntegerField(default=5000)
+    construction_time = models.IntegerField(default=1)
+    upkeep = models.IntegerField(default=0)
+    hirelings_skilled = models.IntegerField(default=0)
+    hirelings_unskilled = models.IntegerField(default=0)
+
+    def __str__(self):
+        return "%s (%s gp, %s gp)" % (self.name, self.cost, self.upkeep)
+
+
+class Stronghold(models.Model):
+    polity = models.ForeignKey(
+        'polity.Polity', on_delete=models.CASCADE, default=1,
+        related_name='stronghold', related_query_name='stronghold',
+    )
+    custom_name = models.CharField(max_length=default_max_length, null=True, blank=True)
+    type = models.ForeignKey(
+        StrongholdType, on_delete=models.CASCADE,
+        related_name='stronghold', related_query_name='stronghold',
+    )
+    building = models.ForeignKey(
+        Building, on_delete=models.CASCADE,
+        related_name='stronghold', related_query_name='stronghold',
+        null=True, blank=True,
+    )
+    territory = models.ForeignKey(
+        'territory.Territory', on_delete=models.CASCADE,
+        related_name='stronghold', related_query_name='stronghold',
+        null=True, blank=True,
+    )
+
+    def __str__(self):
+        if self.custom_name is not None:
+            name = self.custom_name
+        elif self.building is not None:
+            name = self.building.name
+        else:
+            name = "Unnamed"
+        return name
+
+
+class ExpansionType(models.Model):
+    name = models.CharField(max_length=default_max_length)
+    desc = models.TextField(blank=True)
+    slots = models.IntegerField(default=1)
+    cost = models.IntegerField()
+    construction_time = models.IntegerField(default=1)
+    benefit = models.TextField(blank=True)
+
+    def __str__(self):
+        return "%s (%s)" % (self.name, self.slots)
+
+
+class ExpansionFeature(models.Model):
+    name = models.CharField(max_length=default_max_length)
+    desc = models.TextField(blank=True)
+    reqs = models.TextField(blank=True)
+    cost = models.IntegerField()
+    construction_time = models.IntegerField(default=1)
+    benefit = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Expansion(models.Model):
+    stronghold = models.ForeignKey(
+        Stronghold, on_delete=models.CASCADE,
+        related_name='expansion', related_query_name='expansion',
+    )
+    type = models.ForeignKey(
+        ExpansionType, on_delete=models.CASCADE,
+        related_name='expansion', related_query_name='expansion',
+    )
+    features = models.ManyToManyField(
+        ExpansionFeature,
+        related_name='expansion', related_query_name='expansion',
+        blank=True,
+    )
+    custom_name = models.CharField(max_length=default_max_length, null=True, blank=True)
+    custom_slots = models.IntegerField(null=True, blank=True)
+    desc = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.type.name

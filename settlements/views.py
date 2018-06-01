@@ -1,6 +1,6 @@
 from common import *
-from .models import Settlement, Building
-from .forms import SettlementForm, BuildingForm
+from .models import Settlement, Building, Stronghold, Expansion
+from .forms import SettlementForm, BuildingForm, StrongholdForm, ExpansionForm
 from .vars import app_name
 
 
@@ -100,3 +100,98 @@ def building_delete(request, pk, settlement_id):
     tgt = "%s:%s" % (app_name, obj_plural)
     item.delete()
     return redirect(tgt, settlement_id=settlement_id)
+
+
+# STRONGHOLDS
+c_name = 'stronghold'
+c_plural = 'strongholds'
+c_obj = Stronghold
+c_form = StrongholdForm
+
+def strongholds(request):
+    return show_all_items(
+        request, app_name, c_obj, c_plural, sort='polity__name',
+        get_details=get_stronghold_details,
+    )
+def stronghold_new(request):
+    return create_item(request, app_name, c_name, c_form, c_plural, fast_commit=True)
+def stronghold_edit(request, pk):
+    return edit_item(request, app_name, pk, c_obj, c_name, c_form, c_plural, fast_commit=True)
+def stronghold_delete(request, pk): return delete_item(request, app_name, pk, c_obj, c_plural)
+
+
+# EXPANSIONS
+d_name = 'expansion'
+d_plural = 'expansions'
+d_obj = Expansion
+d_form = ExpansionForm
+
+
+def expansions(request, stronghold_id):
+    obj_plural_s = d_plural
+    obj_plural = d_plural.replace(' ', '_')
+    stronghold = Stronghold.objects.get(pk=stronghold_id)
+    get_stronghold_details(stronghold)
+    expansions = d_obj.objects.filter(stronghold=stronghold).order_by('type__name')
+    for expansion in expansions:
+        get_expansion_details(expansion)
+    return render(
+        request, '%s/%s.html' % (app_name, obj_plural),
+        {
+            'title': '%s %s' % (stronghold.name.title(), obj_plural_s.title()),
+            obj_plural: expansions, 'stronghold_id': stronghold_id
+        }
+    )
+
+
+def expansion_new(request, stronghold_id):
+    obj_name_s = d_name
+    obj_name = d_name.replace(' ', '_')
+    obj_plural = d_plural.replace(' ', '_')
+    stronghold = Stronghold.objects.get(pk=stronghold_id)
+    get_stronghold_details(stronghold)
+    tgt = "%s:%s" % (app_name, obj_plural)
+    if request.method == "POST":
+        form = d_form(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.stronghold = stronghold
+            instance.save()
+            return redirect(tgt, stronghold_id=stronghold.pk)
+    else:
+        form = d_form()
+    return render(
+        request, '%s/edit.html' % app_name, {
+            'title': obj_name_s.title(), 'form': form, 'stronghold_id': stronghold_id
+        }
+    )
+
+
+def expansion_edit(request, pk, stronghold_id):
+    obj_name_s = d_name
+    obj_name = d_name.replace(' ', '_')
+    obj_plural = d_plural.replace(' ', '_')
+    item = get_object_or_404(d_obj, pk=pk)
+    tgt = "%s:%s" % (app_name, obj_plural)
+    get_expansion_details(item)
+    if request.method == "POST":
+        form = d_form(request.POST, instance=item)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.stronghold = item.stronghold
+            instance.save()
+            form.save_m2m()
+            return redirect(tgt, stronghold_id=stronghold_id)
+    else:
+        form = d_form(instance=item)
+    return render(
+        request, '%s/edit.html' % app_name, {'title': obj_name_s.title(), 'form': form}
+    )
+
+
+def expansion_delete(request, pk, stronghold_id):
+    obj_plural = d_plural.replace(' ', '_')
+    item = get_object_or_404(d_obj, pk=pk)
+    tgt = "%s:%s" % (app_name, obj_plural)
+    item.delete()
+    return redirect(tgt, stronghold_id=stronghold_id)

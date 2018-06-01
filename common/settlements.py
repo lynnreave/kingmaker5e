@@ -202,6 +202,51 @@ def get_building_details(building):
     return {}
 
 
+def get_stronghold_details(stronghold):
+    # name
+    if stronghold.custom_name is not None:
+        stronghold.name = stronghold.custom_name
+    elif stronghold.building is not None:
+        stronghold.name = stronghold.building.name
+    else:
+        stronghold.name = "Unnamed"
+    # expansions
+    expansions = stronghold.expansion.all()
+    expansions_s = []
+    stronghold.total_expansions = 0
+    for expansion in expansions:
+        get_expansion_details(expansion)
+        expansions_s.append(expansion.type.name)
+        stronghold.total_expansions += expansion.slots
+    stronghold.expansions_summary = ', '.join(expansions_s)
+    return {}
+
+
+def get_expansion_details(expansion):
+    # name
+    if expansion.custom_name is not None:
+        expansion.name = expansion.custom_name
+    else:
+        expansion.name = expansion.type.name
+    # slots
+    if expansion.custom_slots is not None:
+        expansion.slots = expansion.custom_slots
+    else:
+        expansion.slots = expansion.type.slots
+    # features
+    features = expansion.features.all()
+    benefits = [expansion.type.benefit]
+    for feature in features:
+        # benefit
+        benefits.append(feature.benefit)
+        # cost
+        expansion.cost += feature.cost
+        # construction time
+        expansion.construction_time += feature.construction_time
+    expansion.benefits = '\n'.join(benefits)
+    return {}
+
+
 def apply_deity_bonuses(building):
     if building.deity.name == "Great Church":
         if building.type.name.lower() == 'cathedral':

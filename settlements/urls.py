@@ -23,4 +23,22 @@ urlpatterns = [
         'settlement/<int:settlement_id>/building/<int:pk>/delete', views.building_delete,
         name='building_delete'
     ),
+    path('strongholds', views.strongholds, name='strongholds'),
+    path('stronghold/new/', views.stronghold_new, name='stronghold_new'),
+    path('stronghold/<int:pk>/edit/', views.stronghold_edit, name='stronghold_edit'),
+    path('stronghold/<int:pk>/delete/', views.stronghold_delete, name='stronghold_delete'),
+    path(
+        'stronghold/<int:stronghold_id>/details/', views.expansions, name='expansions'
+    ),
+    path(
+        'stronghold/<int:stronghold_id>/add_expansion/', views.expansion_new, name='expansion_new'
+    ),
+    path(
+        'stronghold/<int:stronghold_id>/expansion/<int:pk>/edit', views.expansion_edit,
+        name='expansion_edit'
+    ),
+    path(
+        'stronghold/<int:stronghold_id>/expansion/<int:pk>/delete', views.expansion_delete,
+        name='expansion_delete'
+    ),
 ]
