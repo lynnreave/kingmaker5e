@@ -235,8 +235,12 @@ def get_expansion_details(expansion):
         expansion.slots = expansion.type.slots
     # features
     features = expansion.features.all()
+    features_s = []
     benefits = [expansion.type.benefit]
+    expansion.cost = expansion.type.cost
+    expansion.construction_time = expansion.type.construction_time
     for feature in features:
+        features_s.append(feature.name)
         # benefit
         benefits.append(feature.benefit)
         # cost
@@ -244,6 +248,7 @@ def get_expansion_details(expansion):
         # construction time
         expansion.construction_time += feature.construction_time
     expansion.benefits = '\n'.join(benefits)
+    expansion.features_summary = ', '.join(features_s)
     return {}
 
 

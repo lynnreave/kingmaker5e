@@ -6,6 +6,7 @@
 {% block table_header %}
     <th><h4>NAME</h4></th>
     <th><h4>DESCRIPTION</h4></th>
+    <th><h4>FEATURES</h4></th>
     <th><h4>SLOTS</h4></th>
     <th><h4>COST</h4></th>
     <th style="text-align: center;"><h4>CONSTRUCTION TIME</h4></th>
@@ -18,6 +19,7 @@
         <tr>
             <td style="text-align: center;">{{ expansion.name }}</td>
             <td>{{ expansion.desc }}</td>
+            <td>{{ expansion.features_summary }}</td>
             <td style="text-align: center;">{{ expansion.slots }}</td>
             <td style="text-align: center;">{{ expansion.type.cost }}</td>
             <td style="text-align: center;">{{ expansion.type.construction_time }}</td>
