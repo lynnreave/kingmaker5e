@@ -24,7 +24,7 @@ class PolityAttribute:
         self.from_settlements = 0
         self.from_armed_forces = 0
         self.from_festivals = 0
-
+        self.from_trade = 0
         self.from_events = 0
 
     def get_total(self):
@@ -39,6 +39,7 @@ class PolityAttribute:
             + self.from_diplomacy \
             + self.from_armed_forces \
             + self.from_festivals \
+            + self.from_trade \
             + self.from_events
         self.total = math.floor(self.total)
         if len(self.dice) > 0:
@@ -69,7 +70,8 @@ class PolityAttribute:
             sources.append("%s from armed forces" % get_signed_number(self.from_armed_forces)['s'])
         if self.from_festivals != 0:
             sources.append("%s from festivals" % get_signed_number(self.from_festivals)['s'])
-
+        if self.from_trade != 0:
+            sources.append("%s from trade" % get_signed_number(self.from_trade)['s'])
         if self.from_events != 0:
             sources.append("%s from events" % get_signed_number(self.from_events)['s'])
         self.source_summary = ", ".join(sources)
@@ -161,6 +163,7 @@ def get_polity_details(id):
     apply_diplomacy_modifiers(polity)
     apply_settlement_modifiers(polity)
     apply_festival_modifiers(polity)
+    apply_trade_modifiers(polity)
     apply_event_modifiers(polity)
 
     # apply armed_forces modifiers
@@ -638,6 +641,16 @@ def apply_terrain_modifiers(polity):
         polity.consumption.from_terrain += territory.con_bonus
         polity.income.from_terrain += territory.inc_bonus
     polity.size.from_terrain += len(territories)
+    return {}
+
+
+def apply_trade_modifiers(polity):
+    trade_routes = polity.trade_route.all()
+    for trade_route in trade_routes:
+        if trade_route.active:
+            if trade_route.success_level is not None:
+                polity.economy.from_trade += trade_route.success_level.eco_bonus
+                polity.fame.from_trade += trade_route.success_level.fam_bonus
     return {}
 
 

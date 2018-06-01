@@ -33,4 +33,5 @@ urlpatterns = [
     path('people/', include('people.urls')),
     path('settlements/', include('settlements.urls')),
     path('territory/', include('territory.urls')),
+    path('trade/', include('trade.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

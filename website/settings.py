@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'polity',
     'settlements',
     'territory',
+    'trade',
 ]
 
 MIDDLEWARE = [

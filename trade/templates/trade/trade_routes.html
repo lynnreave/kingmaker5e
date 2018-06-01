@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+{% extends 'trade/base.html' %}
+{% load staticfiles %}
+
+{% block table_header %}
+    <th></th>
+    <th class="th_ccell"><h4>POLITY</h4></th>
+    <th class="th_ccell"><h4>ROUTE</h4></th>
+    <th class="th_ccell"><h4>SUCCESS LEVEL</h4></th>
+    <th class="th_ccell"><h4>LENGTH</h4></th>
+    <th class="th_ccell"><h4>RM</h4></th>
+    <th class="th_ccell"><h4>LM</h4></th>
+    <th class="th_ccell"><h4>DC</h4></th>
+    <th class="th_ccell"><h4>INVESTMENT (BP)</h4></th>
+    <th class="th_ccell"><h4>OUTCOME SUMMARY</h4></th>
+    <th class="th_ccell"><h4></h4></th>
+{% endblock %}
+
+{% block table_body %}
+    {% for trade_route in trade_routes %}
+        <tr>
+            <td style="text-align: center;">
+                {% if trade_route.active %}
+                    <a class="btn btn-default" href="{% url 'trade:trade_route_deactivate' pk=trade_route.pk %}">
+                        <span>
+                            <span class="glyphicon glyphicon-stop"></span>
+                        </span>
+                    </a>
+                {% else %}
+                    <a class="btn btn-default" href="{% url 'trade:trade_route_activate' pk=trade_route.pk %}">
+                        <span>
+                            <span class="glyphicon glyphicon-play"></span>
+                        </span>
+                    </a>
+                {% endif %}
+            </td>
+            <td class="tb_ccell">{{ trade_route.polity.name }}</td>
+            <td class="tb_ccell">{{ trade_route.desc }}</td>
+            <td class="tb_ccell">
+                {% if trade_route.success_level %}
+                    {{ trade_route.success_level.name }}
+                {% else %}
+                    None
+                {% endif %}
+            </td>
+            <td class="tb_ccell">{{ trade_route.length }}</td>
+            <td class="tb_ccell">{{ trade_route.route_modifier }}</td>
+            <td class="tb_ccell">{{ trade_route.length_modifier }}</td>
+            <td class="tb_ccell">{{ trade_route.dc }}</td>
+            <td class="tb_ccell">{{ trade_route.investment }}</td>
+            <td class="tb_ccell">{{ trade_route.outcome_summary }}</td>
+            <td style="text-align: center;">
+                {% if user.is_authenticated %}
+                    <a class="btn btn-default" href="{% url 'trade:trade_route_edit' pk=trade_route.pk %}">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a class="btn btn-default" href="{% url 'trade:trade_route_delete' pk=trade_route.pk %}">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block table_new_item %}
+    <a class="btn btn-default" href="{% url 'trade:trade_route_new' %}">
+        <div><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;New</div>
+    </a>
+{% endblock %}
