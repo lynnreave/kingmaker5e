@@ -20,17 +20,23 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="text-align: center;">{{ polity.government.name }}</td>
-                        <td style="text-align: center;">{{ polity.alignment_string }}</td>
                         <td style="text-align: center;">
-                            <p>{{ polity.size.total }}</p>
+                            <font size="5">{{ polity.government.name }}</font>
+                        </td>
+                        <td style="text-align: center;">
+                            <font size="5">{{ polity.alignment_string }}</font>
+                        </td>
+                        <td style="text-align: center;">
+                            <p><font size="5">{{ polity.size.total }}</font></p>
                             <p><font size="1">({{ polity.size.source_summary }})</font></p>
                         </td>
                         <td style="text-align: center;">
-                            <p>{{ polity.population.total }}</p>
+                            <p><font size="5">{{ polity.population.total }}</font></p>
                             <p><font size="1">({{ polity.population.source_summary }})</font></p>
                         </td>
-                        <td style="text-align: center;">{{ polity.control_dc }}</td>
+                        <td style="text-align: center;">
+                            <font size="5">{{ polity.control_dc }}</font>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -39,29 +45,102 @@
                     <tr>
                         <td style="text-align: left;"><h4>ECONOMY</h4></td>
                         <td style="text-align: center;">
-                            <p>{{ polity.economy.total }}</p>
+                            <p><font size="5">{{ polity.economy.total }}</font></p>
                             <p><font size="1">({{ polity.economy.source_summary }})</font></p>
                         </td>
                     </tr>
                     <tr>
                         <td style="text-align: left;"><h4>LOYALTY</h4></td>
                         <td style="text-align: center;">
-                            <p>{{ polity.loyalty.total }}</p>
+                            <p><font size="5">{{ polity.loyalty.total }}</font></p>
                             <p><font size="1">({{ polity.loyalty.source_summary }})</font></p>
                         </td>
                     </tr>
                     <tr>
                         <td style="text-align: left;"><h4>STABILITY</h4></td>
                         <td style="text-align: center;">
-                            <p>{{ polity.stability.total }}</p>
+                            <p><font size="5">{{ polity.stability.total }}</font></p>
                             <p><font size="1">({{ polity.stability.source_summary }})</font></p>
                         </td>
                     </tr>
                     <tr>
                         <td style="text-align: left;"><b>FAME</b></td>
                         <td style="text-align: center;">
-                            <p>{{ polity.fame.total }} ({{ polity.fame_mod }})</p>
+                            <p>
+                                <font size="5">{{ polity.fame.total }}</font>
+                                ({{ polity.fame_mod }})
+                            </p>
                             <p><font size="1">({{ polity.fame.source_summary }})</font></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><b>INFAMY</b></td>
+                        <td style="text-align: center;">
+                            <p>
+                                <font size="5">{{ polity.infamy.total }}</font>
+                                    ({{ polity.infamy_mod }})
+                            </p>
+                            <p><font size="1">({{ polity.infamy.source_summary }})</font></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><b>CORRUPTION</b></td>
+                        <td style="text-align: center;">
+                            <p>
+                                <font size="5">{{ polity.corruption.total }}</font>
+                                ({{ polity.corruption_mod }})
+                            </p>
+                            <p><font size="1">({{ polity.corruption.source_summary }})</font></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><b>CRIME</b></td>
+                        <td style="text-align: center;">
+                            <p>
+                                <font size="5">{{ polity.crime.total }}</font>
+                                ({{ polity.crime_mod }})
+                            </p>
+                            <p><font size="1">({{ polity.crime.source_summary }})</font></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><b>LAW</b></td>
+                        <td style="text-align: center;">
+                            <p>
+                                <font size="5">{{ polity.law.total }}</font>
+                                ({{ polity.law_mod }})
+                            </p>
+                            <p><font size="1">({{ polity.law.source_summary }})</font></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><b>LORE</b></td>
+                        <td style="text-align: center;">
+                            <p>
+                                <font size="5">{{ polity.lore.total }}</font>
+                                ({{ polity.lore_mod }})
+                            </p>
+                            <p><font size="1">({{ polity.lore.source_summary }})</font></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><b>PRODUCTIVITY</b></td>
+                        <td style="text-align: center;">
+                            <p>
+                                <font size="5">{{ polity.productivity.total }}</font>
+                                ({{ polity.productivity_mod }})
+                            </p>
+                            <p><font size="1">({{ polity.productivity.source_summary }})</font></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left;"><b>SOCIETY</b></td>
+                        <td style="text-align: center;">
+                            <p>
+                                <font size="5">{{ polity.society.total }}</font>
+                                ({{ polity.society_mod }})
+                            </p>
+                            <p><font size="1">({{ polity.society.source_summary }})</font></p>
                         </td>
                     </tr>
                 </tbody>
@@ -70,30 +149,34 @@
                 <tbody>
                     <tr>
                         <td style="text-align: left;"><h4>TREASURY</h4></td>
-                        <td style="text-align: center;">{{ polity.treasury }}</td>
+                        <td style="text-align: center;">
+                            <p><font size="5">{{ polity.treasury }}</font></p>
+                        </td>
                     </tr>
                     <tr>
                         <td style="text-align: left;"><h4>INCOME</h4></td>
                         <td style="text-align: center;">
-                            <p>{{ polity.income.total }}</p>
+                            <p><font size="5">{{ polity.income.total }}</font></p>
                             <p><font size="1">({{ polity.income.source_summary }})</font></p>
                         </td>
                     </tr>
                     <tr>
                         <td style="text-align: left;"><h4>REVENUE DIVISOR</h4></td>
-                        <td style="text-align: center;">{{ polity.tax_edict.revenue_divisor }}</td>
+                        <td style="text-align: center;">
+                            <p><font size="5">{{ polity.tax_edict.revenue_divisor }}</font></p>
+                        </td>
                     </tr>
                     <tr>
                         <td style="text-align: left;"><h4>DEFENSE</h4></td>
                         <td style="text-align: center;">
-                            <p>{{ polity.defense.total }}</p>
+                            <p><font size="5">{{ polity.defense.total }}</font></p>
                             <p><font size="1">({{ polity.defense.source_summary }})</font></p>
                         </td>
                     </tr>
                     <tr>
                         <td style="text-align: left;"><h4>UNREST</h4></td>
                         <td style="text-align: center;">
-                            <p>{{ polity.unrest.total }}</p>
+                            <p><font size="5">{{ polity.unrest.total }}</font></p>
                             <p><font size="1">({{ polity.unrest.source_summary }})</font></p>
                         </td>
                     </tr>
@@ -101,10 +184,12 @@
                         <td style="text-align: left;"><h4>CONSUMPTION</h4></td>
                         <td style="text-align: center;">
                             <p>
-                                {{ polity.consumption.total }}
-                                {% if polity.consumption.total_dice != '' %}
-                                    {{ polity.consumption.total_dice }}
-                                {% endif %}
+                                <font size="5">
+                                    {{ polity.consumption.total }}
+                                    {% if polity.consumption.total_dice != '' %}
+                                        {{ polity.consumption.total_dice }}
+                                    {% endif %}
+                                </font>
                             </p>
                             <p>
                                 <font size="1">

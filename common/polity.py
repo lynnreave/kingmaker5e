@@ -75,6 +75,7 @@ class PolityAttribute:
         if self.from_events != 0:
             sources.append("%s from events" % get_signed_number(self.from_events)['s'])
         self.source_summary = ", ".join(sources)
+        if self.source_summary in ['', None]: self.source_summary = 'None'
 
 
 def get_polity_details(id):
