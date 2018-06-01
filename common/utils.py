@@ -59,7 +59,8 @@ def get_effects_summary(self):
     except BaseException:
         pass
     try:
-        if self.unr_bonus != t: effects.append('unrest %s' % get_signed_number(self.unr_bonus)['s'])
+        if self.unr_bonus != t:
+            effects.append('unrest %s (permanent)' % get_signed_number(self.unr_bonus)['s'])
     except BaseException:
         pass
     return ', '.join(effects)
@@ -84,7 +85,7 @@ def get_effects_summary_for_obj(obj):
     if obj.defense != t: effects.append('defense %s' % get_signed_number(obj.defense)['s'])
     if obj.consumption != t: effects.append('consumption %s' % get_signed_number(obj.consumption)['s'])
     if obj.income != t: effects.append('income %s' % get_signed_number(obj.income)['s'])
-    if obj.unrest != t: effects.append('unrest %s' % get_signed_number(obj.unrest)['s'])
+    if obj.unrest != t: effects.append('unrest %s (permanent)' % get_signed_number(obj.unrest)['s'])
     return ', '.join(effects)
 
 

@@ -2,6 +2,7 @@ from django.db import models
 
 default_max_length = 100
 
+
 class Type(models.Model):
     name = models.CharField(max_length=default_max_length)
     pop_bonus = models.IntegerField(default=0)

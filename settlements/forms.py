@@ -16,5 +16,5 @@ class BuildingForm(forms.ModelForm):
     class Meta:
         model = Building
         fields = (
-            'name', 'type', 'lots', 'enhancements', 'endowment', 'free_endowment'
+            'name', 'type', 'lots', 'enhancements', 'deity', 'endowment', 'free_endowment'
         )

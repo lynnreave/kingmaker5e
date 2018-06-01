@@ -182,6 +182,11 @@ def get_building_details(building):
         building.income += enhancement.inc_bonus
         building.unrest += enhancement.unr_bonus
 
+    # apply deity bonuses to religious buildings
+    if building.deity is not None and building.type.name.lower() in ['shrine', 'temple', 'cathedral']:
+        apply_deity_bonuses(building)
+
+
     # endowment
     if building.endowment:
         building.fame += 1
@@ -194,4 +199,237 @@ def get_building_details(building):
     building.effects_summary = get_effects_summary_for_obj(building)
     if building.endowment_upkeep > 0:
         building.effects_summary += ', %sgp endowment upkeep' % building.endowment_upkeep
+    return {}
+
+
+def apply_deity_bonuses(building):
+    if building.deity.name == "Great Church":
+        if building.type.name.lower() == 'cathedral':
+            building.loyalty += 4
+            building.stability += 4
+            building.unrest -= 4
+            building.law += 2
+        elif building.type.name.lower() == 'temple':
+            building.loyalty += 2
+            building.stability += 2
+            building.unrest -= 2
+        elif building.type.name.lower() == 'shrine':
+            building.loyalty += 1
+            building.unrest -= 1
+    elif building.deity.name == "Urian":
+        if building.type.name.lower() == 'cathedral':
+            building.loyalty += 4
+            building.unrest -= 4
+            building.defense += 2
+            building.law += 2
+        elif building.type.name.lower() == 'temple':
+            building.defense += 2
+            building.stability += 2
+            building.unrest -= 2
+        elif building.type.name.lower() == 'shrine':
+            building.stability += 1
+            building.unrest -= 1
+    elif building.deity.name == "Shalimyr":
+        if building.type.name.lower() == 'cathedral':
+            building.economy += 4
+            building.loyalty += 4
+            building.stability += 4
+            building.productivity += 3
+        elif building.type.name.lower() == 'temple':
+            building.economy += 3
+            building.stability += 2
+            building.productivity += 3
+            building.crime += 1
+        elif building.type.name.lower() == 'shrine':
+            building.economy += 2
+    elif building.deity.name == "Rontra":
+        if building.type.name.lower() == 'cathedral':
+            building.loyalty += 4
+            building.stability += 4
+            building.unrest -= 4
+            building.law += 2
+            building.consumption -= 2
+            building.fame -= 1
+        elif building.type.name.lower() == 'temple':
+            building.loyalty += 2
+            building.stability += 2
+            building.unrest -= 2
+        elif building.type.name.lower() == 'shrine':
+            building.loyalty += 1
+            building.unrest -= 1
+    elif building.deity.name == "Morwyn":
+        if building.type.name.lower() == 'cathedral':
+            building.loyalty += 4
+            building.stability += 4
+            building.unrest -= 4
+            building.lore += 3
+        elif building.type.name.lower() == 'temple':
+            building.lore += 2
+            building.stability += 2
+            building.unrest -= 2
+        elif building.type.name.lower() == 'shrine':
+            building.stability += 1
+            building.unrest -= 1
+    elif building.deity.name == "Tinel":
+        if building.type.name.lower() == 'cathedral':
+            building.economy += 4
+            building.society += 3
+            building.unrest -= 4
+            building.lore += 3
+            building.magic_items += ', 1 rare item'
+        elif building.type.name.lower() == 'temple':
+            building.economy += 2
+            building.lore += 2
+            building.unrest -= 2
+        elif building.type.name.lower() == 'shrine':
+            building.economy += 1
+            building.unrest -= 1
+    elif building.deity.name == "Terak":
+        if building.type.name.lower() == 'cathedral':
+            building.loyalty += 4
+            building.stability += 4
+            building.unrest -= 4
+            building.law += 2
+        elif building.type.name.lower() == 'temple':
+            building.loyalty += 2
+            building.stability += 2
+            building.unrest -= 2
+        elif building.type.name.lower() == 'shrine':
+            building.stability += 1
+            building.unrest -= 1
+    elif building.deity.name == "Zheenkeef":
+        if building.type.name.lower() == 'cathedral':
+            building.loyalty += 4
+            building.stability += 4
+            building.unrest -= 2
+            building.corruption += 2
+            building.consumption -= 2
+        elif building.type.name.lower() == 'temple':
+            building.loyalty += 2
+            building.economy += 2
+            building.unrest -= 2
+            building.corruption += 1
+        elif building.type.name.lower() == 'shrine':
+            building.economy += 1
+            building.unrest -= 1
+    elif building.deity.name == "Maal":
+        if building.type.name.lower() == 'cathedral':
+            building.crime -= 2
+            building.stability += 4
+            building.unrest -= 4
+            building.law += 2
+        elif building.type.name.lower() == 'temple':
+            building.law += 2
+            building.stability += 2
+            building.crime -= 2
+        elif building.type.name.lower() == 'shrine':
+            building.stability += 1
+            building.unrest -= 1
+    elif building.deity.name == "Mormekar":
+        if building.type.name.lower() == 'cathedral':
+            building.loyalty += 4
+            building.stability += 4
+            building.unrest -= 4
+            building.lore += 2
+        elif building.type.name.lower() == 'temple':
+            building.loyalty += 2
+            building.stability += 2
+            building.unrest -= 2
+        elif building.type.name.lower() == 'shrine':
+            building.loyalty += 1
+            building.unrest -= 1
+    elif building.deity.name == "Darmon":
+        if building.type.name.lower() == 'cathedral':
+            building.loyalty += 4
+            building.economy += 4
+            building.unrest -= 4
+            building.corruption += 3
+        elif building.type.name.lower() == 'temple':
+            building.economy += 2
+            building.loyalty += 1
+            building.unrest -= 2
+            building.corruption += 1
+        elif building.type.name.lower() == 'shrine':
+            building.economy += 1
+            building.unrest -= 1
+    elif building.deity.name == "Arwyn":
+        if building.type.name.lower() == 'cathedral':
+            building.loyalty += 4
+            building.economy += 4
+            building.unrest -= 4
+            building.society += 2
+        elif building.type.name.lower() == 'temple':
+            building.loyalty += 2
+            building.economy += 2
+            building.unrest -= 2
+        elif building.type.name.lower() == 'shrine':
+            building.loyalty += 1
+            building.unrest -= 1
+    elif building.deity.name == "Korak":
+        if building.type.name.lower() == 'cathedral':
+            building.economy += 4
+            building.productivity += 3
+            building.unrest -= 4
+            building.law += 3
+        elif building.type.name.lower() == 'temple':
+            building.economy += 2
+            building.productivity += 2
+            building.unrest -= 2
+        elif building.type.name.lower() == 'shrine':
+            building.economy += 1
+            building.unrest -= 1
+    elif building.deity.name == "Anwyn":
+        if building.type.name.lower() == 'cathedral':
+            building.society += 3
+            building.stability += 4
+            building.unrest -= 4
+            building.productivity += 3
+        elif building.type.name.lower() == 'temple':
+            building.society += 2
+            building.stability += 2
+            building.unrest -= 2
+        elif building.type.name.lower() == 'shrine':
+            building.stability += 1
+            building.unrest -= 1
+    elif building.deity.name == "Canelle":
+        if building.type.name.lower() == 'cathedral':
+            building.productivity += 3
+            building.stability += 4
+            building.unrest -= 4
+            building.crime += 2
+        elif building.type.name.lower() == 'temple':
+            building.productivity += 2
+            building.stability += 2
+            building.unrest -= 2
+        elif building.type.name.lower() == 'shrine':
+            building.stability += 1
+            building.unrest -= 1
+    elif building.deity.name == "Naryne":
+        if building.type.name.lower() == 'cathedral':
+            building.loyalty += 4
+            building.economy += 4
+            building.unrest -= 4
+            building.law += 3
+        elif building.type.name.lower() == 'temple':
+            building.economy += 2
+            building.law += 2
+            building.unrest -= 2
+        elif building.type.name.lower() == 'shrine':
+            building.economy += 1
+            building.unrest -= 1
+    elif building.deity.name == "Thellyne":
+        if building.type.name.lower() == 'cathedral':
+            building.loyalty += 4
+            building.stability += 4
+            building.unrest -= 4
+            building.society -= 3
+            building.consumption -= 2
+        elif building.type.name.lower() == 'temple':
+            building.loyalty += 2
+            building.stability += 2
+            building.unrest -= 2
+            building.society -= 1
+        elif building.type.name.lower() == 'shrine':
+            building.loyalty += 1
+            building.unrest -= 1
     return {}

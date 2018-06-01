@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import BuildingType, Type, BuildingEnhancement
+from .models import BuildingType, Type, BuildingEnhancement, Deity
 
 
 class CustomModelAdmin(admin.ModelAdmin):
@@ -12,3 +12,4 @@ class CustomModelAdmin(admin.ModelAdmin):
 admin.site.register(BuildingType, CustomModelAdmin)
 admin.site.register(Type, CustomModelAdmin)
 admin.site.register(BuildingEnhancement, CustomModelAdmin)
+admin.site.register(Deity, CustomModelAdmin)

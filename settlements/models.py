@@ -17,6 +17,13 @@ class Type(models.Model):
         return self.name
 
 
+class Deity(models.Model):
+    name = models.CharField(max_length=default_max_length)
+
+    def __str__(self):
+        return self.name
+
+
 class BuildingType(models.Model):
     name = models.CharField(max_length=default_max_length)
     desc = models.TextField(blank=True)
@@ -63,6 +70,8 @@ class BuildingType(models.Model):
         effects_summary = get_effects_summary(self)
         if self.magic_items != '' and self.magic_items is not None:
             effects_summary += ', %s' % self.magic_items
+        if self.name.lower() in ['shrine', 'temple', 'cathedral']:
+            effects_summary += ', + additional bonuses based on deity'
         return effects_summary
 
     def __str__(self):
@@ -123,6 +132,11 @@ class Building(models.Model):
     lots = models.IntegerField(default=None, null=True, blank=True)
     enhancements = models.ManyToManyField(
         BuildingEnhancement, related_name='building', related_query_name='building', blank=True,
+    )
+    deity = models.ForeignKey(
+        Deity, on_delete=models.CASCADE,
+        related_name='building', related_query_name='building',
+        null=True, blank=True,
     )
     endowment = models.BooleanField(default=False)
     free_endowment = models.BooleanField(default=False)
