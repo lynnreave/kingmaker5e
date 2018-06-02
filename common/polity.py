@@ -1,7 +1,7 @@
 from polity.models import Polity
 from .territory import get_territory_effects
 from .utils import get_signed_number, get_ability_score_mod
-from .settlements import get_settlement_details
+from .settlements import get_settlement_details, get_stronghold_details
 from .military import get_armed_force_details
 import math
 
@@ -115,6 +115,7 @@ def get_polity_details(id):
     polity.size = PolityAttribute('size')
     polity.control_dc = 0
     polity.income = PolityAttribute('income')
+    polity.income_gp = []
     polity.defense = PolityAttribute('defense')
     polity.unrest = PolityAttribute('unrest')
     polity.unrest.from_base += unrest
@@ -180,6 +181,7 @@ def get_polity_details(id):
     apply_settlement_modifiers(polity)
     apply_festival_modifiers(polity)
     apply_faction_modifiers(polity)
+    apply_stronghold_modifiers(polity)
     polity.consumption.get_total()
     apply_event_modifiers(polity)
 
@@ -678,6 +680,13 @@ def apply_settlement_modifiers(polity):
         polity.endowment_upkeep += settlement.endowment_upkeep
         polity.magic_items.append(settlement.magic_items_string)
     return {}
+
+
+def apply_stronghold_modifiers(polity):
+    strongholds = polity.stronghold.all()
+    for stronghold in strongholds:
+        get_stronghold_details(stronghold)
+        polity.income_gp += stronghold.income
 
 
 def apply_terrain_modifiers(polity):

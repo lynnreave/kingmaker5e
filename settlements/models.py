@@ -197,6 +197,7 @@ class ExpansionType(models.Model):
     cost = models.IntegerField()
     construction_time = models.IntegerField(default=1)
     benefit = models.TextField(blank=True)
+    income = models.CharField(max_length=default_max_length, blank=True, null=True)
 
     def __str__(self):
         return "%s (%s)" % (self.name, self.slots)
@@ -230,6 +231,7 @@ class Expansion(models.Model):
     )
     custom_name = models.CharField(max_length=default_max_length, null=True, blank=True)
     custom_slots = models.IntegerField(null=True, blank=True)
+    custom_income = models.CharField(max_length=default_max_length, null=True, blank=True)
     desc = models.TextField(blank=True)
 
     def __str__(self):

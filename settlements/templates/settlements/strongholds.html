@@ -10,6 +10,7 @@
     <th><h4>DESCRIPTION</h4></th>
     <th><h4>EXPANSIONS</h4></th>
     <th><h4>UPKEEP</h4></th>
+    <th><h4>INCOME (GP)</h4></th>
     <th><h4>HIRELINGS (SKILLED/UNSKILLED)</h4></th>
     <th><h4>LOCATION</h4></th>
     <th><h4></h4></th>
@@ -35,6 +36,7 @@
                 ({{ stronghold.total_expansions }}/{{ stronghold.type.expansion_slots }})
             </td>
             <td style="text-align: center;">{{ stronghold.type.upkeep }}gp</td>
+            <td style="text-align: center;">{{ stronghold.income|join:", " }} </td>
             <td style="text-align: center;">
                 {{ stronghold.type.hirelings_skilled }}/{{ stronghold.type.hirelings_unskilled }}
             </td>

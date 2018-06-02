@@ -214,10 +214,13 @@ def get_stronghold_details(stronghold):
     expansions = stronghold.expansion.all()
     expansions_s = []
     stronghold.total_expansions = 0
+    stronghold.upkeep = stronghold.type.upkeep
+    stronghold.income = []
     for expansion in expansions:
         get_expansion_details(expansion)
         expansions_s.append(expansion.type.name)
         stronghold.total_expansions += expansion.slots
+        if expansion.income is not None: stronghold.income.append(expansion.income)
     stronghold.expansions_summary = ', '.join(expansions_s)
     return {}
 
@@ -233,6 +236,11 @@ def get_expansion_details(expansion):
         expansion.slots = expansion.custom_slots
     else:
         expansion.slots = expansion.type.slots
+    # income
+    if expansion.custom_income is not None:
+        expansion.income = expansion.custom_income
+    else:
+        expansion.income = expansion.type.income
     # features
     features = expansion.features.all()
     features_s = []

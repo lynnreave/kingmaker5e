@@ -10,6 +10,7 @@
     <th><h4>SLOTS</h4></th>
     <th><h4>COST</h4></th>
     <th style="text-align: center;"><h4>CONSTRUCTION TIME</h4></th>
+    <th><h4>INCOME (GP)</h4></th>
     <th><h4>BENEFIT</h4></th>
     <th><h4></h4></th>
 {% endblock %}
@@ -23,6 +24,7 @@
             <td style="text-align: center;">{{ expansion.slots }}</td>
             <td style="text-align: center;">{{ expansion.type.cost }}</td>
             <td style="text-align: center;">{{ expansion.type.construction_time }}</td>
+            <td style="text-align: center;">{{ expansion.income }}</td>
             <td>{{ expansion.benefit }}</td>
             <td>
                 {% if user.is_authenticated %}

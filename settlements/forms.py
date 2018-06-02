@@ -34,5 +34,5 @@ class ExpansionForm(forms.ModelForm):
     class Meta:
         model = Expansion
         fields = (
-            'type', 'custom_name', 'custom_slots', 'desc', 'features',
+            'type', 'custom_name', 'custom_slots', 'custom_income', 'desc', 'features',
         )

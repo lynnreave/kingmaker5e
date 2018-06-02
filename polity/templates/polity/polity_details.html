@@ -171,6 +171,11 @@
                             <p><font size="5">{{ polity.income.total }}</font></p>
                             <p><font size="1">({{ polity.income.source_summary }})</font></p>
                         </td>
+                        <td>
+                            {% for income_gp in polity.income_gp %}
+                                <p><font size="1">+{{ income_gp }}gp</font></p>
+                            {% endfor %}
+                        </td>
                     </tr>
                     <tr>
                         <td style="text-align: left;"><h4>REVENUE DIVISOR</h4></td>
