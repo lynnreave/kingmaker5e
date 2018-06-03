@@ -19,6 +19,7 @@ class PolityAttribute:
         self.from_edicts = 0
         self.from_edicts_dice = []
         self.from_leadership = 0
+        self.from_advisors = 0
         self.from_terrain = 0
         self.from_diplomacy = 0
         self.from_settlements = 0
@@ -34,6 +35,7 @@ class PolityAttribute:
             + self.from_government \
             + self.from_alignment \
             + self.from_leadership \
+            + self.from_advisors \
             + self.from_terrain \
             + self.from_settlements \
             + self.from_edicts \
@@ -62,6 +64,8 @@ class PolityAttribute:
             sources.append(s + ' from edicts')
         if self.from_leadership != 0:
             sources.append("%s from leadership" % get_signed_number(self.from_leadership)['s'])
+        if self.from_advisors != 0:
+            sources.append("%s from advisors" % get_signed_number(self.from_advisors)['s'])
         if self.from_terrain != 0:
             sources.append("%s from terrain" % get_signed_number(self.from_terrain)['s'])
         if self.from_settlements != 0:
@@ -396,10 +400,25 @@ def apply_leadership_modifiers(polity):
     if polity.ruler_attribute_1 is not None:
         if polity.ruler_attribute_1.name.lower() == 'economy':
             polity.economy.from_leadership += ruler_mod
+            if polity.ruler.advisor is not None:
+                polity.economy.from_advisors += (
+                        polity.ruler.advisor.leadership_bonus +
+                        polity.ruler.advisor.leadership_bonus_eco
+                )
         elif polity.ruler_attribute_1.name.lower() == 'loyalty':
             polity.loyalty.from_leadership += ruler_mod
+            if polity.ruler.advisor is not None:
+                polity.loyalty.from_advisors += (
+                        polity.ruler.advisor.leadership_bonus +
+                        polity.ruler.advisor.leadership_bonus_loy
+                )
         elif polity.ruler_attribute_1.name.lower() == 'stability':
             polity.stability.from_leadership += ruler_mod
+            if polity.ruler.advisor is not None:
+                polity.stability.from_advisors += (
+                        polity.ruler.advisor.leadership_bonus +
+                        polity.ruler.advisor.leadership_bonus_sta
+                )
     if polity.ruler_attribute_2 is not None and polity.size > 25:
         if polity.ruler_attribute_2.name.lower() == 'economy':
             polity.economy.from_leadership += ruler_mod
@@ -414,6 +433,7 @@ def apply_leadership_modifiers(polity):
             polity.loyalty.from_leadership += ruler_mod
         elif polity.ruler_attribute_3.name.lower() == 'stability':
             polity.stability.from_leadership += ruler_mod
+    # advisor
 
     # consort
     if polity.consort is not None:
@@ -422,18 +442,33 @@ def apply_leadership_modifiers(polity):
     # councilor
     if polity.councilor is not None:
         polity.loyalty.from_leadership += polity.councilor.leadership_mod
+        if polity.councilor.advisor is not None:
+            polity.loyalty.from_advisors += (
+                polity.councilor.advisor.leadership_bonus +
+                polity.councilor.advisor.leadership_bonus_loy
+            )
     else:
         polity.loyalty.from_leadership -= 2
 
     # general
     if polity.general is not None:
         polity.stability.from_leadership += polity.general.leadership_mod
+        if polity.general.advisor is not None:
+            polity.stability.from_advisors += (
+                polity.general.advisor.leadership_bonus +
+                polity.general.advisor.leadership_bonus_sta
+            )
     else:
         polity.loyalty.from_leadership -= 4
 
     # grand_diplomat
     if polity.grand_diplomat is not None:
         polity.stability.from_leadership += polity.grand_diplomat.leadership_mod
+        if polity.grand_diplomat.advisor is not None:
+            polity.stability.from_advisors += (
+                polity.grand_diplomat.advisor.leadership_bonus +
+                polity.grand_diplomat.advisor.leadership_bonus_sta
+            )
     else:
         polity.stability.from_leadership -= 2
 
@@ -444,6 +479,11 @@ def apply_leadership_modifiers(polity):
     # high_priest
     if polity.high_priest is not None:
         polity.stability.from_leadership += polity.high_priest.leadership_mod
+        if polity.high_priest.advisor is not None:
+            polity.stability.from_advisors += (
+                polity.high_priest.advisor.leadership_bonus +
+                polity.high_priest.advisor.leadership_bonus_sta
+            )
     else:
         polity.loyalty.from_leadership -= 2
         polity.stability.from_leadership -= 2
@@ -451,43 +491,88 @@ def apply_leadership_modifiers(polity):
     # magister
     if polity.magister is not None:
         polity.economy.from_leadership += polity.magister.leadership_mod
+        if polity.magister.advisor is not None:
+            polity.economy.from_advisors += (
+                polity.magister.advisor.leadership_bonus +
+                polity.magister.advisor.leadership_bonus_eco
+            )
     else:
         polity.economy.from_leadership -= 4
 
     # marshal
     if polity.marshal is not None:
         polity.economy.from_leadership += polity.marshal.leadership_mod
+        if polity.marshal.advisor is not None:
+            polity.economy.from_advisors += (
+                polity.marshal.advisor.leadership_bonus +
+                polity.marshal.advisor.leadership_bonus_eco
+            )
     else:
         polity.economy.from_leadership -= 4
 
     # royal_enforcer
     if polity.royal_enforcer is not None:
         polity.loyalty.from_leadership += polity.royal_enforcer.leadership_mod
+        if polity.royal_enforcer.advisor is not None:
+            polity.loyalty.from_advisors += (
+                polity.royal_enforcer.advisor.leadership_bonus +
+                polity.royal_enforcer.advisor.leadership_bonus_loy
+            )
 
     # spymaster
     if polity.spymaster is not None:
         if polity.spymaster_attribute.name.lower() == 'economy':
             polity.economy.from_leadership += polity.spymaster.leadership_mod
+            if polity.spymaster.advisor is not None:
+                polity.economy.from_advisors += (
+                        polity.spymaster.advisor.leadership_bonus +
+                        polity.spymaster.advisor.leadership_bonus_eco
+                )
         elif polity.spymaster_attribute.name.lower() == 'loyalty':
             polity.loyalty.from_leadership += polity.spymaster.leadership_mod
+            if polity.spymaster.advisor is not None:
+                polity.loyalty.from_advisors += (
+                        polity.spymaster.advisor.leadership_bonus +
+                        polity.spymaster.advisor.leadership_bonus_loy
+                )
         elif polity.spymaster_attribute.name.lower() == 'stability':
             polity.stability.from_leadership += polity.spymaster.leadership_mod
+            if polity.spymaster.advisor is not None:
+                polity.stability.from_advisors += (
+                        polity.spymaster.advisor.leadership_bonus +
+                        polity.spymaster.advisor.leadership_bonus_sta
+                )
     else:
         polity.economy.from_leadership -= 4
 
     # treasurer
     if polity.treasurer is not None:
         polity.economy.from_leadership += polity.treasurer.leadership_mod
+        if polity.treasurer.advisor is not None:
+            polity.loyalty.from_advisors += (
+                polity.treasurer.advisor.leadership_bonus +
+                polity.treasurer.advisor.leadership_bonus_eco
+            )
     else:
         polity.economy.from_leadership -= 4
 
     # viceroy
     if polity.viceroy is not None:
         polity.economy.from_leadership += (polity.viceroy.leadership_mod / 2)
+        if polity.viceroy.advisor is not None:
+            polity.economy.from_advisors += (
+                polity.viceroy.advisor.leadership_bonus +
+                polity.viceroy.advisor.leadership_bonus_eco
+            )
 
     # warden
     if polity.warden is not None:
         polity.loyalty.from_leadership += polity.warden.leadership_mod
+        if polity.warden.advisor is not None:
+            polity.loyalty.from_advisors += (
+                polity.warden.advisor.leadership_bonus +
+                polity.warden.advisor.leadership_bonus_loy
+            )
     else:
         polity.loyalty.from_leadership -= 2
         polity.stability.from_leadership -= 2

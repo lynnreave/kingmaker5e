@@ -17,4 +17,8 @@ urlpatterns = [
     path('award/new/', views.award_new, name='award_new'),
     path('award/<int:pk>/edit/', views.award_edit, name='award_edit'),
     path('award/<int:pk>/delete/', views.award_delete, name='award_delete'),
+    path('advisors', views.advisors, name='advisors'),
+    path('advisor/new/', views.advisor_new, name='advisor_new'),
+    path('advisor/<int:pk>/edit/', views.advisor_edit, name='advisor_edit'),
+    path('advisor/<int:pk>/delete/', views.advisor_delete, name='advisor_delete'),
 ]

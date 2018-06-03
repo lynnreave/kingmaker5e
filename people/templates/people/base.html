@@ -4,13 +4,8 @@
 
 {% block subnav_items %}
     <li class="disabled"><a href="#">|</a></li>
-    <li role="presentation"><a href="{% url 'people:people' %}">
-        People
-    </a></li>
-    <li role="presentation"><a href="{% url 'people:noble_ranks' %}">
-        Noble Ranks
-    </a></li>
-    <li role="presentation"><a href="{% url 'people:awards' %}">
-        Awards
-    </a></li>
+    <li role="presentation"><a href="{% url 'people:people' %}">People</a></li>
+    <li role="presentation"><a href="{% url 'people:noble_ranks' %}">Noble Ranks</a></li>
+    <li role="presentation"><a href="{% url 'people:awards' %}">Awards</a></li>
+    <li role="presentation"><a href="{% url 'people:awards' %}">Advisors</a></li>
 {% endblock %}

@@ -38,6 +38,19 @@ class LeadershipRole(models.Model):
         return self.name
 
 
+class Advisor(models.Model):
+    name = models.CharField(max_length=default_max_length)
+    desc = models.TextField(default="", blank=True)
+    leadership_bonus = models.IntegerField(default=0)
+    leadership_bonus_eco = models.IntegerField(default=0)
+    leadership_bonus_loy = models.IntegerField(default=0)
+    leadership_bonus_sta = models.IntegerField(default=0)
+    other_benefits = models.TextField(default="", blank=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Person(models.Model):
     first_name = models.CharField(max_length=default_max_length)
     middle_name = models.CharField(max_length=default_max_length, blank=True)
@@ -62,6 +75,10 @@ class Person(models.Model):
     notes = models.TextField(blank=True)
     polity = models.ForeignKey(
         'polity.Polity', on_delete=models.CASCADE,
+        related_name='person', related_query_name='person'
+    )
+    advisor = models.ForeignKey(
+        Advisor, on_delete=models.CASCADE, null=True, blank=True,
         related_name='person', related_query_name='person'
     )
     leadership_role = models.ForeignKey(

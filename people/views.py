@@ -1,6 +1,6 @@
 from common import *
-from .models import Person, NobleRank, Award
-from .forms import PersonForm, NobleRankForm, AwardForm
+from .models import Person, NobleRank, Award, Advisor
+from .forms import PersonForm, NobleRankForm, AwardForm, AdvisorForm
 from .vars import app_name
 
 
@@ -49,3 +49,18 @@ def award_new(request):
 def award_edit(request, pk):
     return edit_item(request, app_name, pk, c_obj, c_name, c_form, c_plural, fast_commit=True)
 def award_delete(request, pk): return delete_item(request, app_name, pk, c_obj, c_plural)
+
+
+# ADVISORS
+c_name = 'advisor'
+c_plural = 'advisors'
+c_obj = Advisor
+c_form = AdvisorForm
+
+def advisors(request):
+    return show_all_items(request, app_name, c_obj, c_plural, sort='name')
+def advisor_new(request):
+    return create_item(request, app_name, c_name, c_form, c_plural, fast_commit=True)
+def advisor_edit(request, pk):
+    return edit_item(request, app_name, pk, c_obj, c_name, c_form, c_plural, fast_commit=True)
+def advisor_delete(request, pk): return delete_item(request, app_name, pk, c_obj, c_plural)
