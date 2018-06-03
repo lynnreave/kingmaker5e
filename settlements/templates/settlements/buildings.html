@@ -32,7 +32,13 @@
             </td>
             <td>{{ building.enhancements_list|join:", " }}</td>
             <td>{{ building.effects_summary }}</td>
-            <td>{{ building.magic_items }}</td>
+            <td>
+                {% if building.magic_items != None and building.magic_items != '' %}
+                    {{ building.magic_items }}
+                {% else %}
+                    None
+                {% endif %}
+            </td>
             <td>
                 {% if user.is_authenticated %}
                     <a class="btn btn-default" href="{% url 'settlements:building_edit' pk=building.pk settlement_id=settlement_id %}">

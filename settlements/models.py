@@ -112,7 +112,7 @@ class Settlement(models.Model):
         related_name='settlement', related_query_name='settlement'
     )
     name = models.CharField(max_length=default_max_length)
-    districts = models.IntegerField(default=0)
+    districts = models.IntegerField(default=1)
     capital = models.BooleanField(default=False)
 
     def __str__(self):
