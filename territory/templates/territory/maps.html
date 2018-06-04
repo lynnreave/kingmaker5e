@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+{% extends 'territory/base.html' %}
+
+{% block table_header %}
+    <th><h4>NAME</h4></th>
+    <th><h4></h4></th>
+{% endblock %}
+
+{% block table_body %}
+    {% for map in maps %}
+        <tr class="clickable-object" style="cursor: pointer;" data-href="{% url 'territory:map' pk=map.pk %}">
+            <td>{{ map.name }}</td>
+            <td style="text-align: center;">
+                {% if user.is_authenticated %}
+                    <a class="btn btn-default" href="{% url 'territory:map_edit' pk=map.pk %}">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block table_new_item %}
+    <a class="btn btn-default" href="{% url 'territory:map_new' %}">
+        <div><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;New</div>
+    </a>
+{% endblock %}

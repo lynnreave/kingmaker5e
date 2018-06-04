@@ -3,6 +3,7 @@ from .models import Territory
 from .models import Type
 from .models import Feature
 from .models import Improvement
+from .models import Map
 
 
 class CustomModelAdmin(admin.ModelAdmin):
@@ -16,3 +17,4 @@ admin.site.register(Territory, CustomModelAdmin)
 admin.site.register(Type, CustomModelAdmin)
 admin.site.register(Feature, CustomModelAdmin)
 admin.site.register(Improvement, CustomModelAdmin)
+admin.site.register(Map, CustomModelAdmin)

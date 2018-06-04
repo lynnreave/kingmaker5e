@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+{% extends 'territory/base_view.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<div>
+    <ul id="hexGrid">
+        {% for hex in hexes %}
+            <li class="hex">
+                <div class="hexIn">
+                    <a class="hexLink" href="#">
+                        {% if hex.type.id == 1 %} <!-- Plains -->
+                            <img src="{% static 'img/terrain/plains.png' %}" alt="" />
+                        {% elif hex.type.id == 3 %} <!-- Cavern -->
+                            <img src="{% static 'img/terrain/cavern.png' %}" alt="" />
+                        {% elif hex.type.id == 4 %} <!-- Desert -->
+                            <img src="{% static 'img/terrain/desert.png' %}" alt="" />
+                        {% elif hex.type.id == 5 %} <!-- Forest -->
+                            <img src="{% static 'img/terrain/forest.png' %}" alt="" />
+                        {% elif hex.type.id == 6 %} <!-- Hills -->
+                            <img src="{% static 'img/terrain/hills.png' %}" alt="" />
+                        {% elif hex.type.id == 7 %} <!-- Marsh -->
+                            <img src="{% static 'img/terrain/marsh.png' %}" alt="" />
+                        {% elif hex.type.id == 8 %} <!-- Jungle -->
+                            <img src="{% static 'img/terrain/jungle.png' %}" alt="" />
+                        {% elif hex.type.id == 9 %} <!-- Mountains -->
+                            <img src="{% static 'img/terrain/mountains.png' %}" alt="" />
+                        {% elif hex.type.id == 10 %} <!-- Water -->
+                            <img src="{% static 'img/terrain/water.png' %}" alt="" />
+                        {% endif %}
+                        <h1>HEX {{ hex.hex }}</h1>
+                        <p>Some sample text about the article this hexagon leads to</p>
+                    </a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

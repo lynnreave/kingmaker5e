@@ -21,4 +21,8 @@ urlpatterns = [
     path('improvement/new/', views.improvement_new, name='improvement_new'),
     path('improvement/<int:pk>/edit/', views.improvement_edit, name='improvement_edit'),
     path('improvement/<int:pk>/delete/', views.improvement_delete, name='improvement_delete'),
+    path('maps', views.maps, name='maps'),
+    path('map/<int:pk>/', views.map, name='map'),
+    path('map/new/', views.map_new, name='map_new'),
+    path('map/<int:pk>/edit/', views.map_edit, name='map_edit'),
 ]

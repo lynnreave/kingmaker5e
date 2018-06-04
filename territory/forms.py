@@ -1,5 +1,5 @@
 from django import forms
-from .models import Territory, Type, Feature, Improvement
+from .models import Territory, Type, Feature, Improvement, Map
 
 
 class TerritoryForm(forms.ModelForm):
@@ -41,4 +41,13 @@ class ImprovementForm(forms.ModelForm):
             'fam_bonus', 'inf_bonus', 'def_bonus',
             'con_bonus', 'inc_bonus', 'unr_bonus', 'cost_per_month', 'construction_time',
             'exclusive', 'desc',
+        )
+
+
+class MapForm(forms.ModelForm):
+
+    class Meta:
+        model = Map
+        fields = (
+            'name',
         )

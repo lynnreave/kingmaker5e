@@ -1,6 +1,6 @@
 from common import *
-from .models import Territory, Type, Feature, Improvement
-from .forms import TerritoryForm, TypeForm, FeatureForm, ImprovementForm
+from .models import Territory, Type, Feature, Improvement, Map
+from .forms import TerritoryForm, TypeForm, FeatureForm, ImprovementForm, MapForm
 from .vars import app_name
 
 # TERRITORIES
@@ -58,3 +58,22 @@ def improvement_new(request): return create_item(request, app_name, d_name, d_fo
 def improvement_edit(request, pk): return edit_item(
     request, app_name, pk, d_obj, d_name, d_form, d_plural)
 def improvement_delete(request, pk): return delete_item(request, app_name, pk, d_obj, d_plural)
+
+
+# MAPS
+e_name = 'map'
+e_plural = 'maps'
+e_obj = Map
+e_form = MapForm
+
+def maps(request): return show_all_items(request, app_name, e_obj, e_plural)
+def map(request, pk):
+    map = get_object_or_404(e_obj, pk=pk)
+    hexes = map.territory.all().order_by('hex')
+    return render(
+        request, '%s/%s.html' % (app_name, e_name),
+        {'title': map.name.title(), map: map, 'hexes': hexes}
+    )
+def map_new(request): return create_item(request, app_name, e_name, e_form, e_plural)
+def map_edit(request, pk): return edit_item(
+    request, app_name, pk, e_obj, e_name, e_form, e_plural)

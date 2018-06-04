@@ -56,14 +56,26 @@ class Improvement(models.Model):
         return self.name
 
 
+class Map(models.Model):
+    name = models.CharField(max_length=default_max_length)
+
+    def __str__(self):
+        return self.name
+
+
 class Territory(models.Model):
     polity = models.ForeignKey(
-        'polity.Polity', on_delete=models.CASCADE,
+        'polity.Polity', on_delete=models.CASCADE, default=1,
+        related_name='territory', related_query_name='territory',
+        null=True, blank=True,
+    )
+    map = models.ForeignKey(
+        Map, on_delete=models.CASCADE, default=1,
         related_name='territory', related_query_name='territory'
     )
-    hex = models.CharField(max_length=20, null=True)
+    hex = models.IntegerField()
     type = models.ForeignKey(
-        Type, on_delete=models.CASCADE,
+        Type, on_delete=models.CASCADE, default=1,
         related_name='territory', related_query_name='territory'
     )
     features = models.ManyToManyField(
