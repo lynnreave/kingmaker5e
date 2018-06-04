@@ -9,7 +9,7 @@
         {% for hex in hexes %}
             <li class="hex">
                 <div class="hexIn">
-                    <a class="hexLink" href="#">
+                    <a class="hexLink" href="{% url 'territory:hex_edit' pk=hex.pk map_id=hex.map.id %}">
                         {% if hex.type.id == 1 %} <!-- Plains -->
                             <img src="{% static 'img/terrain/plains.png' %}" alt="" />
                         {% elif hex.type.id == 3 %} <!-- Cavern -->
@@ -29,8 +29,8 @@
                         {% elif hex.type.id == 10 %} <!-- Water -->
                             <img src="{% static 'img/terrain/water.png' %}" alt="" />
                         {% endif %}
-                        <h1>HEX {{ hex.hex }}</h1>
-                        <p>Some sample text about the article this hexagon leads to</p>
+                        <h1>HEX #{{ hex.hex }}</h1>
+                        <p>{{ hex.features_summary }}</p>
                     </a>
                 </div>
             </li>

@@ -70,6 +70,8 @@ def maps(request): return show_all_items(request, app_name, e_obj, e_plural)
 def map(request, pk):
     map = get_object_or_404(e_obj, pk=pk)
     hexes = map.territory.all().order_by('hex')
+    for hex in hexes:
+        get_hex_details(hex)
     return render(
         request, '%s/%s.html' % (app_name, e_name),
         {'title': map.name.title(), map: map, 'hexes': hexes}
@@ -77,3 +79,18 @@ def map(request, pk):
 def map_new(request): return create_item(request, app_name, e_name, e_form, e_plural)
 def map_edit(request, pk): return edit_item(
     request, app_name, pk, e_obj, e_name, e_form, e_plural)
+def hex_edit(request, pk, map_id):
+    tgt = '%s:map' % app_name
+    hex = get_object_or_404(Territory, pk=pk)
+    if request.method == "POST":
+        form = TerritoryForm(request.POST, instance=hex)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.save()
+            form.save_m2m()
+            return redirect('%s:map' % app_name, pk=map_id)
+    else:
+        form = TerritoryForm(instance=hex)
+    return render(
+        request, '%s/edit.html' % app_name, {'title': 'Hex %s' % hex.hex, 'form': form}
+    )

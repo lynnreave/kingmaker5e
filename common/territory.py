@@ -2,6 +2,17 @@ from .settlements import get_settlement_details
 from .utils import get_effects_summary
 
 
+def get_hex_details(hex):
+    # summary
+    features = []
+    for feature in hex.features.all():
+        features.append(feature.name)
+    for improvement in hex.improvements.all():
+        features.append(improvement.name)
+    hex.features_summary = ', '.join(features)
+    return {}
+
+
 def get_territory_effects(territories):
     for territory in territories:
         # set base by type of terrain

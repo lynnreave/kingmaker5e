@@ -68,8 +68,8 @@
   width: 100%;
   padding: 5%;
   box-sizing:border-box;
-  background-color: rgba(0, 128, 128, 0.8);
-  font-weight: 300;
+  background-color: rgba(0, 0, 0, 0.8); /* rgba(0, 128, 128, 0.8); */
+  font-weight: 1000;
   -webkit-transition:  -webkit-transform .2s ease-out, opacity .3s ease-out;
           transition:          transform .2s ease-out, opacity .3s ease-out;
 }

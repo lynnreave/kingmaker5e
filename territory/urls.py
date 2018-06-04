@@ -25,4 +25,5 @@ urlpatterns = [
     path('map/<int:pk>/', views.map, name='map'),
     path('map/new/', views.map_new, name='map_new'),
     path('map/<int:pk>/edit/', views.map_edit, name='map_edit'),
+    path('map/<int:map_id>/hex/<int:pk>/edit/', views.hex_edit, name='hex_edit'),
 ]
