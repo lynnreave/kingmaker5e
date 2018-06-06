@@ -87,6 +87,7 @@ class Territory(models.Model):
         blank=True,
     )
     notes = models.TextField(blank=True, null=True)
+    img = models.TextField(blank=True, null=True)
 
     def get_effects_summary(self):
         return self.type.name

@@ -35,194 +35,195 @@ def get_hex_details(hex):
     # hex summary
     hex.features_summary = ', '.join(features)
     # image
-    ### plains
-    if hex.type.id == 1:
-        if hex.has_coast and hex.has_river and hex.has_settlement:
-            hex.img = 'img/terrain/plains/plains-river-coast-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast and hex.has_river:
-            hex.img = 'img/terrain/plains/plains-river-coast.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast and hex.has_settlement:
-            hex.img = 'img/terrain/plains/plains-coast-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_river and hex.has_settlement:
-            hex.img = 'img/terrain/plains/plains-river-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_settlement:
-            hex.img = 'img/terrain/plains/plains-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast:
-            hex.img = 'img/terrain/plains/plains-coast.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_river:
-            hex.img = 'img/terrain/plains/plains-river.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        else:
-            hex.img = 'img/terrain/plains/plains.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-    ### desert
-    elif hex.type.id == 4:
-        if hex.has_coast and hex.has_river and hex.has_settlement:
-            hex.img = 'img/terrain/hills/hills-river-coast-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast and hex.has_river:
-            hex.img = 'img/terrain/hills/hills-river-coast.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast and hex.has_settlement:
-            hex.img = 'img/terrain/hills/hills-coast-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_river and hex.has_settlement:
-            hex.img = 'img/terrain/hills/hills-river-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_settlement:
-            hex.img = 'img/terrain/hills/hills-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast:
-            hex.img = 'img/terrain/hills/hills-coast.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_river:
-            hex.img = 'img/terrain/hills/hills-river.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        else:
-            hex.img = 'img/terrain/hills/hills.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-    ### forest
-    elif hex.type.id == 5:
-        if hex.has_coast and hex.has_river and hex.has_settlement:
-            hex.img = 'img/terrain/forest/forest-river-coast-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast and hex.has_river:
-            hex.img = 'img/terrain/forest/forest-river-coast.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast and hex.has_settlement:
-            hex.img = 'img/terrain/forest/forest-coast-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_river and hex.has_settlement:
-            hex.img = 'img/terrain/forest/forest-river-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_settlement:
-            hex.img = 'img/terrain/forest/forest-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast:
-            hex.img = 'img/terrain/forest/forest-coast.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_river:
-            hex.img = 'img/terrain/forest/forest-river.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        else:
-            hex.img = 'img/terrain/forest/forest.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-    ### hills
-    elif hex.type.id == 6:
-        if hex.has_coast and hex.has_river and hex.has_capital:
-            hex.img = 'img/terrain/hills/hills-river-coast-capital.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast and hex.has_river and hex.has_settlement:
-            hex.img = 'img/terrain/hills/hills-river-coast-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast and hex.has_river:
-            hex.img = 'img/terrain/hills/hills-river-coast.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast and hex.has_settlement:
-            hex.img = 'img/terrain/hills/hills-coast-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_river and hex.has_settlement:
-            hex.img = 'img/terrain/hills/hills-river-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_settlement:
-            hex.img = 'img/terrain/hills/hills-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast:
-            hex.img = 'img/terrain/hills/hills-coast.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_river:
-            hex.img = 'img/terrain/hills/hills-river.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        else:
-            hex.img = 'img/terrain/hills/hills.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-    ### marsh
-    elif hex.type.id == 7:
-        if hex.has_coast and hex.has_river and hex.has_settlement:
-            hex.img = 'img/terrain/marsh/marsh-river-coast-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast and hex.has_river:
-            hex.img = 'img/terrain/marsh/marsh-river-coast.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast and hex.has_settlement:
-            hex.img = 'img/terrain/marsh/marsh-coast-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_river and hex.has_settlement:
-            hex.img = 'img/terrain/marsh/marsh-river-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_settlement:
-            hex.img = 'img/terrain/marsh/marsh-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast:
-            hex.img = 'img/terrain/marsh/marsh-coast.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_river:
-            hex.img = 'img/terrain/marsh/marsh-river.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        else:
-            hex.img = 'img/terrain/marsh/marsh.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-    ### jungle
-    elif hex.type.id == 8:
-        if hex.has_coast and hex.has_river and hex.has_settlement:
-            hex.img = 'img/terrain/jungle/jungle-river-coast-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast and hex.has_river:
-            hex.img = 'img/terrain/jungle/jungle-river-coast.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast and hex.has_settlement:
-            hex.img = 'img/terrain/jungle/jungle-coast-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_river and hex.has_settlement:
-            hex.img = 'img/terrain/jungle/jungle-river-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_settlement:
-            hex.img = 'img/terrain/jungle/jungle-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast:
-            hex.img = 'img/terrain/jungle/jungle-coast.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_river:
-            hex.img = 'img/terrain/jungle/jungle-river.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        else:
-            hex.img = 'img/terrain/jungle/jungle.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-    ### mountains
-    elif hex.type.id == 9:
-        if hex.has_coast and hex.has_river and hex.has_settlement:
-            hex.img = 'img/terrain/mountains/mountains-river-coast-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast and hex.has_river:
-            hex.img = 'img/terrain/mountains/mountains-river-coast.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast and hex.has_settlement:
-            hex.img = 'img/terrain/mountains/mountains-coast-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_river and hex.has_settlement:
-            hex.img = 'img/terrain/mountains/mountains-river-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_settlement:
-            hex.img = 'img/terrain/mountains/mountains-settlement.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_coast:
-            hex.img = 'img/terrain/mountains/mountains-coast.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        elif hex.has_river:
-            hex.img = 'img/terrain/mountains/mountains-river.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-        else:
-            hex.img = 'img/terrain/mountains/mountains.png'
-            if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
-    ### water
-    elif hex.type.id == 10:
-        hex.img = 'img/terrain/water/water.png'
+    if hex.img is None:
+        ### plains
+        if hex.type.id == 1:
+            if hex.has_coast and hex.has_river and hex.has_settlement:
+                hex.img = 'img/terrain/plains/plains-river-coast-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast and hex.has_river:
+                hex.img = 'img/terrain/plains/plains-river-coast.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast and hex.has_settlement:
+                hex.img = 'img/terrain/plains/plains-coast-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_river and hex.has_settlement:
+                hex.img = 'img/terrain/plains/plains-river-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_settlement:
+                hex.img = 'img/terrain/plains/plains-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast:
+                hex.img = 'img/terrain/plains/plains-coast.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_river:
+                hex.img = 'img/terrain/plains/plains-river.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            else:
+                hex.img = 'img/terrain/plains/plains.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+        ### desert
+        elif hex.type.id == 4:
+            if hex.has_coast and hex.has_river and hex.has_settlement:
+                hex.img = 'img/terrain/hills/hills-river-coast-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast and hex.has_river:
+                hex.img = 'img/terrain/hills/hills-river-coast.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast and hex.has_settlement:
+                hex.img = 'img/terrain/hills/hills-coast-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_river and hex.has_settlement:
+                hex.img = 'img/terrain/hills/hills-river-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_settlement:
+                hex.img = 'img/terrain/hills/hills-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast:
+                hex.img = 'img/terrain/hills/hills-coast.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_river:
+                hex.img = 'img/terrain/hills/hills-river.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            else:
+                hex.img = 'img/terrain/hills/hills.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+        ### forest
+        elif hex.type.id == 5:
+            if hex.has_coast and hex.has_river and hex.has_settlement:
+                hex.img = 'img/terrain/forest/forest-river-coast-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast and hex.has_river:
+                hex.img = 'img/terrain/forest/forest-river-coast.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast and hex.has_settlement:
+                hex.img = 'img/terrain/forest/forest-coast-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_river and hex.has_settlement:
+                hex.img = 'img/terrain/forest/forest-river-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_settlement:
+                hex.img = 'img/terrain/forest/forest-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast:
+                hex.img = 'img/terrain/forest/forest-coast.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_river:
+                hex.img = 'img/terrain/forest/forest-river.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            else:
+                hex.img = 'img/terrain/forest/forest.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+        ### hills
+        elif hex.type.id == 6:
+            if hex.has_coast and hex.has_river and hex.has_capital:
+                hex.img = 'img/terrain/hills/hills-river-coast-capital.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast and hex.has_river and hex.has_settlement:
+                hex.img = 'img/terrain/hills/hills-river-coast-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast and hex.has_river:
+                hex.img = 'img/terrain/hills/hills-river-coast.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast and hex.has_settlement:
+                hex.img = 'img/terrain/hills/hills-coast-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_river and hex.has_settlement:
+                hex.img = 'img/terrain/hills/hills-river-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_settlement:
+                hex.img = 'img/terrain/hills/hills-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast:
+                hex.img = 'img/terrain/hills/hills-coast.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_river:
+                hex.img = 'img/terrain/hills/hills-river.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            else:
+                hex.img = 'img/terrain/hills/hills.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+        ### marsh
+        elif hex.type.id == 7:
+            if hex.has_coast and hex.has_river and hex.has_settlement:
+                hex.img = 'img/terrain/marsh/marsh-river-coast-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast and hex.has_river:
+                hex.img = 'img/terrain/marsh/marsh-river-coast.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast and hex.has_settlement:
+                hex.img = 'img/terrain/marsh/marsh-coast-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_river and hex.has_settlement:
+                hex.img = 'img/terrain/marsh/marsh-river-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_settlement:
+                hex.img = 'img/terrain/marsh/marsh-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast:
+                hex.img = 'img/terrain/marsh/marsh-coast.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_river:
+                hex.img = 'img/terrain/marsh/marsh-river.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            else:
+                hex.img = 'img/terrain/marsh/marsh.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+        ### jungle
+        elif hex.type.id == 8:
+            if hex.has_coast and hex.has_river and hex.has_settlement:
+                hex.img = 'img/terrain/jungle/jungle-river-coast-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast and hex.has_river:
+                hex.img = 'img/terrain/jungle/jungle-river-coast.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast and hex.has_settlement:
+                hex.img = 'img/terrain/jungle/jungle-coast-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_river and hex.has_settlement:
+                hex.img = 'img/terrain/jungle/jungle-river-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_settlement:
+                hex.img = 'img/terrain/jungle/jungle-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast:
+                hex.img = 'img/terrain/jungle/jungle-coast.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_river:
+                hex.img = 'img/terrain/jungle/jungle-river.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            else:
+                hex.img = 'img/terrain/jungle/jungle.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+        ### mountains
+        elif hex.type.id == 9:
+            if hex.has_coast and hex.has_river and hex.has_settlement:
+                hex.img = 'img/terrain/mountains/mountains-river-coast-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast and hex.has_river:
+                hex.img = 'img/terrain/mountains/mountains-river-coast.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast and hex.has_settlement:
+                hex.img = 'img/terrain/mountains/mountains-coast-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_river and hex.has_settlement:
+                hex.img = 'img/terrain/mountains/mountains-river-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_settlement:
+                hex.img = 'img/terrain/mountains/mountains-settlement.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_coast:
+                hex.img = 'img/terrain/mountains/mountains-coast.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            elif hex.has_river:
+                hex.img = 'img/terrain/mountains/mountains-river.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+            else:
+                hex.img = 'img/terrain/mountains/mountains.png'
+                if hex.has_resource: hex.img = hex.img.replace('.png', '-resource.png')
+        ### water
+        elif hex.type.id == 10:
+            hex.img = 'img/terrain/water/water.png'
     # filter
     hex.filter = 'sepia(60%)'
     if hex.polity is not None and hex.map is not None:
