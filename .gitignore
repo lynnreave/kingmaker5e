@@ -112,3 +112,4 @@ venv.bak/
 /sqldiff.exe
 /sqlite3.exe
 /sqlite3_analyzer.exe
+/static/img/terrain/export.jpg

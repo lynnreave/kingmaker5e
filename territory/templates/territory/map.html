@@ -4,6 +4,7 @@
 {% load staticfiles %}
 
 {% block content %}
+
 <div>
     <ul id="hexGrid">
         {% for hex in hexes %}
@@ -11,7 +12,7 @@
                 <div class="hexIn">
                     <a class="hexLink" href="{% url 'territory:hex_edit' pk=hex.pk map_id=hex.map.id %}">
                         {% if hex.type.id == 1 %} <!-- Plains -->
-                            <img src="{% static 'img/terrain/plains.png' %}" alt="" />
+                            <img src="{% static 'img/terrain/plains/plains.png' %}" alt="" />
                         {% elif hex.type.id == 3 %} <!-- Cavern -->
                             <img src="{% static 'img/terrain/cavern.png' %}" alt="" />
                         {% elif hex.type.id == 4 %} <!-- Desert -->
@@ -19,7 +20,17 @@
                         {% elif hex.type.id == 5 %} <!-- Forest -->
                             <img src="{% static 'img/terrain/forest.png' %}" alt="" />
                         {% elif hex.type.id == 6 %} <!-- Hills -->
-                            <img src="{% static 'img/terrain/hills.png' %}" alt="" />
+                            {% if hex.has_river and hex.has_coast and hex.has_capital %}
+                                <img src="{% static 'img/terrain/hills/hills-river-coast-capital.png' %}" alt="" />
+                            {% elif hex.has_river and hex.has_coast and hex.has_settlement %}
+                                <img src="{% static 'img/terrain/hills/hills-river-coast-settlement.png' %}" alt="" />
+                            {% elif hex.has_river and hex.has_coast %}
+                                <img src="{% static 'img/terrain/hills/hills-river-coast.png' %}" alt="" />
+                            {% elif hex.has_river %}
+                                <img src="{% static 'img/terrain/hills/hills-river.png' %}" alt="" />
+                            {% else %}
+                                <img src="{% static 'img/terrain/hills/hills.png' %}" alt="" />
+                            {% endif %}
                         {% elif hex.type.id == 7 %} <!-- Marsh -->
                             <img src="{% static 'img/terrain/marsh.png' %}" alt="" />
                         {% elif hex.type.id == 8 %} <!-- Jungle -->
@@ -27,14 +38,19 @@
                         {% elif hex.type.id == 9 %} <!-- Mountains -->
                             <img src="{% static 'img/terrain/mountains.png' %}" alt="" />
                         {% elif hex.type.id == 10 %} <!-- Water -->
-                            <img src="{% static 'img/terrain/water.png' %}" alt="" />
+                            <img src="{% static 'img/terrain/water/water.png' %}" alt="" />
                         {% endif %}
-                        <h1>HEX #{{ hex.hex }}</h1>
-                        <p>{{ hex.features_summary }}</p>
+                        <h1>Hex {{ hex.hex }} ({{ hex.type.name }})</h1>
+                        {% if hex.features_summary != '' %}
+                            <p>{{ hex.features_summary }}</p>
+                        {% else %}
+                            <p>No Known Features</p>
+                        {% endif %}
                     </a>
                 </div>
             </li>
         {% endfor %}
     </ul>
 </div>
+
 {% endblock %}

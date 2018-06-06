@@ -120,3 +120,24 @@
     margin-left:6.25%;  /* = width of .hex / 2  to indent even rows */
   }
 }
+
+/* Hex Grid */
+svg {}
+.hexfield {
+  fill: transparent;
+  stroke: yellowgreen;
+  stroke-width: 1;
+}
+.hexfield:focus {
+  outline:none;
+}
+.hexfield:hover {
+  fill: green;
+}
+.hexfield:active {
+  fill: red;
+  outline: none;
+}
+.hexfield.clicked{
+  fill: black;
+}

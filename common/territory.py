@@ -3,12 +3,30 @@ from .utils import get_effects_summary
 
 
 def get_hex_details(hex):
-    # summary
+    # attributes
     features = []
+    hex.has_river = False
+    hex.has_coast = False
+    hex.has_settlement = False
+    hex.has_capital = False
+    # settlements
+    for settlement in hex.settlement.all():
+        features.append(settlement.name)
+        if settlement.capital:
+            hex.has_capital = True
+        else:
+            hex.has_settlement = True
+    # features
     for feature in hex.features.all():
         features.append(feature.name)
+        if feature.name.lower() == "coastline":
+            hex.has_coast = True
+        if feature.name.lower() == "river":
+            hex.has_river = True
+    # improvements
     for improvement in hex.improvements.all():
         features.append(improvement.name)
+    # hex summary
     hex.features_summary = ', '.join(features)
     return {}
 
