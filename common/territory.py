@@ -28,6 +28,101 @@ def get_hex_details(hex):
         features.append(improvement.name)
     # hex summary
     hex.features_summary = ', '.join(features)
+    # image
+    ### plains
+    if hex.type.id == 1:
+        if hex.has_coast and hex.has_river and hex.has_settlement:
+            hex.img = 'img/terrain/plains/plains-river-coast-settlement.png'
+        elif hex.has_coast and hex.has_river:
+            hex.img = 'img/terrain/plains/plains-river-coast.png'
+        elif hex.has_coast:
+            hex.img = 'img/terrain/plains/plains-coast.png'
+        elif hex.has_river:
+            hex.img = 'img/terrain/plains/plains-river.png'
+        else:
+            hex.img = 'img/terrain/plains/plains.png'
+    ### desert
+    elif hex.type.id == 4:
+        if hex.has_coast and hex.has_river and hex.has_settlement:
+            hex.img = 'img/terrain/hills/hills-river-coast-settlement.png'
+        elif hex.has_coast and hex.has_river:
+            hex.img = 'img/terrain/hills/hills-river-coast.png'
+        elif hex.has_coast:
+            hex.img = 'img/terrain/hills/hills-coast.png'
+        elif hex.has_river:
+            hex.img = 'img/terrain/hills/hills-river.png'
+        else:
+            hex.img = 'img/terrain/hills/hills.png'
+    ### forest
+    elif hex.type.id == 5:
+        if hex.has_coast and hex.has_river and hex.has_settlement:
+            hex.img = 'img/terrain/forest/forest-river-coast-settlement.png'
+        elif hex.has_coast and hex.has_river:
+            hex.img = 'img/terrain/forest/forest-river-coast.png'
+        elif hex.has_coast:
+            hex.img = 'img/terrain/forest/forest-coast.png'
+        elif hex.has_river:
+            hex.img = 'img/terrain/forest/forest-river.png'
+        else:
+            hex.img = 'img/terrain/forest/forest.png'
+    ### hills
+    elif hex.type.id == 6:
+        if hex.has_coast and hex.has_river and hex.has_capital:
+            hex.img = 'img/terrain/hills/hills-river-coast-capital.png'
+        elif hex.has_coast and hex.has_river and hex.has_settlement:
+            hex.img = 'img/terrain/hills/hills-river-coast-settlement.png'
+        elif hex.has_coast and hex.has_river:
+            hex.img = 'img/terrain/hills/hills-river-coast.png'
+        elif hex.has_coast:
+            hex.img = 'img/terrain/hills/hills-coast.png'
+        elif hex.has_river:
+            hex.img = 'img/terrain/hills/hills-river.png'
+        else:
+            hex.img = 'img/terrain/hills/hills.png'
+    ### marsh
+    elif hex.type.id == 7:
+        if hex.has_coast and hex.has_river and hex.has_settlement:
+            hex.img = 'img/terrain/marsh/marsh-river-coast-settlement.png'
+        elif hex.has_coast and hex.has_river:
+            hex.img = 'img/terrain/marsh/marsh-river-coast.png'
+        elif hex.has_coast:
+            hex.img = 'img/terrain/marsh/marsh-coast.png'
+        elif hex.has_river:
+            hex.img = 'img/terrain/marsh/marsh-river.png'
+        else:
+            hex.img = 'img/terrain/marsh/marsh.png'
+    ### jungle
+    elif hex.type.id == 8:
+        if hex.has_coast and hex.has_river and hex.has_settlement:
+            hex.img = 'img/terrain/jungle/jungle-river-coast-settlement.png'
+        elif hex.has_coast and hex.has_river:
+            hex.img = 'img/terrain/jungle/jungle-river-coast.png'
+        elif hex.has_coast:
+            hex.img = 'img/terrain/jungle/jungle-coast.png'
+        elif hex.has_river:
+            hex.img = 'img/terrain/jungle/jungle-river.png'
+        else:
+            hex.img = 'img/terrain/jungle/jungle.png'
+    ### mountains
+    elif hex.type.id == 9:
+        if hex.has_coast and hex.has_river and hex.has_settlement:
+            hex.img = 'img/terrain/mountains/mountains-river-coast-settlement.png'
+        elif hex.has_coast and hex.has_river:
+            hex.img = 'img/terrain/mountains/mountains-river-coast.png'
+        elif hex.has_coast:
+            hex.img = 'img/terrain/mountains/mountains-coast.png'
+        elif hex.has_river:
+            hex.img = 'img/terrain/mountains/mountains-river.png'
+        else:
+            hex.img = 'img/terrain/mountains/mountains.png'
+    ### water
+    elif hex.type.id == 10:
+        hex.img = 'img/terrain/water/water.png'
+    # filter
+    hex.filter = 'sepia(60%)'
+    if hex.polity is not None and hex.map is not None:
+        if hex.polity.id == 1:
+            hex.filter = 'none'
     return {}
 
 
