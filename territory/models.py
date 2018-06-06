@@ -86,9 +86,14 @@ class Territory(models.Model):
         Improvement, related_name='territory', related_query_name='territory',
         blank=True,
     )
+    notes = models.TextField(blank=True, null=True)
 
     def get_effects_summary(self):
         return self.type.name
 
     def __str__(self):
-        return "%s (%s)" % (self.hex, self.polity.name)
+        if self.polity is not None:
+            name = "%s (%s)" % (self.hex, self.polity.name)
+        else:
+            name = "%s" % self.hex
+        return name

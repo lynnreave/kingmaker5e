@@ -82,11 +82,11 @@ def get_settlement_details(settlement):
         settlement.endowment_upkeep += building.endowment_upkeep
 
     # determine type
-    if settlement.districts > 1:
+    if settlement.districts > 1 or settlement.lots > 36:
         settlement.type = Type.objects.get(name="Metropolis")
-    elif settlement.lots > 16:
+    elif settlement.lots > 20:
         settlement.type = Type.objects.get(name="City")
-    elif settlement.lots > 4:
+    elif settlement.lots > 8:
         settlement.type = Type.objects.get(name="Town")
     else:
         settlement.type = Type.objects.get(name="Village")

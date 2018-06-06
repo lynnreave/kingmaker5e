@@ -22,7 +22,12 @@
                 {% endif %}
                 {{ building.name }}
             </td>
-            <td>{{ building.type.name }}</td>
+            <td>
+                {% if building.deity is not None %}
+                    {{ building.deity.name }}
+                {% endif %}
+                {{ building.type.name }}
+            </td>
             <td>
                 {% if building.lots is not None %}
                     {{ building.lots }}
