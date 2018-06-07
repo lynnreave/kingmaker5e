@@ -225,10 +225,10 @@ def get_hex_details(hex):
         elif hex.type.id == 10:
             hex.img = 'img/terrain/water/water.png'
     # filter
-    hex.filter = 'sepia(60%)'
+    hex.filter = 'grayscale(50%)'
     if hex.polity is not None and hex.map is not None:
         if hex.polity.id == 1:
-            hex.filter = 'none'
+            hex.filter = 'sepia(40%)'
     return {}
 
 
