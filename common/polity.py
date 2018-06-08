@@ -657,7 +657,7 @@ def apply_settlement_modifiers(polity):
                 polity.settlements.append(get_settlement_details(settlement)['settlement'])
     # apply modifiers
     for settlement in polity.settlements:
-        polity.size.from_settlements += settlement.districts
+        polity.size.from_settlements += len(settlement.district.all())
         polity.population.from_settlements += settlement.population
         # economy
         bonus = 0
