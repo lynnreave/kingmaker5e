@@ -7,8 +7,9 @@ class Event(models.Model):
     name = models.CharField(max_length=default_max_length)
     desc = models.TextField(blank=True)
     polity = models.ForeignKey(
-        'polity.Polity', on_delete=models.CASCADE,
-        related_name='event', related_query_name='event'
+        'polity.Polity', on_delete=models.SET_NULL,
+        related_name='event', related_query_name='event',
+        null=True, blank=True,
     )
     eco_bonus = models.IntegerField(default=0)
     loy_bonus = models.IntegerField(default=0)

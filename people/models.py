@@ -56,9 +56,11 @@ class Person(models.Model):
     middle_name = models.CharField(max_length=default_max_length, blank=True)
     last_name = models.CharField(max_length=default_max_length, blank=True)
     gender = models.ForeignKey(
-        Gender, on_delete=models.CASCADE, related_name='person', related_query_name='person')
+        Gender, on_delete=models.SET_NULL, related_name='person', related_query_name='person',
+        blank=True, null=True,
+    )
     noble_rank = models.ForeignKey(
-        NobleRank, on_delete=models.CASCADE, related_name='person', related_query_name='person',
+        NobleRank, on_delete=models.SET_NULL, related_name='person', related_query_name='person',
         blank=True, null=True
     )
     awards = models.ManyToManyField(
@@ -74,15 +76,16 @@ class Person(models.Model):
     cha = models.IntegerField(default=10)
     notes = models.TextField(blank=True)
     polity = models.ForeignKey(
-        'polity.Polity', on_delete=models.CASCADE,
-        related_name='person', related_query_name='person'
+        'polity.Polity', on_delete=models.SET_NULL,
+        related_name='person', related_query_name='person',
+        null=True, blank=True
     )
     advisor = models.ForeignKey(
-        Advisor, on_delete=models.CASCADE, null=True, blank=True,
+        Advisor, on_delete=models.SET_NULL, null=True, blank=True,
         related_name='person', related_query_name='person'
     )
     leadership_role = models.ForeignKey(
-        LeadershipRole, on_delete=models.CASCADE, blank=True, null=True,
+        LeadershipRole, on_delete=models.SET_NULL, blank=True, null=True,
         related_name='person', related_query_name='person'
     )
     boons = models.ManyToManyField(

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+{% extends 'settlements/base_view.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    {% for lot in lots %}
+        <div class="grid-square clickable-object" style='background-image: url("/static/img/{{lot.img}}"); background-size: 100%; filter: sepia(40%); cursor: pointer;' data-href="{% url 'settlements:lot_edit' pk=lot.pk settlement_id=settlement_id district_id=district_id %}">
+            <div class="grid-square-content">
+                <div class="grid-table">
+                    <div class="grid-table-cell">
+                        {% if lot.building is not None %}
+                            <h2 style="color: #FFF; text-shadow: 3px 2px #000;">{{ lot.building.name }}</h2>
+                        {% endif %}
+                        {% if lot.img is not None %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -17,8 +17,9 @@ class Faction(models.Model):
     )
     name = models.CharField(max_length=default_max_length)
     type = models.ForeignKey(
-        Type, on_delete=models.CASCADE,
-        related_name='faction', related_query_name='faction'
+        Type, on_delete=models.SET_NULL,
+        related_name='faction', related_query_name='faction',
+        null=True, blank=True,
     )
     desc = models.TextField(blank=True)
     eco_bonus = models.IntegerField(default=0)

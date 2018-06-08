@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+{% extends 'settlements/base.html' %}
+{% load staticfiles %}
+
+{% block table_header %}
+    <th style="text-align: center;"><h4>NAME</h4></th>
+    <th><h4></h4></th>
+{% endblock %}
+
+{% block table_body %}
+    {% for district in districts %}
+        <tr class="clickable-object" style="cursor: pointer;" data-href="{% url 'settlements:lots' settlement_id=settlement_id district_id=district.pk %}">
+            <td style="text-align: center;">{{ district.name }}</td>
+            <td style="text-align: center;">
+                {% if user.is_authenticated %}
+                    <a class="btn btn-default" href="{% url 'settlements:district_edit' pk=district.pk settlement_id=settlement_id %}">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </a>
+                    <a class="btn btn-default disabled" href="{% url 'settlements:district_delete' pk=district.pk settlement_id=settlement_id %}">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block table_new_item %}
+    <a class="btn btn-default" href="{% url 'settlements:district_new' settlement_id=settlement_id %}">
+        <div><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;New</div>
+    </a>
+{% endblock %}

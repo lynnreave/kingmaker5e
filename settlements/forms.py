@@ -1,5 +1,5 @@
 from django import forms
-from .models import Settlement, Building, Stronghold, Expansion
+from .models import Settlement, Building, Stronghold, Expansion, District, Lot
 
 
 class SettlementForm(forms.ModelForm):
@@ -7,7 +7,7 @@ class SettlementForm(forms.ModelForm):
     class Meta:
         model = Settlement
         fields = (
-            'name', 'territory', 'districts', 'capital'
+            'name', 'territory', 'capital'
         )
 
 
@@ -35,4 +35,22 @@ class ExpansionForm(forms.ModelForm):
         model = Expansion
         fields = (
             'type', 'custom_name', 'custom_slots', 'custom_income', 'desc', 'features',
+        )
+
+
+class DistrictForm(forms.ModelForm):
+
+    class Meta:
+        model = District
+        fields = (
+            'name',
+        )
+
+
+class LotForm(forms.ModelForm):
+
+    class Meta:
+        model = Lot
+        fields = (
+            'building', 'img',
         )

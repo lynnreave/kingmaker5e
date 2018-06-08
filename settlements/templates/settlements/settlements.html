@@ -4,6 +4,7 @@
 {% load staticfiles %}
 
 {% block table_header %}
+    <th style="text-align: center;"><h4>GRID</h4></th>
     <th><h4>OWNER</h4></th>
     <th><h4>NAME</h4></th>
     <th><h4>TYPE</h4></th>
@@ -17,6 +18,11 @@
 {% block table_body %}
     {% for settlement in settlements %}
         <tr class="clickable-object" style="cursor: pointer;" data-href="{% url 'settlements:buildings' settlement_id=settlement.pk %}">
+            <td style="text-align: center;">
+                <a class="btn btn-default" href="{% url 'settlements:districts' settlement_id=settlement.pk %}">
+                    <span class="glyphicon glyphicon-th-large"></span>
+                </a>
+            </td>
             <td>{{ settlement.territory.polity.name }}</td>
             <td>
                 {% if settlement.capital %}
@@ -31,7 +37,7 @@
             <td>{{ settlement.lots }}</td>
             <td>{{ settlement.att_summary }}</td>
             <td>{{ settlement.magic_items_string }}</td>
-            <td>
+            <td style="text-align: center;">
                 {% if user.is_authenticated %}
                     <a class="btn btn-default" href="{% url 'settlements:settlement_edit' pk=settlement.pk %}">
                         <span class="glyphicon glyphicon-pencil"></span>

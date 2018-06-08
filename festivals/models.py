@@ -33,8 +33,9 @@ class SuccessLevel(models.Model):
 
 class Festival(models.Model):
     polity = models.ForeignKey(
-        'polity.Polity', on_delete=models.CASCADE,
-        related_name='festival', related_query_name='festival'
+        'polity.Polity', on_delete=models.SET_NULL,
+        related_name='festival', related_query_name='festival',
+        null=True, blank=True,
     )
     name = models.CharField(max_length=default_max_length)
     type = models.ForeignKey(
@@ -43,16 +44,17 @@ class Festival(models.Model):
     )
     desc = models.TextField(blank=True)
     target_settlement = models.ForeignKey(
-        'settlements.Settlement', on_delete=models.CASCADE, null=True, blank=True,
+        'settlements.Settlement', on_delete=models.SET_NULL, null=True, blank=True,
         related_name='festival', related_query_name='festival'
     )
     target_hex = models.ForeignKey(
-        'territory.Territory', on_delete=models.CASCADE, null=True, blank=True,
+        'territory.Territory', on_delete=models.SET_NULL, null=True, blank=True,
         related_name='festival', related_query_name='festival'
     )
     success_level = models.ForeignKey(
-        SuccessLevel, on_delete=models.CASCADE,
-        related_name='festival', related_query_name='festival'
+        SuccessLevel, on_delete=models.SET_NULL,
+        related_name='festival', related_query_name='festival',
+        null=True, blank=True,
     )
 
     def __str__(self):

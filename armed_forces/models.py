@@ -68,8 +68,9 @@ class Tactic(models.Model):
 
 class ArmedForce(models.Model):
     polity = models.ForeignKey(
-        'polity.Polity', on_delete=models.CASCADE,
-        related_name='armed_force', related_query_name='armed_force'
+        'polity.Polity', on_delete=models.SET_NULL,
+        related_name='armed_force', related_query_name='armed_force',
+        null=True, blank=True
     )
     active = models.BooleanField(default=True)
     name = models.CharField(max_length=default_max_length)
@@ -78,15 +79,16 @@ class ArmedForce(models.Model):
     speed = models.IntegerField(default=1)
     hit_die = models.IntegerField(default=10)
     type = models.ForeignKey(
-        SoldierType, on_delete=models.CASCADE, default=1,
+        SoldierType, on_delete=models.SET_NULL, default=1,
         related_name='armed_force', related_query_name='armed_force',
+        null=True, blank=True
     )
     size = models.ForeignKey(
-        UnitType, on_delete=models.CASCADE, default=1,
+        UnitType, on_delete=models.SET_NULL, default=1, null=True, blank=True,
         related_name='armed_force', related_query_name='armed_force',
     )
     commander = models.ForeignKey(
-        'people.Person', on_delete=models.CASCADE, default=None, null=True, blank=True,
+        'people.Person', on_delete=models.SET_NULL, default=None, null=True, blank=True,
         related_name='armed_force', related_query_name='armed_force',
     )
     equipment = models.ManyToManyField(
@@ -107,11 +109,15 @@ class ArmedForce(models.Model):
 
 class Casualty(models.Model):
     unit = models.ForeignKey(
-        ArmedForce, on_delete=models.CASCADE,
+        ArmedForce, on_delete=models.SET_NULL, null=True, blank=True,
         related_name='casualty', related_query_name='casualty'
     )
     num = models.IntegerField()
     months = models.IntegerField()
 
     def __str__(self):
-        return "%s from %s" % (self.num, self.unit.name)
+        if self.unit is not None:
+            name = "%s from %s" % (self.num, self.unit.name)
+        else:
+            name = self.num
+        return name

@@ -101,16 +101,16 @@ class Polity(models.Model):
         'core.RecruitmentEdict', on_delete=models.CASCADE,
         related_name='polity', related_query_name='polity')
     ruler_attribute_1 = models.ForeignKey(
-        Attribute, on_delete=models.CASCADE, null=True, blank=True,
+        Attribute, on_delete=models.SET_NULL, null=True, blank=True,
         related_name='polity_ruler_1', related_query_name='polity_ruler_1')
     ruler_attribute_2 = models.ForeignKey(
-        Attribute, on_delete=models.CASCADE, null=True, blank=True,
+        Attribute, on_delete=models.SET_NULL, null=True, blank=True,
         related_name='polity_ruler_2', related_query_name='polity_ruler_2')
     ruler_attribute_3 = models.ForeignKey(
-        Attribute, on_delete=models.CASCADE, null=True, blank=True,
+        Attribute, on_delete=models.SET_NULL, null=True, blank=True,
         related_name='polity_ruler_3', related_query_name='polity_ruler_3')
     spymaster_attribute = models.ForeignKey(
-        Attribute, on_delete=models.CASCADE, null=True, blank=True,
+        Attribute, on_delete=models.SET_NULL, null=True, blank=True,
         related_name='polity_spymaster', related_query_name='polity_spymaster')
 
     def __str__(self):

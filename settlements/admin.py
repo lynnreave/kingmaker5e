@@ -1,6 +1,9 @@
 from django.contrib import admin
 from .models import BuildingType, Type, BuildingEnhancement, Deity, Stronghold, StrongholdType
 from .models import Expansion, ExpansionType, ExpansionFeature
+from .models import District
+from .models import Lot
+from .models import Settlement
 
 
 class CustomModelAdmin(admin.ModelAdmin):
@@ -10,6 +13,7 @@ class CustomModelAdmin(admin.ModelAdmin):
         super(CustomModelAdmin, self).__init__(model, admin_site)
 
 
+admin.site.register(Settlement, CustomModelAdmin)
 admin.site.register(BuildingType, CustomModelAdmin)
 admin.site.register(Type, CustomModelAdmin)
 admin.site.register(BuildingEnhancement, CustomModelAdmin)
@@ -19,3 +23,5 @@ admin.site.register(StrongholdType, CustomModelAdmin)
 admin.site.register(Expansion, CustomModelAdmin)
 admin.site.register(ExpansionType, CustomModelAdmin)
 admin.site.register(ExpansionFeature, CustomModelAdmin)
+admin.site.register(District, CustomModelAdmin)
+admin.site.register(Lot, CustomModelAdmin)

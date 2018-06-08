@@ -27,7 +27,7 @@ class DiplomaticRelation(models.Model):
     )
     target = models.CharField(max_length=default_max_length, unique=True)
     attitude = models.ForeignKey(
-        Attitude, on_delete=models.CASCADE,
+        Attitude, on_delete=models.SET_NULL,
         related_name='DiplomaticRelation', related_query_name='DiplomaticRelation',
         null=True, blank=True,
     )

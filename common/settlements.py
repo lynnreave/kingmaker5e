@@ -82,7 +82,7 @@ def get_settlement_details(settlement):
         settlement.endowment_upkeep += building.endowment_upkeep
 
     # determine type
-    if settlement.districts > 1 or settlement.lots > 36:
+    if len(settlement.district.all()) > 1 or settlement.lots > 36:
         settlement.type = Type.objects.get(name="Metropolis")
     elif settlement.lots > 20:
         settlement.type = Type.objects.get(name="City")
@@ -96,7 +96,8 @@ def get_settlement_details(settlement):
         settlement.consumption = math.floor(settlement.consumption + settlement.type.con_bonus)
     else:
         settlement.consumption = math.floor(
-            settlement.consumption + (settlement.type.con_bonus * settlement.districts))
+            settlement.consumption + (settlement.type.con_bonus * len(settlement.district.all()))
+        )
     settlement.population = math.floor(settlement.population * settlement.type.pop_mult)
     settlement.danger += settlement.type.dan_mod
     settlement.magic_items.insert(0, settlement.type.magic_items)
@@ -490,4 +491,10 @@ def apply_deity_bonuses(building):
         elif building.type.name.lower() == 'shrine':
             building.loyalty += 1
             building.unrest -= 1
+    return {}
+
+
+def get_lot_details(lot):
+    if lot.img is None or lot.img == '':
+        lot.img = '/terrain/plains/plains.png'
     return {}

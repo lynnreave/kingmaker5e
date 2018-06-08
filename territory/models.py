@@ -65,7 +65,7 @@ class Map(models.Model):
 
 class Territory(models.Model):
     polity = models.ForeignKey(
-        'polity.Polity', on_delete=models.CASCADE, default=1,
+        'polity.Polity', on_delete=models.SET_NULL, default=1,
         related_name='territory', related_query_name='territory',
         null=True, blank=True,
     )

@@ -36,7 +36,7 @@ class TradeRoute(models.Model):
         related_name='trade_route', related_query_name='trade_route'
     )
     success_level = models.ForeignKey(
-        SuccessLevel, on_delete=models.CASCADE, null=True, blank=True,
+        SuccessLevel, on_delete=models.SET_NULL, null=True, blank=True,
         related_name='trade_route', related_query_name='trade_route'
     )
     length = models.IntegerField(default=1)
