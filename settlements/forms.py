@@ -52,5 +52,5 @@ class LotForm(forms.ModelForm):
     class Meta:
         model = Lot
         fields = (
-            'building', 'img',
+            'building', 'img', 'notes',
         )

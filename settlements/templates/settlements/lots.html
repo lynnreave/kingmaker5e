@@ -12,7 +12,8 @@
                         {% if lot.building is not None %}
                             <h2 style="color: #FFF; text-shadow: 3px 2px #000;">{{ lot.building.name }}</h2>
                         {% endif %}
-                        {% if lot.img is not None %}
+                        {% if lot.notes is not None and lot.notes != '' %}
+                            <p style="color: #FFF; text-shadow: 3px 2px #000;">{{ lot.notes }}</p>
                         {% endif %}
                     </div>
                 </div>

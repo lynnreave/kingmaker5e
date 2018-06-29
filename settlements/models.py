@@ -265,6 +265,7 @@ class Lot(models.Model):
         null=True, blank=True,
     )
     img = models.CharField(max_length=default_max_length, null=True, blank=True)
+    notes = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.grid
