@@ -21,6 +21,7 @@ class Faction(models.Model):
         related_name='faction', related_query_name='faction',
         null=True, blank=True,
     )
+    size = models.IntegerField(default=1)
     desc = models.TextField(blank=True)
     eco_bonus = models.IntegerField(default=0)
     loy_bonus = models.IntegerField(default=0)
