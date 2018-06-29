@@ -86,6 +86,7 @@ class Territory(models.Model):
         Improvement, related_name='territory', related_query_name='territory',
         blank=True,
     )
+    name = models.CharField(max_length=default_max_length, blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     img = models.TextField(blank=True, null=True)
 

@@ -34,6 +34,8 @@ def get_hex_details(hex):
         features.append(hex.notes)
     # hex summary
     hex.features_summary = ', '.join(features)
+    if hex.name not in [None, '']:
+        hex.features_summary = hex.name.upper() + ', ' + hex.features_summary
     # image
     if hex.img is None:
         ### plains
