@@ -19,6 +19,9 @@ urlpatterns = [
         views.polity_modify_unrest, name='polity_modify_unrest'
     ),
     path('polity/<int:polity_id>/logs/<int:current_year>', views.logs, name='logs'),
-    path('log_entry/new/', views.log_entry_new, name='log_entry_new'),
-    path('log_entry/<int:pk>/edit/', views.log_entry_edit, name='log_entry_edit'),
+    path('polity/<int:polity_id>/logs/add_year', views.logs_add_year, name='logs_add_year'),
+    path(
+        'polity/<int:polity_id>/logs/<int:current_year>/log_entry/<int:pk>/edit/',
+        views.log_entry_edit, name='log_entry_edit'
+    ),
 ]

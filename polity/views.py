@@ -2,6 +2,7 @@ from common import *
 from .models import Polity, LogEntry
 from .forms import PolityForm, LogEntryForm
 from .vars import app_name
+from core.models import Month
 
 
 # POLITIES
@@ -72,11 +73,43 @@ def logs(request, polity_id, current_year):
     return render(
         request, '%s/%s.html' % (app_name, obj_plural),
         {
-            'title': '%s Logs' % (polity.name.title()),
+            'title': '%s Logs (%s)' % (polity.name.title(), current_year),
             obj_plural: logs, 'polity_id': polity_id, 'years': years, 'current_year': current_year,
         }
     )
-def log_entry_new(request):
-    return create_item(request, app_name, b_name, b_form, b_plural, fast_commit=True)
-def log_entry_edit(request, pk):
-    return edit_item(request, app_name, pk, b_obj, b_name, b_form, b_plural, fast_commit=True)
+
+
+def logs_add_year(request, polity_id):
+    polity = Polity.objects.get(pk=polity_id)
+    logs = b_obj.objects.filter(polity=polity).order_by('year', 'month__pk')
+    years = []
+    for log in logs:
+        if log.year not in years:
+            years.append(log.year)
+    years.sort(reverse=True)
+    current_year = years[0] + 1
+    for month in Month.objects.all():
+        LogEntry.objects.create(
+            polity=polity,
+            year=current_year,
+            month=month)
+    return redirect('%s:%s' % (app_name, b_plural), polity_id=polity_id, current_year=current_year)
+
+
+def log_entry_edit(request, pk, polity_id, current_year):
+    obj_name_s = b_name
+    obj_name = b_name.replace(' ', '_')
+    obj_plural = b_plural.replace(' ', '_')
+    item = get_object_or_404(b_obj, pk=pk)
+    if request.method == "POST":
+        form = b_form(request.POST, instance=item)
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect(
+                '%s:%s' % (app_name, b_plural), polity_id=polity_id, current_year=current_year
+            )
+    else:
+        form = b_form(instance=item)
+    return render(
+        request, '%s/edit.html' % app_name, {'title': obj_name_s.title(), 'form': form}
+    )
