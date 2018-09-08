@@ -231,6 +231,10 @@ def get_hex_details(hex):
     if hex.polity is not None and hex.map is not None:
         if hex.polity.id == 1:
             hex.filter = 'sepia(40%)'
+    elif hex.explored:
+        pass
+    else:
+        hex.filter += 'blur(2px)'
     return {}
 
 

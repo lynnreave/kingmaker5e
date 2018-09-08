@@ -89,6 +89,7 @@ class Territory(models.Model):
     name = models.CharField(max_length=default_max_length, blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     img = models.TextField(blank=True, null=True)
+    explored = models.BooleanField(default=False)
 
     def get_effects_summary(self):
         return self.type.name
