@@ -10,6 +10,7 @@ def get_hex_details(hex):
     hex.has_settlement = False
     hex.has_capital = False
     hex.has_resource = False
+    hex.title = "Hex %s (%s)" % (hex.hex, hex.type.name)
     # settlements
     for settlement in hex.settlement.all():
         features.append(settlement.name)
@@ -35,7 +36,12 @@ def get_hex_details(hex):
     # hex summary
     hex.features_summary = ', '.join(features)
     if hex.name not in [None, '']:
-        hex.features_summary = hex.name.upper() + ', ' + hex.features_summary
+        hex.title = "%s (H%s, %s)" % (hex.name, hex.hex, hex.type.name)
+        #summary_addendum = []
+        #for feature in hex.features.all():
+        #    summary_addendum.append(feature.name)
+        #summary_addendum.append(hex.features_summary)
+        #hex.features_summary = ', '.join(summary_addendum)
     # image
     if hex.img is None:
         ### plains

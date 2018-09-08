@@ -9,7 +9,7 @@
   margin: 0 auto;
   overflow: hidden;
   font-family: 'Raleway', sans-serif;
-  font-size: 15px;
+  font-size: 90%;
   list-style-type: none;
 }
 
@@ -76,7 +76,7 @@
 .hex h1 {
   bottom: 50%;
   padding-top:50%;
-  font-size: 1.5em;
+  font-size: 90%;
   z-index: 1;
   -webkit-transform:translate3d(0,-100%,0);
       -ms-transform:translate3d(0,-100%,0);

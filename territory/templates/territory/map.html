@@ -12,7 +12,7 @@
                 <div class="hexIn">
                     <a class="hexLink" href="{% url 'territory:hex_edit' pk=hex.pk map_id=hex.map.id %}">
                         <img style="filter: {{ hex.filter }};" src="/static/{{ hex.img }}" alt="" />
-                        <h1>Hex {{ hex.hex }} ({{ hex.type.name }})</h1>
+                        <h1>{{ hex.title }}</h1>
                         {% if hex.features_summary != '' %}
                             <p>{{ hex.features_summary }}</p>
                         {% else %}
