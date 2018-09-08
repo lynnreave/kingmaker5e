@@ -44,6 +44,9 @@
                     <a class="btn btn-default" href="{% url 'polity:polity_edit' pk=polity.pk %}">
                         <span class="glyphicon glyphicon-pencil"></span>
                     </a>
+                    <a class="btn btn-default" href="{% url 'polity:logs' polity_id=polity.pk current_year=0 %}">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                    </a>
                     <a class="btn btn-default" href="{% url 'polity:polity_delete' pk=polity.pk %}">
                         <span class="glyphicon glyphicon-trash"></span>
                     </a>

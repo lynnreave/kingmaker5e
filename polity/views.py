@@ -51,13 +51,30 @@ def polity_modify_unrest(request, pk, dir, step):
 
 # LOG ENTRIES
 b_name = 'log entry'
-b_plural = 'log entries'
+b_plural = 'logs'
 b_obj = LogEntry
 b_form = LogEntryForm
 
-def log_entries(request):
-    return show_all_items(
-        request, app_name, b_obj, b_plural, sort='polity__name', sort_2='year', sort_3='month__pk'
+def logs(request, polity_id, current_year):
+    obj_plural_s = b_plural
+    obj_plural = b_plural.replace(' ', '_')
+    polity = Polity.objects.get(pk=polity_id)
+    logs = b_obj.objects.filter(polity=polity).order_by('year', 'month__pk')
+    years = []
+    for log in logs:
+        if log.year not in years:
+            years.append(log.year)
+    years.sort(reverse=True)
+    if current_year is 0 and len(years) > 0:
+        current_year = years[0]
+    if current_year is not 0:
+        logs = b_obj.objects.filter(polity=polity, year=current_year).order_by('month__pk')
+    return render(
+        request, '%s/%s.html' % (app_name, obj_plural),
+        {
+            'title': '%s Logs' % (polity.name.title()),
+            obj_plural: logs, 'polity_id': polity_id, 'years': years, 'current_year': current_year,
+        }
     )
 def log_entry_new(request):
     return create_item(request, app_name, b_name, b_form, b_plural, fast_commit=True)
